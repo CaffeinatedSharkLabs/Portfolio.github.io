@@ -267,6 +267,44 @@
   .shot.spot{position:relative; height:250px; overflow:hidden; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--rule); background:#161221;}
   .shot.spot::before{content:""; position:absolute; left:50%; top:-30px; width:340px; height:300px; margin-left:-170px; background:radial-gradient(ellipse at 50% 0%, rgba(255,244,200,.30) 0 30%, transparent 68%);}
   .shot.spot img{position:relative; width:105px; border-radius:10px; box-shadow:0 0 40px rgba(255,240,190,.30), 0 18px 30px rgba(0,0,0,.6); cursor:zoom-in;}
+  /* Stratusphere API Builder — query pipeline over a data lake: raw tokens → conduit → refined insight */
+  .shot.query{position:relative; height:250px; overflow:hidden; border-bottom:1px solid var(--rule); background:radial-gradient(520px 210px at 82% 112%, rgba(79,227,193,.18), transparent 70%), radial-gradient(360px 160px at 6% -10%, rgba(79,227,193,.10), transparent 70%), linear-gradient(160deg,#061826 0%,#0a2739 58%,#0d3346 100%);}
+  .shot.query .stream{position:absolute; inset:-14px -60px; font:500 10px/17px Consolas,"SFMono-Regular",Menlo,monospace; color:rgba(120,205,200,.13); white-space:pre; pointer-events:none; user-select:none; transform:rotate(-6deg); letter-spacing:.4px;}
+  .shot.query .conduit{position:absolute; left:-6%; right:-6%; top:36%; height:3px; transform:rotate(11deg); background:repeating-linear-gradient(90deg,#4fe3c1 0 12px, rgba(79,227,193,.14) 12px 26px); box-shadow:0 0 12px rgba(79,227,193,.6), 0 0 28px rgba(79,227,193,.25); animation:queryFlow 1.1s linear infinite;}
+  @keyframes queryFlow{to{background-position:26px 0;}}
+  .shot.query .readout{position:absolute; right:12px; top:11px; z-index:3; font:700 10px/1 Consolas,"SFMono-Regular",Menlo,monospace; letter-spacing:.6px; color:#4fe3c1; background:rgba(4,20,32,.88); border:1px solid rgba(79,227,193,.45); border-radius:4px; padding:6px 9px; box-shadow:0 0 14px rgba(79,227,193,.28);}
+  .shot.query .readout b{color:#fff;}
+  .shot.query .stage{position:absolute; z-index:2; background:#0b1f2e; padding:3px; border-radius:6px; border:1px solid rgba(79,227,193,.38); box-shadow:0 14px 26px rgba(0,0,0,.55); transition:transform .2s ease, box-shadow .2s ease; animation:thumbBob 5.6s ease-in-out infinite;}
+  .shot.query .stage::before{content:attr(data-op); position:absolute; left:-1px; top:-17px; font:700 9px/1 Consolas,"SFMono-Regular",Menlo,monospace; letter-spacing:.8px; color:#061826; background:#4fe3c1; padding:4px 6px; border-radius:3px 3px 0 0; white-space:nowrap;}
+  .shot.query .stage img{display:block; border-radius:3px; cursor:zoom-in; animation:none !important;}
+  .shot.query .stage:nth-of-type(1) img{width:166px;}
+  .shot.query .stage:nth-of-type(2) img{width:134px;}
+  .shot.query .stage:nth-of-type(3) img{width:106px;}
+  .shot.query .stage:nth-of-type(4) img{width:88px;}
+  .shot.query .stage:nth-of-type(2){animation-duration:6.3s; animation-delay:-1.9s;}
+  .shot.query .stage:nth-of-type(3){animation-duration:5.1s; animation-delay:-.9s;}
+  .shot.query .stage:nth-of-type(4){animation-duration:6.0s; animation-delay:-2.8s;}
+  .shot.query .stage:hover{transform:translateY(-6px) scale(1.06); z-index:9; box-shadow:0 18px 30px rgba(0,0,0,.6), 0 0 20px rgba(79,227,193,.5); animation-play-state:paused;}
+  /* Sherlock Talent Time & Expenses — neumorphic soft-UI, matching the Cadence T&E design system */
+  .shot.punch{position:relative; height:250px; overflow:hidden; border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:center; gap:24px; padding:18px 20px; background:#E5EAF1;}
+  .shot.punch .dial{position:relative; flex:0 0 auto; width:148px; height:148px; border-radius:50%; background:#E5EAF1; box-shadow:6px 6px 13px #A9B6CC, -6px -6px 13px #FFFFFF; display:grid; place-items:center; animation:thumbBob 5.6s ease-in-out infinite;}
+  .shot.punch .dial .well{width:118px; height:118px; border-radius:50%; background:#E5EAF1; box-shadow:inset 4px 4px 8px #A9B6CC, inset -4px -4px 8px #FFFFFF; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .shot.punch .dial .lab{font:800 7.5px/1 "Mulish",Arial,sans-serif; letter-spacing:1.7px; color:#8794A8;}
+  .shot.punch .dial .big{font:800 28px/1 "Mulish",Arial,sans-serif; letter-spacing:-1.2px; color:#3B4759; margin-top:4px;}
+  .shot.punch .dial .big s{text-decoration:none; font-size:13px; color:#8794A8;}
+  .shot.punch .dial .ot{font:800 8px/1 "Mulish",Arial,sans-serif; color:#2FB07A; margin-top:5px; letter-spacing:.3px;}
+  .shot.punch .col{flex:0 0 auto; width:216px; display:flex; flex-direction:column; gap:10px;}
+  .shot.punch .npill{align-self:flex-start; display:inline-flex; align-items:center; gap:6px; font:800 8px/1 "Mulish",Arial,sans-serif; letter-spacing:.7px; color:#1E9463; background:#E5EAF1; box-shadow:inset 3px 3px 6px #A9B6CC, inset -3px -3px 6px #FFFFFF; padding:7px 12px; border-radius:100px;}
+  .shot.punch .npill b{width:6px; height:6px; border-radius:50%; background:#2FB07A; flex:0 0 auto;}
+  .shot.punch .tiles{display:flex; gap:10px;}
+  .shot.punch .tile{flex:1; background:#E5EAF1; border-radius:13px; box-shadow:4px 4px 8px #A9B6CC, -4px -4px 8px #FFFFFF; padding:11px 12px;}
+  .shot.punch .tile i{font-style:normal; display:block; font:800 7px/1 "Mulish",Arial,sans-serif; letter-spacing:1.3px; text-transform:uppercase; color:#8794A8;}
+  .shot.punch .tile em{font-style:normal; display:block; font:800 17px/1 "Mulish",Arial,sans-serif; color:#3B4759; margin-top:6px; letter-spacing:-.5px;}
+  .shot.punch .tile em s{text-decoration:none; font:700 9px/1 "Mulish",Arial,sans-serif; color:#8794A8;}
+  .shot.punch .cta{display:flex; align-items:center; justify-content:center; gap:7px; font:800 11.5px/1 "Mulish",Arial,sans-serif; letter-spacing:.2px; color:#fff; border-radius:13px; padding:13px; background:linear-gradient(145deg,#ec7970,#d9584f); box-shadow:5px 5px 13px rgba(190,80,72,.42), -5px -5px 13px rgba(255,255,255,.9), inset 1px 1px 1px rgba(255,255,255,.3);}
+  .shot.punch .cta svg{width:12px; height:12px; display:block; flex:0 0 auto;}
+  .shot.punch .geo{display:flex; align-items:center; justify-content:center; gap:6px; font:600 8.5px/1 "Mulish",Arial,sans-serif; color:#556076;}
+  .shot.punch .geo b{width:6px; height:6px; border-radius:50%; background:#2FB07A; box-shadow:0 0 0 2.5px rgba(47,176,122,.22); flex:0 0 auto;}
   .shot.iso .iso-plane.cols2{width:92%; grid-template-columns:1fr 1fr; gap:0; justify-content:center; transform:none;}
   .shot.iso .iso-plane.cols2 .dev{background:#fdfdfd; border-radius:5px; padding:0; box-shadow:0 12px 26px rgba(50,55,70,.20), 0 3px 8px rgba(50,55,70,.12);}
   .shot.iso .iso-plane.cols2 .dev img{width:100%; border-radius:5px;}
@@ -571,6 +609,12 @@
     <a class="navtop" href="#how-i-help">How I Help</a>
     <hr class="navsep">
 
+    <a class="cat" href="#webframeworks">Client-Side (React/Vue/Angular)</a>
+    <ul>
+      <li><a href="#web-stratusphere">Stratusphere API Builder</a></li>
+      <li><a href="#web-sherlockte">Time &amp; Expenses App</a></li>
+    </ul>
+
     <a class="cat" href="#maui">.NET MAUI Apps</a>
     <ul>
       <li><a href="#gmobile">RamTech gMobile</a></li>
@@ -655,7 +699,7 @@
 
   <section class="prose" id="about">
     <div class="panel">
-    <p class="aboutme"><span class="hi">👋 Hi, I'm David —</span> a developer who genuinely loves this stuff. I've spent years happily building apps across a parade of technologies — spent some time authoring a <b>monthly Q&amp;A column for <i>XML Journal</i></b> back in my XML-geek days, through Silverlight and Xamarin.Forms, to <b>.Net MAUI</b> as an early adopter where I have been laser focused from day one. I'm just as at home in <b>React Native</b> — years of hands-on experience have made it a framework I reach for often and truly love building in. I'm endlessly curious, love to learn and lately I'm having a blast exploring how <b>AI</b> can help me build better and faster.</p>
+    <p class="aboutme"><span class="hi">👋 Hi, I'm David —</span> a developer who genuinely loves this stuff. I've spent years happily building apps across a parade of technologies — spent some time authoring a <b>monthly Q&amp;A column for <i>XML Journal</i></b> back in my XML-geek days, through Silverlight and Xamarin.Forms, to <b>.Net MAUI</b> as an early adopter where I have been laser focused from day one. As tools and technologies have evolved I have broadened my focus to <b>client-side frameworks</b> and <b>AI</b> to live my best developer life. I'm endlessly curious, love to learn and lately I'm having a blast exploring how <b>AI</b> can help me build better and faster.</p>
     </div>
   </section>
 
@@ -670,6 +714,73 @@
       </div>
     </div>
   </section>
+
+  <h2 class="section" id="webframeworks">Client-Side (React/Vue/Angular)</h2>
+  <div class="grid">
+
+    <div class="card" id="web-stratusphere">
+      <div class="shot query">
+        <span class="stream" aria-hidden="true">SELECT ux_score, cpu_used_pct, login_delay, memory_used_pct FROM summary_inspector WHERE basis IN ('machines','users') ORDER BY ux_score DESC
+{"inspector":"0","basis":"machine_groups","columns":["ux_score","cpu_queue","memory_used"],"date":"2 hours","limit":"0"}
+SELECT machine_group, avg(app_load_time), max(pagefile_used_pct) FROM applications_inspector GROUP BY machine_group HAVING count(*) &gt; 1000
+{"inspector":"8","basis":"users","columns":["login_delay","app_not_resp","context_switching"],"date":"today","limit":"500"}
+SELECT user_name, session_latency, network_latency, failed_connect FROM remote_display_inspector WHERE session_latency &gt; 15.0
+{"inspector":"3","basis":"date","columns":["disk_io_kbs","disk_iops","disk_queue","disk_active_pct"],"date":"7 days","limit":"0"}
+SELECT * FROM network_inspector WHERE users_on_machine &gt; 18 AND workload_ranking &lt; 25 ORDER BY hour DESC LIMIT 1204873
+{"inspector":"0","basis":"machines","columns":["gdi_objects","gpu_core_used_pct","soft_page_faults","hard_page_faults"],"date":"1 hour"}
+SELECT cid_records_avg_minutes, cid_record_count, cid_pct_of_res FROM extension_inspector WHERE date BETWEEN '2020-05-08' AND '2020-05-10'
+{"inspector":"5","basis":"user_groups","columns":["ux_score","login_delay","app_load_time"],"date":"today","limit":"25"}
+SELECT machine_group_name, ux_score FROM summary_inspector WHERE ux_score IN ('A+','A','A-') ORDER BY cpu_queue ASC
+{"inspector":"0","basis":"machine_groups","columns":["ux_score","cpu_queue","memory_used"],"date":"2 hours","limit":"0"}
+SELECT ux_score, cpu_used_pct, login_delay, memory_used_pct FROM summary_inspector WHERE basis IN ('machines','users') ORDER BY ux_score DESC
+{"inspector":"8","basis":"users","columns":["login_delay","app_not_resp","context_switching"],"date":"today","limit":"500"}
+SELECT user_name, session_latency, network_latency, failed_connect FROM remote_display_inspector WHERE session_latency &gt; 15.0
+{"inspector":"3","basis":"date","columns":["disk_io_kbs","disk_iops","disk_queue","disk_active_pct"],"date":"7 days","limit":"0"}</span>
+        <span class="conduit" aria-hidden="true"></span>
+        <span class="readout">1,204,873 rows &rarr; <b>12</b></span>
+        <div class="stage" data-op="FROM inspectors" style="left:3%; top:36px;"><img loading="lazy" decoding="async" src="images/LiquidwareLabs/Main%20screen%200510.png" alt="Stratusphere API Builder main screen with inspectors, lookup basis, saved queries, and live results grid" onerror="this.style.display='none'"></div>
+        <div class="stage" data-op="SELECT basis" style="left:34%; top:72px;"><img loading="lazy" decoding="async" src="images/LiquidwareLabs/SearchBoxGrid.png" alt="Stratusphere API Builder inspector grid view with basis-name selection" onerror="this.style.display='none'"></div>
+        <div class="stage" data-op="→ JSON / URL" style="left:60%; top:114px;"><img loading="lazy" decoding="async" src="images/LiquidwareLabs/ScreenLight.png" alt="Stratusphere API Builder generated API JSON and launchable API URL" onerror="this.style.display='none'"></div>
+        <div class="stage" data-op="RESULT" style="left:80%; top:154px;"><img loading="lazy" decoding="async" src="images/LiquidwareLabs/LightMode.PNG" alt="Stratusphere API Builder UX Score chart and refined results grid" onerror="this.style.display='none'"></div>
+      </div>
+      <div class="body">
+        <h3 class="name">Stratusphere API Builder</h3>
+        <span class="pill web">Angular · Liquidware Labs</span>
+        <p class="desc">A graphical query builder that lets Stratusphere UX customers interrogate millions of workspace-telemetry rows without writing a line of the REST API or knowing the schema. Pick an Inspector to scope the data type (users, machines, applications, network), select a lookup basis, refine columns and filters, and the builder generates the exact JSON payload and launchable URL, with results rendered live, exportable to CSV/JSON, and saveable as favorite queries.</p>
+        <p class="tech"><b>Tech:</b> Angular 9, NgRx 9, RxJS 6, PrimeNG, TypeScript, Chart.js, AmCharts 4</p>
+        <p class="lnk"><a href="Stratusphere API Builder.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="web-sherlockte">
+      <div class="shot punch">
+        <div class="dial">
+          <div class="well">
+            <span class="lab">ELAPSED</span>
+            <span class="big">8:16<s>42</s></span>
+            <span class="ot">▲ 1.75 OT</span>
+          </div>
+        </div>
+        <div class="col">
+          <span class="npill"><b></b>ON THE CLOCK · SINCE 6:02 AM</span>
+          <div class="tiles">
+            <div class="tile"><i>This week</i><em>32.5<s> hrs</s></em></div>
+            <div class="tile"><i>Expenses</i><em>$248<s> pend</s></em></div>
+          </div>
+          <div class="cta"><svg viewBox="0 0 24 24" fill="#fff"><rect x="7" y="7" width="10" height="10" rx="2"/></svg>Slide to punch OUT</div>
+          <div class="geo"><b></b>Acme Fintech · Payments API</div>
+        </div>
+      </div>
+      <div class="body">
+        <h3 class="name">Sherlock Talent · Time &amp; Expenses</h3>
+        <span class="pill web">React Native · Soft UI</span>
+        <p class="desc">A cross-platform mobile app for the consultants a staffing agency places into client engagements, where every hour is both an invoice line and a paycheck line. Developers punch in against a client, project and work-type code, capture expenses with receipt OCR, and submit weekly timesheets, while managers clear a single approval queue for hours and spend. Designed in a tactile neumorphic system where every control reads as physically pressable, and built in TypeScript from a single iOS and Android codebase over GraphQL reads and REST writes.</p>
+        <p class="tech"><b>Tech:</b> React Native, TypeScript, GraphQL, REST, ASP.NET Core, Redux/Context API, Jest</p>
+        <p class="lnk"><a href="Sherlock Talent Time and Expenses.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+  </div>
 
   <h2 class="section" id="maui">.NET MAUI Applications</h2>
   <div class="grid">
@@ -1775,6 +1886,8 @@
     'sl-polaris':'Polaris.html',
     'sl-egghead':'Egghead Cafe.html',
     'sl-materialsdb':'Materials Database.html',
+    'web-stratusphere':'Stratusphere API Builder.html',
+    'web-sherlockte':'Sherlock Talent Time and Expenses.html',
     'web-nonprofitways':'NonProfitWays.html',
     'web-communitycredit':'Community-Credit.com.html',
     'web-xmlpitstop':'XMLPitstop.com.html',

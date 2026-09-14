@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time &amp; Expense Case Study | React Native Soft-UI Mobile Punch | David Silverlight</title>
+<meta name="description" content="Case study: a React Native and TypeScript time-and-expense app for staffing-agency consultants and developers. One-tap billable punch, client and project codes, offline-first sync, receipt OCR and manager approvals, designed in a neumorphic soft-UI system.">
+<link rel="canonical" href="https://davidsilverlight.github.io/Portfolio/Sherlock%20Talent%20Time%20and%20Expenses.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Time &amp; Expense Case Study | David Silverlight">
+<meta property="og:description" content="React Native soft-UI time capture for consultants: client and project codes, offline-first sync, receipt OCR and approvals.">
+<meta property="og:url" content="https://davidsilverlight.github.io/Portfolio/Sherlock%20Talent%20Time%20and%20Expenses.html">
+<meta property="og:image" content="https://davidsilverlight.github.io/Portfolio/images/og-david-silverlight-portfolio.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --bg:#E5EAF1; --light:#FFFFFF; --dark:#A9B6CC;
+    --ink:#3B4759; --ink-2:#556076; --muted:#8794A8; --muted-2:#A2AEBF;
+    --brand:#5B6CDB; --brand-ink:#414FB0; --brand-tint:#DDE2F6;
+    --teal:#2FA7A0; --green:#2FB07A; --green-ink:#1E9463;
+    --amber:#E0A03C; --amber-ink:#B47B18; --red:#E06A61; --red-ink:#C74C43;
+    --r-raised: 6px 6px 13px var(--dark), -6px -6px 13px var(--light);
+    --r-raised-sm: 4px 4px 8px var(--dark), -4px -4px 8px var(--light);
+    --r-inset: inset 4px 4px 8px var(--dark), inset -4px -4px 8px var(--light);
+    --r-inset-sm: inset 3px 3px 6px var(--dark), inset -3px -3px 6px var(--light);
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:'SF Mono',Consolas,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+  body{font-family:var(--sans);background:#E5EAF1;color:var(--ink);line-height:1.6;font-size:15.5px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  .raised{background:var(--bg);border-radius:20px;box-shadow:var(--r-raised)}
+  .raised-sm{background:var(--bg);border-radius:15px;box-shadow:var(--r-raised-sm)}
+  .inset{background:var(--bg);border-radius:16px;box-shadow:var(--r-inset)}
+  .row{display:flex;align-items:center}
+  .between{justify-content:space-between}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:60;background:#E5EAF1;padding:13px 0;box-shadow:0 6px 16px -12px var(--dark)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between}
+  .back{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--brand-ink);font-size:13.5px;font-weight:700;
+    background:var(--bg);box-shadow:var(--r-raised-sm);padding:11px 18px;border-radius:100px}
+  .back:hover{box-shadow:var(--r-inset-sm)}
+  .topbar .who{font-size:12.5px;font-weight:700;color:var(--muted)}
+  .topbar .who b{color:var(--ink)}
+
+  /* hero */
+  .hero{padding:52px 0 18px}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+  .brandmark{display:inline-flex;align-items:center;gap:13px;margin-bottom:22px}
+  .brandmark .glyph{width:50px;height:50px;border-radius:17px;background:var(--bg);box-shadow:var(--r-raised);display:grid;place-items:center}
+  .brandmark .glyph svg{width:30px;height:30px;display:block;color:var(--brand)}
+  .brandmark span{font-size:21px;font-weight:700;letter-spacing:-.02em}
+  .hero h1{font-size:clamp(33px,5vw,50px);line-height:1.06;font-weight:800;letter-spacing:-.03em;margin-bottom:16px}
+  .hero h1 em{font-style:normal;color:var(--brand)}
+  .hero .lead{font-size:16.5px;color:var(--ink-2);max-width:540px;margin-bottom:22px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;max-width:560px}
+  .chip{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--bg);padding:8px 15px;border-radius:100px;box-shadow:var(--r-inset-sm)}
+  .stat-row{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap}
+  .stat{background:var(--bg);border-radius:15px;box-shadow:var(--r-raised-sm);padding:14px 18px;min-width:104px}
+  .stat b{display:block;font-size:24px;font-weight:800;letter-spacing:-.03em;line-height:1}
+  .stat span{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+  .heroart{display:flex;justify-content:center}
+
+  /* sections */
+  section{padding:54px 0}
+  .head{margin-bottom:8px}
+  .k{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-ink);
+    background:var(--bg);box-shadow:var(--r-inset-sm);padding:7px 15px;border-radius:100px}
+  .head h2{font-size:clamp(23px,3.2vw,32px);font-weight:750;letter-spacing:-.025em;margin-top:15px;line-height:1.16}
+  .head p{color:var(--ink-2);font-size:16px;margin-top:8px;max-width:730px}
+  .center{text-align:center}.center p{margin-left:auto;margin-right:auto}
+
+  .two{display:grid;grid-template-columns:1.3fr .7fr;gap:34px;align-items:start;margin-top:26px}
+  .prose p{font-size:16px;color:var(--ink-2);margin-bottom:14px}
+  .prose p b{color:var(--ink);font-weight:700}
+  .rolecard{background:var(--bg);border-radius:20px;box-shadow:var(--r-raised);padding:26px 25px}
+  .rolecard h3{font-size:19px;font-weight:750;margin:13px 0 11px;letter-spacing:-.02em}
+  .rolecard p{font-size:14.5px;color:var(--ink-2);margin-bottom:12px}
+  .rolecard ul{list-style:none;font-size:14px;color:var(--ink-2)}
+  .rolecard li{padding:8px 0;border-top:1px solid rgba(169,182,204,.35);display:flex;gap:9px}
+  .rolecard li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand);flex:none;margin-top:7px}
+
+  /* design system specimens */
+  .specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:20px;margin-top:30px}
+  .spec{background:var(--bg);border-radius:18px;box-shadow:var(--r-raised-sm);padding:22px 18px;text-align:center}
+  .spec .demo{height:76px;display:grid;place-items:center;margin-bottom:14px}
+  .spec b{display:block;font-size:13.5px;font-weight:750}
+  .spec span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+  .sq-raised{width:58px;height:58px;border-radius:18px;background:var(--bg);box-shadow:var(--r-raised)}
+  .sq-inset{width:58px;height:58px;border-radius:18px;background:var(--bg);box-shadow:var(--r-inset)}
+  .btn{display:flex;align-items:center;justify-content:center;gap:9px;font-family:inherit;font-size:15px;font-weight:700;
+    border:none;border-radius:16px;padding:15px;width:100%;color:var(--ink);background:var(--bg);box-shadow:var(--r-raised)}
+  .btn.sm{padding:12px;font-size:13.5px;border-radius:13px;box-shadow:var(--r-raised-sm)}
+  .btn.primary{background:linear-gradient(145deg,#6675e6,#5361cf);color:#fff;
+    box-shadow:5px 5px 13px rgba(72,86,180,.5), -5px -5px 13px rgba(255,255,255,.9), inset 1px 1px 1px rgba(255,255,255,.35)}
+  .btn.green{background:linear-gradient(145deg,#37c187,#2aa46f);color:#fff;
+    box-shadow:5px 5px 13px rgba(37,138,95,.45), -5px -5px 13px rgba(255,255,255,.9), inset 1px 1px 1px rgba(255,255,255,.35)}
+  .btn.red{background:linear-gradient(145deg,#ec7970,#d9584f);color:#fff;
+    box-shadow:5px 5px 13px rgba(190,80,72,.4), -5px -5px 13px rgba(255,255,255,.9), inset 1px 1px 1px rgba(255,255,255,.3)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:7px 12px;border-radius:100px;
+    background:var(--bg);box-shadow:var(--r-inset-sm)}
+  .pill.green{color:var(--green-ink)}.pill.amber{color:var(--amber-ink)}.pill.brand{color:var(--brand-ink)}.pill.gray{color:var(--muted)}
+  .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+  .toggle{width:44px;height:26px;border-radius:100px;background:var(--bg);box-shadow:var(--r-inset-sm);position:relative}
+  .toggle.on{background:linear-gradient(145deg,#37c187,#2aa46f);box-shadow:none}
+  .toggle b{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--bg);box-shadow:var(--r-raised-sm)}
+  .toggle.on b{left:auto;right:3px;background:#fff}
+
+  /* token swatches */
+  .tokens{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:14px;margin-top:26px}
+  .tok{background:var(--bg);border-radius:14px;box-shadow:var(--r-raised-sm);padding:13px}
+  .tok i{display:block;height:34px;border-radius:9px;box-shadow:var(--r-inset-sm)}
+  .tok b{display:block;font-size:12px;font-weight:750;margin-top:10px}
+  .tok span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:1px}
+
+  /* device */
+  .screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:36px;margin-top:32px;justify-items:center}
+  .phone{width:272px}
+  .frame{width:272px;height:580px;background:var(--bg);border-radius:42px;
+    box-shadow:9px 9px 22px var(--dark), -9px -9px 22px var(--light);position:relative}
+  .screen{width:100%;height:100%;background:var(--bg);border-radius:42px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+  .screen.dark{--bg:#2C313D; --light:#363D4C; --dark:#20242E; --ink:#D2D9E6; --ink-2:#AEB7C7; --muted:#7E889B; --muted-2:#69738A;
+    --r-raised:6px 6px 13px var(--dark), -5px -5px 13px var(--light);
+    --r-raised-sm:4px 4px 8px var(--dark), -4px -4px 8px var(--light);
+    --r-inset:inset 4px 4px 8px var(--dark), inset -4px -4px 8px var(--light);
+    --r-inset-sm:inset 3px 3px 6px var(--dark), inset -3px -3px 6px var(--light);
+    background:#2C313D;color:var(--ink)}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:110px;height:24px;background:var(--bg);
+    border-radius:0 0 17px 17px;z-index:40;box-shadow:var(--r-inset-sm)}
+  .statusbar{height:42px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:5px 22px 0 25px;
+    font-size:12px;font-weight:700;color:var(--ink);z-index:30}
+  .sb i{display:inline-block;width:16px;height:10px;border:1.4px solid currentColor;border-radius:3px;opacity:.75;margin-left:5px}
+  .pad{padding:5px 18px 18px}
+  .h-title{font-size:19px;font-weight:750;letter-spacing:-.02em;color:var(--ink)}
+  .h-sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .scroll{flex:1;overflow:hidden}
+  .avatar{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-weight:750;font-size:12.5px;flex:none;
+    background:var(--bg);box-shadow:var(--r-raised-sm)}
+  .divi{height:1px;background:linear-gradient(90deg,transparent,var(--dark),transparent);opacity:.45}
+  .li{display:flex;align-items:center;gap:12px;padding:12px 0}
+  .field{border-radius:15px;padding:13px 15px;display:flex;align-items:center;gap:11px;background:var(--bg);box-shadow:var(--r-inset)}
+  .ico{width:19px;height:19px;flex:none}
+  .tabbar{height:64px;flex:none;display:flex;padding:7px 7px 11px;background:var(--bg);box-shadow:0 -6px 14px -8px var(--dark)}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted-2);font-size:9.5px;font-weight:700}
+  .tab.active{color:var(--brand)}
+  .tab .ti{width:20px;height:20px}
+  .tab.fab .plus{width:48px;height:48px;border-radius:17px;background:linear-gradient(145deg,#6675e6,#5361cf);display:grid;place-items:center;margin-top:-20px;
+    box-shadow:5px 5px 13px rgba(72,86,180,.55), -4px -4px 10px rgba(255,255,255,.9)}
+  .caption{text-align:center;margin-top:16px}
+  .caption b{display:block;font-size:14.5px;font-weight:750}
+  .caption span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+
+  /* architecture */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+  .lane{background:var(--bg);border-radius:20px;box-shadow:var(--r-raised);padding:25px 24px}
+  .lane .tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 12px;border-radius:100px;
+    background:var(--bg);box-shadow:var(--r-inset-sm)}
+  .lane h3{font-size:19px;font-weight:750;margin:13px 0 9px;letter-spacing:-.02em}
+  .lane p{font-size:14.5px;color:var(--ink-2)}
+  .lane ul{list-style:none;margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+  .lane li{padding:8px 0;border-top:1px solid rgba(169,182,204,.35);display:flex;justify-content:space-between;gap:10px}
+  .lane li em{font-style:normal;color:var(--muted)}
+
+  .slices{display:grid;grid-template-columns:repeat(auto-fit,minmax(154px,1fr));gap:14px;margin-top:22px}
+  .slice{background:var(--bg);border-radius:14px;box-shadow:var(--r-raised-sm);padding:16px}
+  .slice b{display:block;font-family:var(--mono);font-size:12.5px;color:var(--brand-ink)}
+  .slice span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:5px}
+
+  /* flow */
+  .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:30px}
+  .step{background:var(--bg);border-radius:16px;box-shadow:var(--r-raised-sm);padding:19px 17px;position:relative}
+  .step i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:10px;font-size:12px;font-weight:800;
+    background:var(--bg);box-shadow:var(--r-inset-sm);color:var(--brand-ink);margin-bottom:11px}
+  .step b{display:block;font-size:14px;font-weight:750;margin-bottom:4px}
+  .step span{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+  /* outcome */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:30px}
+  .metric{background:var(--bg);border-radius:16px;box-shadow:var(--r-raised-sm);padding:22px 18px;text-align:center}
+  .metric b{display:block;font-size:27px;font-weight:800;letter-spacing:-.03em;color:var(--brand-ink);line-height:1}
+  .metric span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:8px}
+  .quote{margin-top:30px;background:var(--bg);border-radius:20px;box-shadow:var(--r-inset);padding:28px 30px;font-size:16.5px;color:var(--ink-2)}
+  .quote b{color:var(--ink);font-weight:700}
+
+  .stack{display:flex;flex-wrap:wrap;gap:11px;margin-top:22px}
+  .stack span{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink-2);background:var(--bg);
+    padding:9px 15px;border-radius:100px;box-shadow:var(--r-raised-sm)}
+
+  footer{padding:36px 0 60px;text-align:center;color:var(--muted);font-size:12.5px}
+  footer a{color:var(--brand-ink);text-decoration:none;font-weight:700}
+
+  @media(max-width:960px){
+    .hero .wrap{grid-template-columns:1fr}
+    .two{grid-template-columns:1fr}
+    .split{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&#8592; Back to portfolio</a>
+  <span class="who">Case study &middot; <b>David Silverlight</b></span>
+</div></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero"><div class="wrap">
+  <div>
+    <div class="brandmark">
+      <span class="glyph" aria-hidden="true">
+        <svg viewBox="10 9 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="27" cy="26" r="14" stroke="currentColor" stroke-width="4"/>
+          <circle cx="27" cy="16.6" r=".95" fill="currentColor"/>
+          <circle cx="36.4" cy="26" r=".95" fill="currentColor"/>
+          <circle cx="27" cy="35.4" r=".95" fill="currentColor"/>
+          <circle cx="17.6" cy="26" r=".95" fill="currentColor"/>
+          <path d="M27 26V17.8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path d="M27 26l6.4 4.1" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="27" cy="26" r="1.9" fill="currentColor"/>
+          <path d="M37.1 36.1l10.5 10.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>Sherlock Cadence</span>
+    </div>
+    <h1>Time &amp; Expense, sculpted in <em>soft&nbsp;UI</em>.</h1>
+    <p class="lead">A React Native app for the consultants a staffing agency places into client engagements: developers and designers billing hours across several projects a day, where every hour is both an invoice line and a paycheck line. One-tap capture, receipt scanning, and approval before invoicing, wrapped in a tactile neumorphic system where every control reads as physically pressable.</p>
+    <div class="chips">
+      <span class="chip">Punch IN / OUT</span>
+      <span class="chip">Client &amp; project codes</span>
+      <span class="chip">Weekly timesheet</span>
+      <span class="chip">Receipt OCR</span>
+      <span class="chip">Manager approvals</span>
+      <span class="chip">Offline-first sync</span>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b>12</b><span>Screens</span></div>
+      <div class="stat"><b>6</b><span>Redux slices</span></div>
+      <div class="stat"><b>2</b><span>Transports</span></div>
+      <div class="stat"><b>1</b><span>Tonal surface</span></div>
+    </div>
+  </div>
+
+  <div class="heroart">
+    <div class="phone">
+      <div class="frame"><div class="screen dark"><div class="notch"></div>
+        <div class="statusbar"><span>2:18</span><span class="sb">5G<i></i></span></div>
+        <div class="scroll"><div class="pad">
+          <div class="row between"><span class="pill" style="color:var(--green-ink)"><span class="dot" style="background:var(--green)"></span>On the clock</span><span style="font-size:11.5px;color:var(--muted)">Since 6:02 AM</span></div>
+          <div style="text-align:center;margin-top:26px">
+            <div style="width:186px;height:186px;border-radius:50%;background:var(--bg);box-shadow:var(--r-raised);margin:0 auto;display:grid;place-items:center">
+              <div style="width:154px;height:154px;border-radius:50%;background:var(--bg);box-shadow:var(--r-inset);display:flex;flex-direction:column;align-items:center;justify-content:center">
+                <div style="font-size:11px;color:var(--muted);letter-spacing:.07em;font-weight:700">ELAPSED</div>
+                <div style="font-size:39px;font-weight:800;letter-spacing:-.03em;margin-top:3px">8:16<span style="font-size:17px;color:var(--muted)">42</span></div>
+                <div style="font-size:10.5px;color:var(--green);font-weight:800;margin-top:3px">&#9650; 1.75 OT</div>
+              </div>
+            </div>
+            <div style="display:inline-flex;gap:7px;align-items:center;margin-top:17px;font-size:11.5px;color:var(--ink-2);background:var(--bg);box-shadow:var(--r-inset-sm);padding:9px 14px;border-radius:100px">
+              <svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="#2FB07A" stroke-width="2"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+              Acme Fintech &middot; Payments API
+            </div>
+          </div>
+          <div style="display:flex;gap:11px;margin-top:24px">
+            <div class="raised-sm" style="flex:1;padding:13px;text-align:center"><div style="font-size:11.5px;color:var(--ink-2)">Break</div></div>
+            <div class="raised-sm" style="flex:1;padding:13px;text-align:center"><div style="font-size:11.5px;color:var(--ink-2)">Switch</div></div>
+            <div class="raised-sm" style="flex:1;padding:13px;text-align:center"><div style="font-size:11.5px;color:var(--ink-2)">Note</div></div>
+          </div>
+          <div class="btn red" style="margin-top:20px;font-size:15px;padding:16px">
+            <svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24" fill="#fff"><rect x="7" y="7" width="10" height="10" rx="2"/></svg> Slide to punch OUT
+          </div>
+        </div></div>
+      </div></div>
+      <div class="caption"><b>Active shift &middot; dark soft-UI</b><span>Debossed dial, raised action tiles</span></div>
+    </div>
+  </div>
+</div></header>
+
+<!-- ============ 01 BRIEF ============ -->
+<section><div class="wrap">
+  <div class="head"><span class="k">01 / The brief</span>
+    <h2>Every hour is an invoice line and a paycheck line</h2>
+  </div>
+  <div class="two">
+    <div class="prose">
+      <p>The people using this app are the consultants a staffing agency places into client engagements: developers, designers and marketers, mostly at a desk, frequently remote, and often moving between two or three client projects in a single day. Their hours are not an administrative formality. Every hour is simultaneously a line on a client invoice and a line on a contractor's paycheck.</p>
+      <p>That dual role is what makes the record unforgiving. An hour booked to the wrong project is a billing dispute on one side and a payroll correction on the other, and both land on the agency. So the requirements are the ones <b>Bullhorn Time &amp; Expense</b> set for the staffing industry: time tied to a specific <b>job and cost code</b>, corrections <b>flagged for review</b> rather than silently overwritten, expenses captured with a <b>receipt</b> at the point of spend, and an <b>approval step</b> that clears before anything reaches invoicing.</p>
+      <p>The real adversary here is not the clock, it is recall. A developer who rebuilds the week from memory on Friday afternoon rounds everything to the half hour, forgets the forty-minute production incident, and drops the context switch between clients entirely. Those missing hours are invisible: unbilled revenue for the agency and unpaid work for the contractor. <b>Capture has to happen in the moment, in one tap</b>, or it does not happen accurately at all.</p>
+      <p>And it can never fail quietly. A dropped VPN, hotel wifi, a train tunnel, a laptop that slept through a submit: none of those are allowed to cost someone an hour. A punch is recorded locally first and reconciled with the server later, so <b>the app is never the reason time went unrecorded.</b></p>
+    </div>
+    <div class="rolecard">
+      <span class="k">02 / My role</span>
+      <h3>Design and build, end to end</h3>
+      <p>I owned the product surface and the client architecture, from the design system through to the offline sync layer.</p>
+      <ul>
+        <li>Designed the neumorphic system and all 12 screens</li>
+        <li>Built the React Native app in strict TypeScript</li>
+        <li>Split reads and writes across GraphQL and REST</li>
+        <li>Wrote the offline punch queue and reconciliation</li>
+        <li>Stood up the ASP.NET Core backend it talks to</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 03 DESIGN SYSTEM ============ -->
+<section><div class="wrap">
+  <div class="head center"><span class="k">03 / The design system</span>
+    <h2>One surface, two light sources, zero borders</h2>
+    <p>Neumorphism has a single rule: the entire interface is one tone, and depth comes from a paired shadow, light from the top left and dark from the bottom right. Nothing is outlined. A control is either extruded, meaning you can press it, or recessed, meaning it holds content or is already pressed. Every specimen below is live CSS, not an image.</p>
+  </div>
+
+  <div class="specs">
+    <div class="spec"><div class="demo"><div class="sq-raised"></div></div><b>Raised</b><span>Actionable, sits proud</span></div>
+    <div class="spec"><div class="demo"><div class="sq-inset"></div></div><b>Recessed</b><span>Holds or already pressed</span></div>
+    <div class="spec"><div class="demo"><div style="width:100%"><div class="btn primary sm">Sign in</div></div></div><b>Primary</b><span>The one committed action</span></div>
+    <div class="spec"><div class="demo" style="flex-direction:column;gap:9px;display:flex;align-items:center;justify-content:center">
+      <span class="pill green"><span class="dot"></span>On the clock</span>
+      <span class="pill amber"><span class="dot"></span>1.75 OT</span></div><b>Status pills</b><span>Recessed, never shouty</span></div>
+    <div class="spec"><div class="demo"><span class="toggle on"><b></b></span></div><b>Toggle</b><span>Off recessed, on filled</span></div>
+    <div class="spec"><div class="demo"><div style="width:74px;height:74px;border-radius:50%;background:var(--bg);box-shadow:var(--r-raised);display:grid;place-items:center">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--bg);box-shadow:var(--r-inset);display:grid;place-items:center;font-size:12px;font-weight:800">8:16</div></div></div><b>Dial</b><span>Raised ring, debossed well</span></div>
+  </div>
+
+  <div class="tokens">
+    <div class="tok"><i style="background:#E5EAF1"></i><b>Surface</b><span>#E5EAF1</span></div>
+    <div class="tok"><i style="background:#FFFFFF"></i><b>Light source</b><span>#FFFFFF</span></div>
+    <div class="tok"><i style="background:#A9B6CC"></i><b>Dark source</b><span>#A9B6CC</span></div>
+    <div class="tok"><i style="background:#3B4759"></i><b>Ink</b><span>#3B4759</span></div>
+    <div class="tok"><i style="background:#5B6CDB"></i><b>Brand</b><span>#5B6CDB</span></div>
+    <div class="tok"><i style="background:#2FB07A"></i><b>Confirm</b><span>#2FB07A</span></div>
+    <div class="tok"><i style="background:#E0A03C"></i><b>Attention</b><span>#E0A03C</span></div>
+    <div class="tok"><i style="background:#2C313D"></i><b>Dark surface</b><span>#2C313D</span></div>
+  </div>
+</div></section>
+
+<!-- ============ 04 THE FLOW ============ -->
+<section><div class="wrap">
+  <div class="head center"><span class="k">04 / The flow</span>
+    <h2>Four acts, twelve screens</h2>
+    <p>Sign in and know your status. Punch in against a client and project. Work the session. Submit, expense, and get approved. The dark variant is reserved for the two screens that stay open longest, sign-in and the running timer, where a dimmer surface is easier on the eyes across an early start or a late release.</p>
+  </div>
+
+  <div class="screens">
+
+    <!-- HOME -->
+    <div class="phone">
+      <div class="frame"><div class="screen"><div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span class="sb">5G<i></i></span></div>
+        <div class="scroll"><div class="pad">
+          <div class="row between" style="margin-top:2px">
+            <div><div class="h-sub">Good morning</div><div class="h-title">Maria Torres</div></div>
+            <div class="avatar" style="color:var(--brand-ink);width:42px;height:42px;border-radius:14px">MT</div>
+          </div>
+          <div class="raised" style="margin-top:16px;padding:20px;text-align:center">
+            <span class="pill gray"><span class="dot"></span>Clocked out</span>
+            <div style="font-size:40px;font-weight:800;letter-spacing:-.03em;margin:12px 0 2px">0:00</div>
+            <div style="font-size:12px;color:var(--muted)">You haven't started your shift</div>
+            <div class="btn primary" style="margin-top:17px;font-size:15px;padding:15px">
+              <svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg> Punch IN
+            </div>
+            <div style="display:flex;justify-content:center;align-items:center;gap:6px;margin-top:12px;font-size:11.5px;color:var(--ink-2)">
+              <svg class="ico" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="#2FB07A" stroke-width="2"><path d="M3 7h18v12H3zM8 7V5h8v2"/></svg>
+              Acme Fintech &middot; Payments API
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:14px">
+            <div class="raised-sm" style="flex:1;padding:13px"><div class="eyebrow">This week</div><div style="font-size:20px;font-weight:800;margin-top:5px">32.5<span style="font-size:12px;color:var(--muted)"> hrs</span></div></div>
+            <div class="raised-sm" style="flex:1;padding:13px"><div class="eyebrow">Expenses</div><div style="font-size:20px;font-weight:800;margin-top:5px">$248<span style="font-size:12px;color:var(--muted)"> pend</span></div></div>
+          </div>
+          <div class="row between" style="margin-top:18px"><div class="eyebrow" style="color:var(--ink-2)">Recent activity</div><span style="font-size:11.5px;color:var(--brand);font-weight:700">See all</span></div>
+          <div class="raised" style="margin-top:10px;padding:4px 15px;border-radius:18px">
+            <div class="li"><div class="avatar" style="color:var(--green-ink);width:33px;height:33px">IN</div><div style="flex:1"><div style="font-weight:700;font-size:12.5px">Punched out</div><div style="font-size:11px;color:var(--muted)">Acme Fintech &middot; 8.0 hrs</div></div><span style="font-size:11px;color:var(--muted)">Yest</span></div>
+            <div class="divi"></div>
+            <div class="li"><div class="avatar" style="color:var(--amber-ink);width:33px;height:33px">$</div><div style="flex:1"><div style="font-weight:700;font-size:12.5px">Hardware, Best Buy #418</div><div style="font-size:11px;color:var(--muted)">Pending approval</div></div><span style="font-size:11px;color:var(--muted)">$129</span></div>
+          </div>
+        </div></div>
+        <div class="tabbar">
+          <div class="tab active"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</div>
+          <div class="tab"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>Time</div>
+          <div class="tab fab"><span class="plus"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></div>
+          <div class="tab"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18v12H3zM3 7l0-1a2 2 0 0 1 2-2h5l2 3"/></svg>Spend</div>
+          <div class="tab"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Me</div>
+        </div>
+      </div></div>
+      <div class="caption"><b>Home</b><span>The punch control is the one raised element</span></div>
+    </div>
+
+    <!-- PUNCH IN -->
+    <div class="phone">
+      <div class="frame"><div class="screen"><div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span class="sb">5G<i></i></span></div>
+        <div class="scroll"><div class="pad">
+          <div class="row" style="gap:9px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg><div class="h-title">Punch IN</div></div>
+          <div class="inset" style="margin-top:13px;padding:16px">
+            <div class="eyebrow">Billing to</div>
+            <div style="font-size:21px;font-weight:800;letter-spacing:-.02em;margin-top:5px">Acme Fintech</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:1px">Payments API &middot; Sprint 34</div>
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <span class="pill brand" style="box-shadow:var(--r-raised-sm);flex:1;justify-content:center">Remote</span>
+              <span class="pill gray" style="flex:1;justify-content:center">On site</span>
+            </div>
+          </div>
+          <div style="margin-top:13px"><span class="pill green"><span class="dot"></span>Rate and PO verified</span></div>
+          <div class="raised" style="margin-top:12px;padding:4px 15px;border-radius:18px">
+            <div class="li between"><div><div style="font-size:10.5px;color:var(--muted);font-weight:700">CLIENT / PROJECT</div><div style="font-weight:700;font-size:13px">Acme Fintech &middot; Payments API</div></div><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="#A2AEBF" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></div>
+            <div class="divi"></div>
+            <div class="li between"><div><div style="font-size:10.5px;color:var(--muted);font-weight:700">WORK TYPE</div><div style="font-weight:700;font-size:13px">DEV-204 &middot; Feature work</div></div><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="#A2AEBF" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></div>
+          </div>
+          <div class="btn primary" style="margin-top:13px;font-size:15px;padding:15px">
+            <svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg> Slide to punch IN
+          </div>
+        </div></div>
+      </div></div>
+      <div class="caption"><b>Punch IN &middot; what you're billing</b><span>Recessed engagement, raised code pickers</span></div>
+    </div>
+
+    <!-- TIMESHEET -->
+    <div class="phone">
+      <div class="frame"><div class="screen"><div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span class="sb">5G<i></i></span></div>
+        <div class="scroll"><div class="pad">
+          <div class="row between"><div class="h-title">Timesheet</div><span class="pill amber"><span class="dot"></span>Open</span></div>
+          <div class="inset row between" style="margin-top:13px;padding:10px 15px">
+            <svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="#8794A8" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+            <div style="text-align:center"><div style="font-weight:700;font-size:13px">Jul 14 to Jul 20</div><div style="font-size:10.5px;color:var(--muted)">This week</div></div>
+            <svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="#8794A8" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+          </div>
+          <div class="raised" style="margin-top:13px;padding:17px">
+            <div class="row between">
+              <div><div style="font-size:11.5px;color:var(--muted)">Total this week</div><div style="font-size:27px;font-weight:800;letter-spacing:-.02em">39.75 <span style="font-size:13px;color:var(--muted)">hrs</span></div></div>
+              <div style="text-align:right;font-size:11.5px;color:var(--ink-2);line-height:1.8"><div>36.0 reg</div><div style="color:var(--amber-ink)">3.75 OT</div></div>
+            </div>
+          </div>
+          <div style="margin-top:11px;display:flex;flex-direction:column;gap:10px">
+            <div class="raised-sm" style="padding:12px 15px;display:flex;align-items:center;gap:11px"><div class="avatar" style="color:var(--green-ink);width:31px;height:31px;font-size:11.5px">M</div><div style="flex:1"><div style="font-weight:700;font-size:12.5px">Monday &middot; Jul 14</div><div style="font-size:11px;color:var(--muted)">6:00a to 2:30p</div></div><span style="font-weight:750;font-size:13px">8.0</span></div>
+            <div class="raised-sm" style="padding:12px 15px;display:flex;align-items:center;gap:11px"><div class="avatar" style="color:var(--green-ink);width:31px;height:31px;font-size:11.5px">T</div><div style="flex:1"><div style="font-weight:700;font-size:12.5px">Tuesday &middot; Jul 15</div><div style="font-size:11px;color:var(--muted)">6:02a to 4:15p</div></div><span style="font-weight:750;font-size:13px">9.5</span></div>
+            <div class="inset" style="padding:12px 15px;display:flex;align-items:center;gap:11px"><div class="avatar" style="color:var(--brand);width:31px;height:31px;font-size:11.5px">W</div><div style="flex:1"><div style="font-weight:700;font-size:12.5px">Wed &middot; Jul 16</div><div style="font-size:11px;color:var(--muted)">In progress</div></div><span style="font-weight:750;font-size:13px;color:var(--green)">8.3</span></div>
+          </div>
+          <div class="row" style="gap:11px;margin-top:14px">
+            <div class="btn sm" style="flex:1">Email card</div>
+            <div class="btn primary sm" style="flex:1">Submit week</div>
+          </div>
+        </div></div>
+      </div></div>
+      <div class="caption"><b>Weekly timesheet</b><span>Today is recessed, finished days raised</span></div>
+    </div>
+
+    <!-- ADD EXPENSE -->
+    <div class="phone">
+      <div class="frame"><div class="screen"><div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span class="sb">5G<i></i></span></div>
+        <div class="scroll"><div class="pad">
+          <div class="row between"><div class="h-title">New expense</div><span style="font-size:12.5px;color:var(--brand);font-weight:700">Cancel</span></div>
+          <div class="inset" style="margin-top:13px;height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;position:relative">
+            <div style="width:50px;height:50px;border-radius:16px;background:var(--bg);box-shadow:var(--r-raised);display:grid;place-items:center">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#5B6CDB" stroke-width="1.7"><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="3.2"/><path d="M8 7l1.5-2h5L15 7"/></svg>
+            </div>
+            <div style="font-size:12.5px;font-weight:600;color:var(--ink-2)">Snap receipt, auto-scan</div>
+            <span class="pill green" style="position:absolute;top:11px;left:11px;padding:5px 10px"><span class="dot"></span>OCR ready</span>
+          </div>
+          <div style="margin-top:15px;text-align:center">
+            <div class="eyebrow">Amount</div>
+            <div style="font-size:34px;font-weight:800;letter-spacing:-.02em;margin-top:2px">$129<span style="color:var(--muted)">.00</span></div>
+            <span class="pill brand" style="margin-top:7px">Scanned from receipt</span>
+          </div>
+          <div class="raised" style="margin-top:14px;padding:4px 16px;border-radius:18px">
+            <div class="li between"><span style="font-size:12.5px;color:var(--muted)">Category</span><span style="font-weight:700;font-size:13px">Hardware / Peripherals</span></div><div class="divi"></div>
+            <div class="li between"><span style="font-size:12.5px;color:var(--muted)">Vendor</span><span style="font-weight:700;font-size:13px">Best Buy #418</span></div><div class="divi"></div>
+            <div class="li between"><span style="font-size:12.5px;color:var(--muted)">Charge to client</span><span style="font-weight:700;font-size:13px;color:var(--brand)">Acme Fintech</span></div>
+          </div>
+          <div class="btn primary" style="margin-top:14px">Submit for approval</div>
+        </div></div>
+      </div></div>
+      <div class="caption"><b>Add expense</b><span>Recessed camera well, OCR pre-fill</span></div>
+    </div>
+
+    <!-- APPROVALS -->
+    <div class="phone">
+      <div class="frame"><div class="screen"><div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span class="sb">5G<i></i></span></div>
+        <div class="scroll"><div class="pad">
+          <div class="row between"><div><div class="h-title">Approvals</div><div class="h-sub">Acme Fintech &middot; 6 waiting</div></div><span class="pill amber"><span class="dot"></span>6</span></div>
+          <div class="row" style="gap:9px;margin-top:13px"><span class="pill brand" style="box-shadow:var(--r-raised-sm)">Hours (4)</span><span class="pill gray">Expenses (2)</span></div>
+          <div class="raised" style="margin-top:13px;padding:15px">
+            <div class="row between"><div class="row" style="gap:10px"><div class="avatar" style="color:var(--brand-ink);width:35px;height:35px">JC</div><div><div style="font-weight:750;font-size:13px">Jordan Chen</div><div style="font-size:11px;color:var(--muted)">Payments API &middot; Wed</div></div></div><span class="pill amber" style="padding:4px 9px">1.75 OT</span></div>
+            <div class="inset row between" style="margin-top:12px;padding:11px 14px"><div><div class="eyebrow">Submitted</div><div style="font-weight:700;font-size:14px;margin-top:2px">9.75 hrs</div></div><div style="text-align:right"><div class="eyebrow">6:00a to 4:15p</div><div style="font-size:11px;color:var(--muted);margin-top:2px">less 30 lunch</div></div></div>
+            <div class="row" style="gap:10px;margin-top:12px"><div class="btn sm" style="flex:1;color:var(--red-ink)">Reject</div><div class="btn green sm" style="flex:1.6">Approve</div></div>
+          </div>
+          <div class="raised" style="margin-top:11px;padding:15px">
+            <div class="row" style="gap:10px"><div class="avatar" style="color:var(--green-ink);width:35px;height:35px">SP</div><div><div style="font-weight:750;font-size:13px">Sam Park</div><div style="font-size:11px;color:var(--muted)">Meridian Health &middot; <span style="color:var(--amber-ink)">edited</span></div></div></div>
+            <div class="inset row between" style="margin-top:12px;padding:11px 14px"><div><div class="eyebrow">Submitted</div><div style="font-weight:700;font-size:14px;margin-top:2px">8.0 hrs</div></div><span class="pill brand">Missed punch</span></div>
+          </div>
+          <div class="btn primary" style="margin-top:13px">Approve all hours</div>
+        </div></div>
+      </div></div>
+      <div class="caption"><b>Approvals</b><span>One queue for hours and spend</span></div>
+    </div>
+
+    <!-- ACCOUNT / SYNC -->
+    <div class="phone">
+      <div class="frame"><div class="screen"><div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span class="sb">5G<i></i></span></div>
+        <div class="scroll"><div class="pad">
+          <div class="h-title">Account</div>
+          <div class="raised" style="margin-top:13px;padding:15px;display:flex;align-items:center;gap:13px"><div class="avatar" style="width:48px;height:48px;border-radius:16px;color:var(--brand-ink);font-size:16px">MT</div><div style="flex:1"><div style="font-weight:750;font-size:15px">Maria Torres</div><div style="font-size:12px;color:var(--muted)">Senior Developer &middot; Sherlock Talent &middot; #10482</div></div></div>
+          <div class="inset" style="margin-top:13px;padding:12px 15px;display:flex;align-items:center;gap:11px">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#2FB07A" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 4v4h-4"/></svg>
+            <div><div style="font-weight:700;font-size:12.5px;color:var(--green-ink)">All punches synced</div><div style="font-size:11.5px;color:var(--muted)">Last sync 2 min ago &middot; 0 queued</div></div>
+          </div>
+          <div class="eyebrow" style="margin-top:18px">Preferences</div>
+          <div class="raised" style="margin-top:9px;padding:2px 15px;border-radius:18px">
+            <div class="li between"><span style="font-weight:650;font-size:13px">Face ID login</span><span class="toggle on"><b></b></span></div><div class="divi"></div>
+            <div class="li between"><span style="font-weight:650;font-size:13px">Location on on-site days</span><span class="toggle on"><b></b></span></div><div class="divi"></div>
+            <div class="li between"><span style="font-weight:650;font-size:13px">Language</span><span style="font-size:12.5px;color:var(--muted);font-weight:600">English</span></div>
+          </div>
+          <div class="btn sm" style="margin-top:15px;color:var(--red-ink)">Sign out</div>
+        </div></div>
+      </div></div>
+      <div class="caption"><b>Account &middot; sync</b><span>Queue depth is never hidden</span></div>
+    </div>
+
+  </div>
+</div></section>
+
+<!-- ============ 05 ARCHITECTURE ============ -->
+<section><div class="wrap">
+  <div class="head center"><span class="k">05 / Architecture</span>
+    <h2>GraphQL to read, REST to write</h2>
+    <p>Not a fashion choice, a shape choice. Screens want one round trip for exactly the data they render. Commands want verbs, status codes and multipart uploads. Both hit the same store, so the split is a transport decision rather than a data split.</p>
+  </div>
+  <div class="split">
+    <div class="lane">
+      <span class="tag" style="color:var(--brand-ink)">READS &middot; GraphQL + Apollo</span>
+      <h3>One query per screen</h3>
+      <p>The dashboard needs the user, week totals and recent activity together. One request returns that exact shape, with no over-fetching and no waterfall.</p>
+      <ul>
+        <li><span>me</span><em>profile + role</em></li>
+        <li><span>currentTimesheet</span><em>week + days</em></li>
+        <li><span>jobs(search)</span><em>assignment list</em></li>
+        <li><span>expenses(status)</span><em>filtered spend</em></li>
+        <li><span>pendingApprovals</span><em>supervisor queue</em></li>
+      </ul>
+    </div>
+    <div class="lane">
+      <span class="tag" style="color:var(--green-ink)">WRITES &middot; REST + axios</span>
+      <h3>One verb per command</h3>
+      <p>Punching, submitting a week, uploading a receipt and approving are discrete and side-effecting. They map cleanly onto HTTP, including multipart for receipt images.</p>
+      <ul>
+        <li><span>POST /punches</span><em>punch + project</em></li>
+        <li><span>POST /timesheets/:id/submit</span><em>submit week</em></li>
+        <li><span>PATCH /days/:date</span><em>flagged edit</em></li>
+        <li><span>POST /receipts/scan</span><em>OCR pre-fill</em></li>
+        <li><span>POST /approvals/:id/decision</span><em>approve</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="head" style="margin-top:44px"><h2 style="font-size:23px">Six slices, three of them persisted</h2>
+    <p>Redux Toolkit with redux-persist. Auth, punch and sync survive a cold start, because those three are what an offline punch depends on.</p></div>
+  <div class="slices">
+    <div class="slice"><b>auth</b><span>JWT, profile, biometric gate</span></div>
+    <div class="slice"><b>punch</b><span>Active shift, elapsed, reconcile</span></div>
+    <div class="slice"><b>sync</b><span>Offline queue, last sync</span></div>
+    <div class="slice"><b>timesheet</b><span>Week, days, submission</span></div>
+    <div class="slice"><b>expense</b><span>Drafts, receipts, status</span></div>
+    <div class="slice"><b>job</b><span>Assignments, cost codes</span></div>
+  </div>
+</div></section>
+
+<!-- ============ 06 OFFLINE ============ -->
+<section><div class="wrap">
+  <div class="head center"><span class="k">06 / The hard part</span>
+    <h2>A punch that cannot be lost</h2>
+    <p>A billable hour cannot depend on a request succeeding. Developers work over VPNs that drop mid-session, hotel and conference wifi, tethered phones and trains, and a failed POST must never be the reason an hour disappears. Every punch is recorded locally first, queued if the post fails, and reconciled with the server identity once the queue drains.</p>
+  </div>
+  <div class="flow">
+    <div class="step"><i>1</i><b>Record</b><span>The punch lands in the persisted punch slice immediately, with its timestamp, client and project.</span></div>
+    <div class="step"><i>2</i><b>Attempt</b><span>submitPunch posts to the REST API. On success the server identity comes straight back.</span></div>
+    <div class="step"><i>3</i><b>Enqueue</b><span>On failure the payload is pushed into the persisted sync queue instead of being lost.</span></div>
+    <div class="step"><i>4</i><b>Flush</b><span>flushQueue drains on reconnect or app foreground, replaying punches and expenses in order.</span></div>
+    <div class="step"><i>5</i><b>Reconcile</b><span>Server IDs are merged back into the punch slice, so local and remote records converge.</span></div>
+  </div>
+</div></section>
+
+<!-- ============ 07 OUTCOME ============ -->
+<section><div class="wrap">
+  <div class="head center"><span class="k">07 / Reflection</span>
+    <h2>What the surface cost, and what it bought</h2>
+  </div>
+  <div class="metrics">
+    <div class="metric"><b>12</b><span>Screens mapping 1:1 from design file to feature folder</span></div>
+    <div class="metric"><b>0</b><span>Borders in the entire interface</span></div>
+    <div class="metric"><b>3</b><span>Persisted slices guarding an offline punch</span></div>
+    <div class="metric"><b>2</b><span>Surface modes, light and dark soft-UI</span></div>
+  </div>
+  <div class="quote">
+    <p><b>The honest tradeoff:</b> neumorphism is inherently low-contrast. It is a single tone doing all the work, which is exactly what makes it feel tactile and exactly what makes it a real accessibility risk, most of all for anyone with low vision and for the one-handed glance between meetings. I leaned on it because this app has very few controls per screen and one obvious action on each, so shape can carry the hierarchy that color usually would. But it does not get to ship alone. A high-contrast accessibility mode sits on the hardening list next to real JWT validation and background geofencing, and I would treat it as a release blocker rather than an enhancement.</p>
+  </div>
+</div></section>
+
+<!-- ============ TECH ============ -->
+<section style="padding-top:10px"><div class="wrap">
+  <div class="head"><span class="k">08 / Under the hood</span><h2 style="font-size:23px">Stack</h2></div>
+  <div class="stack">
+    <span>React Native</span><span>Expo</span><span>TypeScript (strict)</span><span>Redux Toolkit</span><span>redux-persist</span>
+    <span>Apollo Client</span><span>GraphQL</span><span>axios</span><span>REST</span><span>ASP.NET Core 8</span>
+    <span>HotChocolate</span><span>expo-location</span><span>expo-camera</span><span>expo-local-authentication</span><span>Jest</span>
+  </div>
+</div></section>
+
+<footer>Cadence, Time &amp; Expense &middot; React Native + TypeScript &middot; neumorphic soft-UI &middot; <a href="index.html">Back to portfolio</a></footer>
+
+</body>
+</html>
