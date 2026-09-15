@@ -390,7 +390,7 @@
   /* ===== Left sidebar navigation (mirrors DavidSilverlight.com) ===== */
   html{scroll-behavior:smooth;}
   .layout{display:flex; align-items:flex-start; max-width:1460px; margin:0 auto;}
-  .sidenav{flex:0 0 248px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto;
+  .sidenav{flex:0 0 280px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto;
     background:#fff; border-right:1px solid var(--rule); padding:22px 16px 28px; box-shadow:1px 0 4px rgba(20,40,80,.05);}
   .sidenav .brand{display:block; font-size:18px; font-weight:700; color:var(--accent); text-decoration:none; letter-spacing:.4px; padding:0 8px 4px;}
   .sidenav .brand small{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.3px; margin-top:2px;}
@@ -412,7 +412,7 @@
     .layout{display:block;}
     .navtoggle{display:inline-flex; align-items:center; gap:8px; position:fixed; top:12px; left:12px; z-index:1000;
       background:var(--accent); color:#fff; border:0; border-radius:6px; padding:9px 13px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 2px 8px rgba(20,40,80,.25);}
-    .sidenav{position:fixed; top:0; left:0; bottom:0; height:100vh; width:270px; z-index:999;
+    .sidenav{position:fixed; top:0; left:0; bottom:0; height:100vh; width:280px; z-index:999;
       transform:translateX(-100%); transition:transform .25s ease; box-shadow:2px 0 18px rgba(0,0,0,.25);}
     body.nav-open .sidenav{transform:translateX(0);}
     body.nav-open::after{content:""; position:fixed; inset:0; background:rgba(10,15,25,.45); z-index:998;}
@@ -609,7 +609,7 @@
     <a class="navtop" href="#how-i-help">How I Help</a>
     <hr class="navsep">
 
-    <a class="cat" href="#webframeworks">Client-Side (React/Vue/Angular)</a>
+    <a class="cat" href="#webframeworks">Client-Side Frameworks (React/Angular)</a>
     <ul>
       <li><a href="#web-stratusphere">Stratusphere API Builder</a></li>
       <li><a href="#web-sherlockte">Time &amp; Expenses App</a></li>
@@ -699,7 +699,7 @@
 
   <section class="prose" id="about">
     <div class="panel">
-    <p class="aboutme"><span class="hi">👋 Hi, I'm David —</span> a developer who genuinely loves this stuff. I've spent years happily building apps across a parade of technologies — spent some time authoring a <b>monthly Q&amp;A column for <i>XML Journal</i></b> back in my XML-geek days, through Silverlight and Xamarin.Forms, to <b>.Net MAUI</b> as an early adopter where I have been laser focused from day one. As tools and technologies have evolved I have broadened my focus to <b>client-side frameworks</b> and <b>AI</b> to live my best developer life. I'm endlessly curious, love to learn and lately I'm having a blast exploring how <b>AI</b> can help me build better and faster.</p>
+    <p class="aboutme"><span class="hi">👋 Hi, I'm David —</span> a developer who genuinely loves this stuff. I've spent years happily building apps across a parade of technologies — spent some time authoring a <b>monthly Q&amp;A column for <i>XML Journal</i></b> back in my XML-geek days, through Silverlight and Xamarin.Forms, to <b>.Net MAUI</b> as an early adopter where I have been laser focused from day one. I'm endlessly curious and I love to learn, so as the tools have evolved my focus has broadened right along with them: out across <b>client-side frameworks</b> and lately deep into <b>AI</b>, where I'm having a blast figuring out how much better and faster it lets me build.</p>
     </div>
   </section>
 
@@ -715,7 +715,7 @@
     </div>
   </section>
 
-  <h2 class="section" id="webframeworks">Client-Side (React/Vue/Angular)</h2>
+  <h2 class="section" id="webframeworks">Client-Side Frameworks (React/Angular)</h2>
   <div class="grid">
 
     <div class="card" id="web-stratusphere">
@@ -1082,7 +1082,7 @@ SELECT user_name, session_latency, network_latency, failed_connect FROM remote_d
             <img loading="lazy" decoding="async" src="images/Marcel/people-connect.png" alt="Marcel — People Connect, find anyone in the Groupe" style="width:auto; height:130px; display:block; border-radius:10px; transform:scale(1.06);" onerror="this.parentNode.style.display='none'">
           </div>
           <div style="position:relative; padding:4px; background:#0a1524; border-radius:18px; box-shadow:0 18px 40px rgba(0,10,35,.6); z-index:2; overflow:hidden;">
-            <img loading="lazy" decoding="async" src="images/Marcel/home.png" alt="Marcel intro — connecting 80,000 Publicis Groupe employees" style="width:auto; height:178px; display:block; border-radius:14px; transform:scale(1.06);" onerror="this.parentNode.style.display='none'">
+            <img loading="lazy" decoding="async" src="images/Marcel/home.png" alt="Marcel intro — connecting 100,000 Publicis Groupe employees" style="width:auto; height:178px; display:block; border-radius:14px; transform:scale(1.06);" onerror="this.parentNode.style.display='none'">
           </div>
         </div>
         <div style="position:absolute; z-index:4; left:6%; top:15px; display:flex; align-items:center; gap:7px; background:rgba(255,255,255,.96); border-radius:10px; padding:6px 10px 6px 6px; box-shadow:0 8px 20px rgba(0,10,35,.38);">
@@ -1096,7 +1096,7 @@ SELECT user_name, session_latency, network_latency, failed_connect FROM remote_d
       <div class="body">
         <h3 class="name">Marcel <span class="yr">2019</span></h3>
         <span class="pill xam">Xamarin.Forms · AI · Featured</span>
-        <p class="desc">As a badged Microsoft contractor on the Microsoft campus, helped build the initial release of Marcel — an AI-powered platform connecting 80,000 employees to find collaborators, schedule meetings, and track deliverables.</p>
+        <p class="desc">As a badged Microsoft contractor on the Microsoft campus, helped build the initial release of Marcel — an AI-powered platform connecting 100,000 employees to find collaborators, schedule meetings, and track deliverables.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Microsoft AI, Prism, REST · with Publicis.Sapient</p>
         <p class="lnk"><a href="Marcel.html">✦ View the full case study &rarr;</a></p>
       </div>
