@@ -5,23 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>David Silverlight | Cross-Platform .NET Application Developer Portfolio</title>
 <meta name="description" content="David Silverlight is a senior .NET MAUI, Xamarin.Forms, and enterprise mobile app developer with case studies across healthcare, GIS, fintech, IoT, logistics, and migration projects.">
-<link rel="canonical" href="https://davidsilverlight.github.io/Portfolio/">
+<link rel="canonical" href="https://davidsilverlight.com/">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="David Silverlight | Cross-Platform .NET Application Developer">
 <meta property="og:description" content="Enterprise .NET MAUI and Xamarin.Forms portfolio with healthcare, GIS, fintech, IoT, logistics, and migration case studies.">
-<meta property="og:url" content="https://davidsilverlight.github.io/Portfolio/">
-<meta property="og:image" content="https://davidsilverlight.github.io/Portfolio/images/og-david-silverlight-portfolio.jpg">
+<meta property="og:url" content="https://davidsilverlight.com/">
+<meta property="og:image" content="https://davidsilverlight.com/images/og-david-silverlight-portfolio.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="David Silverlight | Cross-Platform .NET Application Developer">
 <meta name="twitter:description" content="Enterprise .NET MAUI and Xamarin.Forms portfolio with real project case studies.">
-<meta name="twitter:image" content="https://davidsilverlight.github.io/Portfolio/images/og-david-silverlight-portfolio.jpg">
+<meta name="twitter:image" content="https://davidsilverlight.com/images/og-david-silverlight-portfolio.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%2315457a'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='46' font-weight='800' fill='%23ffffff' text-anchor='middle'%3EDS%3C/text%3E%3C/svg%3E">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   "name": "David Silverlight — Senior .NET MAUI Developer Portfolio",
-  "url": "https://davidsilverlight.github.io/Portfolio/",
+  "url": "https://davidsilverlight.com/",
   "mainEntity": {
     "@type": "Person",
     "name": "David Silverlight",
@@ -35,8 +35,7 @@
       "addressCountry": "US"
     },
     "sameAs": [
-      "https://linkedin.com/in/MauiGeek",
-      "https://DavidSilverlight.com"
+      "https://linkedin.com/in/MauiGeek"
     ],
     "knowsAbout": [
       ".NET MAUI",
@@ -305,6 +304,38 @@
   .shot.punch .cta svg{width:12px; height:12px; display:block; flex:0 0 auto;}
   .shot.punch .geo{display:flex; align-items:center; justify-content:center; gap:6px; font:600 8.5px/1 "Mulish",Arial,sans-serif; color:#556076;}
   .shot.punch .geo b{width:6px; height:6px; border-radius:50%; background:#2FB07A; box-shadow:0 0 0 2.5px rgba(47,176,122,.22); flex:0 0 auto;}
+
+  /* ATrack Solutions - clinical record: phase-change graph + goal-suggestion chips */
+  .shot.clinrec{position:relative; height:250px; overflow:hidden; border-bottom:1px solid var(--rule); padding:0;
+    background:radial-gradient(520px 220px at 86% -14%, rgba(167,111,216,.30), transparent 66%),
+      radial-gradient(420px 200px at 2% 116%, rgba(51,179,166,.24), transparent 64%),
+      linear-gradient(158deg,#141838 0%,#1e2358 60%,#242b66 100%);}
+  .shot.clinrec .rail{position:absolute; left:0; top:0; bottom:0; width:44px; background:rgba(8,11,34,.55); border-right:1px solid rgba(255,255,255,.08);
+    display:flex; flex-direction:column; align-items:center; gap:9px; padding-top:13px;}
+  .shot.clinrec .rail u{display:block; width:20px; height:3px; border-radius:2px; background:rgba(255,255,255,.16); text-decoration:none;}
+  .shot.clinrec .rail u.hot{background:linear-gradient(90deg,#33b3a6,#a76fd8); width:26px;}
+  .shot.clinrec .glyph{width:22px; height:22px; border-radius:6px; background:linear-gradient(140deg,#e0559b,#a76fd8 45%,#33b3a6); margin-bottom:5px; flex:0 0 auto;}
+  .shot.clinrec .plot{position:absolute; left:58px; right:16px; top:14px; height:142px;}
+  .shot.clinrec .plot svg{width:100%; height:100%; display:block; overflow:visible;}
+  .shot.clinrec .plot .crit{stroke:#e0559b; stroke-width:1.4; stroke-dasharray:6 4;}
+  .shot.clinrec .plot .phase{stroke:rgba(255,255,255,.5); stroke-width:1.4; stroke-dasharray:4 4;}
+  .shot.clinrec .plot .base{stroke:#7f8cba; stroke-width:2.2; fill:none;}
+  .shot.clinrec .plot .post{stroke:#33b3a6; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:430; stroke-dashoffset:430; animation:clinDraw 3.6s ease-in-out infinite;}
+  @keyframes clinDraw{0%{stroke-dashoffset:430;} 50%,100%{stroke-dashoffset:0;}}
+  .shot.clinrec .plot .tag{position:absolute; font:700 7.5px/1 Consolas,monospace; letter-spacing:1.1px; white-space:nowrap;}
+  .shot.clinrec .plot .tag.base{left:4%; top:-2px; color:#95a2cf;}
+  .shot.clinrec .plot .tag.post{left:38%; top:-2px; color:#8ff0e2;}
+  .shot.clinrec .plot .tag.crit{left:4%; top:14px; color:#e0559b;}
+  .shot.clinrec .chips{position:absolute; left:62px; right:14px; bottom:11px; display:flex; flex-direction:column; gap:5px;}
+  .shot.clinrec .chip{display:flex; align-items:center; gap:7px; background:rgba(255,255,255,.96); border-radius:7px; padding:5px 9px;
+    box-shadow:0 5px 14px rgba(6,9,30,.4);}
+  .shot.clinrec .chip b{width:15px; height:15px; border-radius:50%; background:#eaf3ff; color:#2f86ef; flex:0 0 auto;
+    font:800 8px/15px Consolas,monospace; text-align:center;}
+  .shot.clinrec .chip i{font-style:normal; font:700 8.5px/1.2 "Mulish",Arial,sans-serif; color:#1b2340;}
+  .shot.clinrec .chip s{text-decoration:none; font:600 7.5px/1 Consolas,monospace; color:#7d879f; margin-left:auto; letter-spacing:.6px;}
+  .shot.clinrec .chip:nth-child(2){margin-left:15px;}
+  .shot.clinrec .chip:nth-child(3){margin-left:30px;}
   .shot.iso .iso-plane.cols2{width:92%; grid-template-columns:1fr 1fr; gap:0; justify-content:center; transform:none;}
   .shot.iso .iso-plane.cols2 .dev{background:#fdfdfd; border-radius:5px; padding:0; box-shadow:0 12px 26px rgba(50,55,70,.20), 0 3px 8px rgba(50,55,70,.12);}
   .shot.iso .iso-plane.cols2 .dev img{width:100%; border-radius:5px;}
@@ -613,6 +644,7 @@
     <ul>
       <li><a href="#web-stratusphere">Stratusphere API Builder</a></li>
       <li><a href="#web-sherlockte">Time &amp; Expenses App</a></li>
+      <li><a href="#web-atracksolutions">ATrack Solutions</a></li>
     </ul>
 
     <a class="cat" href="#maui">.NET MAUI Apps</a>
@@ -777,6 +809,41 @@ SELECT user_name, session_latency, network_latency, failed_connect FROM remote_d
         <p class="desc">A cross-platform mobile app for the consultants a staffing agency places into client engagements, where every hour is both an invoice line and a paycheck line. Developers punch in against a client, project and work-type code, capture expenses with receipt OCR, and submit weekly timesheets, while managers clear a single approval queue for hours and spend. Designed in a tactile neumorphic system where every control reads as physically pressable, and built in TypeScript from a single iOS and Android codebase over GraphQL reads and REST writes.</p>
         <p class="tech"><b>Tech:</b> React Native, TypeScript, GraphQL, REST, ASP.NET Core, Redux/Context API, Jest</p>
         <p class="lnk"><a href="Sherlock Talent Time and Expenses.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="web-atracksolutions">
+      <div class="shot clinrec">
+        <div class="rail" aria-hidden="true">
+          <span class="glyph"></span>
+          <u></u><u class="hot"></u><u></u><u></u><u></u><u></u>
+        </div>
+        <div class="plot" aria-hidden="true">
+          <svg viewBox="0 0 300 130" preserveAspectRatio="none">
+            <line class="crit" x1="0" y1="26" x2="300" y2="26"/>
+            <line class="phase" x1="104" y1="0" x2="104" y2="122"/>
+            <polyline class="base" points="10,100 34,108 58,96 82,106"/>
+            <polyline class="post" points="112,92 150,74 188,60 226,40 264,26 292,16"/>
+            <g fill="#0f1330" stroke="#33b3a6" stroke-width="2">
+              <circle cx="150" cy="74" r="3.4"/><circle cx="226" cy="40" r="3.4"/><circle cx="292" cy="16" r="3.4"/>
+            </g>
+          </svg>
+          <span class="tag base">BASELINE</span>
+          <span class="tag post">INTERVENTION</span>
+          <span class="tag crit">80% CRITERION</span>
+        </div>
+        <div class="chips">
+          <span class="chip"><b>1</b><i>Tacts Colors: Black and White</i><s>FLUENCY</s></span>
+          <span class="chip"><b>2</b><i>Task Analysis: Uses a Fork</i><s>TASK AN.</s></span>
+          <span class="chip"><b>3</b><i>Fills in Missing Letter of Sight Word</i><s>DTT</s></span>
+        </div>
+      </div>
+      <div class="body">
+        <h3 class="name">ATrack Solutions</h3>
+        <span class="pill web">React &middot; Clinical Platform</span>
+        <p class="desc">The clinician-facing half of an ABA therapy platform, and the companion to the ATrack Mobile app. BCBAs score VB-MAPP, Vineland and ABLLS-R assessments in place, accept ranked goal suggestions drawn from a library of 5,000+ goal items, and build treatment plans that sync to the team instantly. TrueNote turns the trial data an RBT collected into a billing-ready session note, and clinical analytics render mastery and trend lines filterable by date, target type and phase &mdash; replacing the spreadsheet that usually sits between a therapy session and a funder report.</p>
+        <p class="tech"><b>Tech:</b> React, TypeScript, REST APIs, .NET MAUI (companion app), SQLite, HIPAA-aligned workflows</p>
+        <p class="lnk"><a href="ATrack Solutions.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -1888,6 +1955,7 @@ SELECT user_name, session_latency, network_latency, failed_connect FROM remote_d
     'sl-materialsdb':'Materials Database.html',
     'web-stratusphere':'Stratusphere API Builder.html',
     'web-sherlockte':'Sherlock Talent Time and Expenses.html',
+    'web-atracksolutions':'ATrack Solutions.html',
     'web-nonprofitways':'NonProfitWays.html',
     'web-communitycredit':'Community-Credit.com.html',
     'web-xmlpitstop':'XMLPitstop.com.html',

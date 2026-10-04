@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATrack Solutions Case Study | React Clinical Platform for ABA | David Silverlight</title>
+<meta name="description" content="Case study: ATrack Solutions, a React clinical platform for ABA therapy providers — assessment integration (VB-MAPP, Vineland, ABLLS-R), a 5,000+ goal recommendation engine, treatment planning, TrueNote billing-ready session notes, and deep clinical analytics.">
+<link rel="canonical" href="https://davidsilverlight.com/ATrack%20Solutions.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ATrack Solutions Case Study | David Silverlight">
+<meta property="og:description" content="A React clinical platform for ABA providers — assessments, goal recommendations, treatment planning, TrueNote session summaries, and clinical analytics.">
+<meta property="og:url" content="https://davidsilverlight.com/ATrack%20Solutions.html">
+<meta property="og:image" content="https://davidsilverlight.com/images/og-david-silverlight-portfolio.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --navy:#171b45; --navy2:#242a63; --teal:#33b3a6; --violet:#a76fd8; --magenta:#e0559b;
+    --sky:#2f86ef; --ink:#14192b; --muted:#5d6782; --paper:#f2f4fa; --card:#fff; --line:#e0e4f0;
+    --mono:ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.58; font-size:15px;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 26px;}
+  a{color:var(--sky);}
+
+  /* ---- top bar (site convention) ---- */
+  .topbar{position:sticky; top:0; z-index:60; background:rgba(18,22,58,.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(51,179,166,.28);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; align-items:center; text-decoration:none; color:#fff; font-weight:800; font-size:14px;
+    background:linear-gradient(90deg,var(--violet),var(--teal)); padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.28);}
+  .back:hover{filter:brightness(1.08);}
+  .topbar .who{color:#bcc6e6; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* ---- hero: a clinical chart header ---- */
+  .hero{position:relative; overflow:hidden; color:#fff; padding:46px 0 40px;
+    background:
+      radial-gradient(900px 460px at 88% -18%, rgba(167,111,216,.42), transparent 60%),
+      radial-gradient(760px 420px at 4% 118%, rgba(51,179,166,.30), transparent 58%),
+      linear-gradient(160deg,#141838,#1e2358 58%,#232a66);}
+  .hero .wrap{position:relative; z-index:2;}
+  .rx{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:11.5px; letter-spacing:1.4px;
+    text-transform:uppercase; color:#8ff0e2; border:1px solid rgba(143,240,226,.4); background:rgba(51,179,166,.12);
+    padding:5px 12px; border-radius:4px;}
+  .hero h1{font-size:clamp(34px,5.6vw,60px); line-height:1.05; margin:16px 0 0; font-weight:300; letter-spacing:.4px;}
+  .hero h1 b{font-weight:800; background:linear-gradient(90deg,var(--teal),var(--violet),var(--magenta));
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .lead{max-width:760px; color:#d3dbf5; font-size:16.5px; margin:16px 0 0;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 0;}
+  .tags span{font-size:12px; font-weight:700; color:#d9e2ff; background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.17); padding:5px 11px; border-radius:20px;}
+
+  /* signature device: an ABA phase-change graph */
+  .aba{margin:30px 0 0; background:rgba(9,12,34,.42); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:16px 18px 10px;}
+  .aba .cap{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:#93a1cc;}
+  .aba .cap b{color:#8ff0e2; font-weight:700;}
+  .aba svg{display:block; width:100%; height:auto; margin-top:8px;}
+  .aba .lg{display:flex; gap:18px; flex-wrap:wrap; font-family:var(--mono); font-size:10.5px; color:#93a1cc; padding:6px 0 4px;}
+  .aba .lg i{display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px;}
+
+  /* ---- two-column chart layout (the structural signature) ---- */
+  .chartbody{display:grid; grid-template-columns:232px 1fr; gap:38px; align-items:start; padding:40px 0 10px;}
+  .rail{position:sticky; top:74px; background:var(--navy); border-radius:14px; padding:16px 0 18px; overflow:hidden;
+    box-shadow:0 14px 34px rgba(20,25,60,.26);}
+  .rail .rh{font-family:var(--mono); font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; color:#7f8cba;
+    padding:0 18px 12px; border-bottom:1px solid rgba(255,255,255,.09); margin-bottom:10px;}
+  .rail a{display:flex; gap:11px; align-items:center; text-decoration:none; color:#c3cbe8; font-size:13.5px; font-weight:600;
+    padding:9px 18px; border-left:3px solid transparent;}
+  .rail a n{font-family:var(--mono); font-size:11px; color:#6f7cad; min-width:18px;}
+  .rail a:hover{background:rgba(255,255,255,.06); color:#fff;}
+  .rail a.on{background:linear-gradient(90deg,rgba(51,179,166,.22),transparent); border-left-color:var(--teal); color:#fff;}
+  .rail a.on n{color:var(--teal);}
+
+  .records{min-width:0;}
+
+  /* ---- record card ---- */
+  .rec{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin:0 0 30px;
+    box-shadow:0 10px 26px rgba(30,40,90,.09);}
+  .rec > .meta{display:flex; flex-wrap:wrap; gap:6px 20px; align-items:center; background:#f7f9fd; border-bottom:1px solid var(--line);
+    padding:10px 20px; font-family:var(--mono); font-size:10.8px; letter-spacing:1.1px; text-transform:uppercase; color:#79839f;}
+  .rec > .meta b{color:var(--navy2); font-weight:700;}
+  .rec > .meta .no{background:var(--navy); color:#8ff0e2; padding:3px 9px; border-radius:4px; letter-spacing:1.4px;}
+  .rec .in{padding:22px 24px 24px;}
+  .rec h2{font-size:23px; line-height:1.22; margin:0 0 10px; color:var(--navy2); font-weight:700;}
+  .rec p{margin:0 0 12px; color:#3c4560;}
+  .rec p.note{border-left:3px solid var(--teal); background:#f4fbfa; padding:11px 15px; color:#31506b; font-size:14.3px; border-radius:0 7px 7px 0;}
+  .rec ul{margin:4px 0 14px; padding-left:19px; color:#3c4560;}
+  .rec li{margin:0 0 6px;}
+  .shot{margin:16px 0 0; border:1px solid var(--line); border-radius:11px; overflow:hidden; background:#fbfcff;}
+  .shot img{display:block; width:100%; height:auto; cursor:zoom-in;}
+  .shot figcaption{font-family:var(--mono); font-size:10.6px; letter-spacing:.9px; text-transform:uppercase; color:#8590ab;
+    padding:9px 14px; border-top:1px solid var(--line); background:#f7f9fd;}
+
+  /* ---- workflow spine ---- */
+  .spine{list-style:none; margin:6px 0 4px; padding:0; position:relative;}
+  .spine:before{content:""; position:absolute; left:15px; top:10px; bottom:10px; width:2px;
+    background:linear-gradient(180deg,var(--teal),var(--violet));}
+  .spine li{position:relative; padding:0 0 18px 46px;}
+  .spine li b{display:block; color:var(--navy2); font-size:15.5px;}
+  .spine li span{color:var(--muted); font-size:14px;}
+  .spine li i{position:absolute; left:0; top:1px; width:32px; height:32px; border-radius:50%; background:var(--navy); color:#8ff0e2;
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; font-style:normal; font-weight:700;
+    border:2px solid var(--paper);}
+
+  /* ---- role / stack ---- */
+  .role{background:linear-gradient(150deg,#1a1f4b,#272e6e); color:#fff; border-radius:14px; padding:24px 26px; margin:0 0 30px;}
+  .role .rx{color:#8ff0e2;}
+  .role h2{color:#fff; font-size:22px; margin:14px 0 10px;}
+  .role p{color:#ccd5f2; margin:0 0 12px;}
+  .role a{color:#8ff0e2; font-weight:700;}
+  .stack{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 0;}
+  .stack span{font-family:var(--mono); font-size:11.5px; color:#e3e9ff; background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.18); padding:5px 11px; border-radius:6px;}
+
+  /* ---- paired surfaces (web + mobile) ---- */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:8px 0 2px;}
+  .pair > div{border:1px solid var(--line); border-radius:11px; padding:16px 18px; background:#fbfcff;}
+  .pair h3{margin:0 0 8px; font-size:15px; color:var(--navy2);
+    font-family:var(--mono); letter-spacing:1px; text-transform:uppercase;}
+  .pair ul{margin:0; padding-left:18px; font-size:14px;}
+
+  footer{background:var(--navy); color:#aab4d8; text-align:center; font-size:13px; padding:26px 20px; margin-top:34px;}
+  footer b{color:#fff;}
+
+  /* lightbox (site convention) */
+  #lb{display:none; position:fixed; inset:0; background:rgba(8,10,28,.9); z-index:90; align-items:center; justify-content:center; padding:24px;}
+  #lb img{max-width:96%; max-height:92%; border-radius:8px;}
+  #lb .x{position:absolute; top:14px; right:24px; color:#fff; font-size:38px; cursor:pointer; line-height:1;}
+
+  @media (max-width:900px){
+    .chartbody{grid-template-columns:1fr; gap:20px;}
+    .rail{position:static; display:flex; overflow-x:auto; padding:10px; gap:4px;}
+    .rail .rh{display:none;}
+    .rail a{white-space:nowrap; border-left:0; border-bottom:3px solid transparent; border-radius:8px;}
+    .rail a.on{border-left:0; border-bottom-color:var(--teal);}
+    .pair{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a>
+  <span class="who">Case Study · <b>David Silverlight</b></span>
+</div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="rx">Clinical Record · React Platform · ABA Therapy</span>
+    <h1>ATrack <b>Solutions</b></h1>
+    <p class="lead">The clinician-facing half of an ABA therapy platform. Where the mobile app captures what happens in the room, this is where BCBAs score assessments, build treatment plans, and read the data back as progress — assessment to outcome, in one system.</p>
+    <div class="tags"><span>React</span><span>ABA Therapy</span><span>VB-MAPP · Vineland · ABLLS-R</span><span>Clinical Analytics</span><span>HIPAA</span><span>Billing Export</span></div>
+
+    <figure class="aba">
+      <figcaption class="cap"><span>Fig. 1 — Cumulative record · <b>Tacts Colors: Black</b> · Communication / Tacting</span><span>Mastery criterion <b>80%</b></span></figcaption>
+      <svg viewBox="0 0 900 250" role="img" aria-label="An ABA-style phase-change graph: a scattered baseline phase, a dashed phase-change line, then an intervention phase climbing past the 80 percent mastery criterion.">
+        <defs>
+          <linearGradient id="fillPath" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#33b3a6" stop-opacity=".34"/>
+            <stop offset="100%" stop-color="#33b3a6" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- grid -->
+        <g stroke="rgba(255,255,255,.10)" stroke-width="1">
+          <line x1="60" y1="30" x2="870" y2="30"/><line x1="60" y1="74" x2="870" y2="74"/>
+          <line x1="60" y1="118" x2="870" y2="118"/><line x1="60" y1="162" x2="870" y2="162"/>
+          <line x1="60" y1="206" x2="870" y2="206"/>
+        </g>
+        <!-- axes -->
+        <line x1="60" y1="206" x2="870" y2="206" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+        <line x1="60" y1="24" x2="60" y2="206" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+        <g fill="#8593c4" font-family="ui-monospace,Consolas,monospace" font-size="11">
+          <text x="30" y="34">100</text><text x="36" y="78">75</text><text x="36" y="122">50</text><text x="36" y="166">25</text><text x="44" y="210">0</text>
+        </g>
+        <!-- mastery criterion -->
+        <line x1="60" y1="65" x2="870" y2="65" stroke="#e0559b" stroke-width="1.5" stroke-dasharray="7 5"/>
+        <text x="70" y="58" fill="#e0559b" font-family="ui-monospace,Consolas,monospace" font-size="11">80% criterion</text>
+        <!-- phase change -->
+        <line x1="330" y1="24" x2="330" y2="206" stroke="#fff" stroke-width="1.6" stroke-dasharray="5 5" opacity=".75"/>
+        <text x="150" y="20" fill="#bcc6e6" font-family="ui-monospace,Consolas,monospace" font-size="11" letter-spacing="1.4">BASELINE</text>
+        <text x="520" y="20" fill="#8ff0e2" font-family="ui-monospace,Consolas,monospace" font-size="11" letter-spacing="1.4">INTERVENTION</text>
+        <!-- baseline series -->
+        <polyline points="95,178 150,190 205,172 260,186 315,176" fill="none" stroke="#7f8cba" stroke-width="2.5" stroke-linejoin="round"/>
+        <g fill="#7f8cba"><circle cx="95" cy="178" r="4.5"/><circle cx="150" cy="190" r="4.5"/><circle cx="205" cy="172" r="4.5"/><circle cx="260" cy="186" r="4.5"/><circle cx="315" cy="176" r="4.5"/></g>
+        <!-- intervention series -->
+        <path d="M345,168 L415,140 L485,128 L555,96 L625,88 L695,60 L765,52 L835,40 L835,206 L345,206 Z" fill="url(#fillPath)"/>
+        <polyline points="345,168 415,140 485,128 555,96 625,88 695,60 765,52 835,40" fill="none" stroke="#33b3a6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <g fill="#0f1330" stroke="#33b3a6" stroke-width="2.5">
+          <circle cx="345" cy="168" r="5"/><circle cx="415" cy="140" r="5"/><circle cx="485" cy="128" r="5"/><circle cx="555" cy="96" r="5"/>
+          <circle cx="625" cy="88" r="5"/><circle cx="695" cy="60" r="5"/><circle cx="765" cy="52" r="5"/><circle cx="835" cy="40" r="5"/>
+        </g>
+      </svg>
+      <div class="lg">
+        <span><i style="background:#7f8cba"></i>Baseline sessions</span>
+        <span><i style="background:#33b3a6"></i>Intervention sessions</span>
+        <span><i style="background:#e0559b"></i>Mastery criterion</span>
+      </div>
+    </figure>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="chartbody">
+
+  <nav class="rail" aria-label="Case study sections">
+    <div class="rh">Chart index</div>
+    <a href="#r0" class="on"><n>00</n>Role &amp; stack</a>
+    <a href="#r1"><n>01</n>Clinical workflow</a>
+    <a href="#r2"><n>02</n>Assessment integration</a>
+    <a href="#r3"><n>03</n>Goal recommendations</a>
+    <a href="#r4"><n>04</n>Treatment planning</a>
+    <a href="#r5"><n>05</n>TrueNote summaries</a>
+    <a href="#r6"><n>06</n>Clinical analytics</a>
+    <a href="#r7"><n>07</n>Two surfaces, one record</a>
+  </nav>
+
+  <main class="records">
+
+    <section class="role" id="r0">
+      <span class="rx">Record 00 · Engagement</span>
+      <h2>Full-stack across both surfaces</h2>
+      <p>I worked across the whole ATrack platform — the React clinician web application documented here, and the <a href="ATrack Mobile.html">.NET MAUI mobile app</a> that RBTs carry into sessions. Building both sides meant the contract between them was never someone else's problem: the shape of a target, the timing of a sync, and the way a session closes out had to agree, because the same session record has to survive the trip from a tablet in a therapy room to a BCBA's analytics view.</p>
+      <p>That vantage point is the reason this case study and the ATrack Mobile one are two halves of one system rather than two unrelated projects.</p>
+      <div class="stack"><span>React</span><span>TypeScript</span><span>REST APIs</span><span>.NET MAUI (mobile)</span><span>SQLite</span><span>HIPAA-aligned workflows</span></div>
+    </section>
+
+    <section class="rec" id="r1">
+      <div class="meta"><span class="no">Record 01</span><span>Domain: <b>Clinical workflow</b></span><span>Users: <b>BCBA · RBT</b></span></div>
+      <div class="in">
+        <h2>Designed around the clinical workflow, not the database</h2>
+        <p>ABA has a real sequence, and the platform follows it end to end rather than presenting a set of disconnected screens. Each stage hands the next one something it can use.</p>
+        <ol class="spine">
+          <li><i>1</i><b>Assessment</b><span>Score VB-MAPP, Vineland, or ABLLS-R in the system instead of on paper.</span></li>
+          <li><i>2</i><b>Treatment plan</b><span>Turn assessment results into goals and measurable progress criteria.</span></li>
+          <li><i>3</i><b>Session playlist</b><span>Structure what the RBT will actually run — targets, order, data-collection method.</span></li>
+          <li><i>4</i><b>Data collection</b><span>Trial-by-trial capture in session, across NET, DTT, and custom session types.</span></li>
+          <li><i>5</i><b>Progress review</b><span>Graphs, trend lines, and mastery summaries that feed the next plan revision.</span></li>
+        </ol>
+        <p class="note">The loop matters more than any single stage: progress review is what revises the treatment plan, which changes the next playlist. A platform that only moves in one direction leaves the clinician re-keying their own data.</p>
+      </div>
+    </section>
+
+    <section class="rec" id="r2">
+      <div class="meta"><span class="no">Record 02</span><span>Feature: <b>Assessment Integration</b></span><span>Instruments: <b>VB-MAPP · Vineland · ABLLS-R</b></span></div>
+      <div class="in">
+        <h2>Three assessment instruments, one place to score them</h2>
+        <p>Input, scoring, and analysis happen inside the platform. A BCBA enters results directly against the milestone grid, and those results stay attached to the case rather than living in a separate document — which is what makes the next record possible at all.</p>
+        <ul>
+          <li>Milestones, barriers, transitions, and tracking levels as native, navigable tabs</li>
+          <li>Upload path for existing assessment documents alongside direct entry</li>
+          <li>Shareable reports generated from scored data with minimal extra effort</li>
+        </ul>
+        <figure class="shot">
+          <img loading="lazy" decoding="async" src="images/AtrackSolutions/assesment-integration-img.png" alt="ATrack Solutions VB-MAPP assessment screen showing the milestones grid with Mand, Tact, Listener, VP/MTS, Play and Social columns, alongside an upload panel loading VB-MAPP, Vineland and ABLLS-R">
+          <figcaption>VB-MAPP milestone grid with live assessment upload · case: Dylan S.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="rec" id="r3">
+      <div class="meta"><span class="no">Record 03</span><span>Feature: <b>Goal Recommendations</b></span><span>Library: <b>5,000+ goals</b></span></div>
+      <div class="in">
+        <h2>A recommendation engine that defers to the clinician</h2>
+        <p>The system suggests developmentally appropriate goals drawn from assessment data and previous plan history, against a library of more than 5,000 goal items sourced from VB-MAPP, Vineland, ABLLS-R, and ATrack's own assessment. Suggestions arrive ranked, tagged by data-collection type — Fluency, Task Analysis, DTT, Anecdotal — and ready to drop into the plan.</p>
+        <p class="note">The design constraint that mattered: the BCBA keeps full control to edit, modify, or write a custom goal. A suggestion is a starting point a clinician accepts, not a decision the software makes on their behalf — which is the only version of this feature a licensed practitioner can defensibly sign their name to.</p>
+        <figure class="shot">
+          <img loading="lazy" decoding="async" src="images/AtrackSolutions/Goal-Recommendations-img-800x539.png" alt="ATrack Solutions goal suggestions screen listing ranked recommendations such as Tacts Colors Black and White, Task Analysis Uses a Fork, and Fills in Missing Letter of Sight Word, with an Add To Treatment Plan action">
+          <figcaption>Ranked goal suggestions with one-action add to treatment plan</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="rec" id="r4">
+      <div class="meta"><span class="no">Record 04</span><span>Feature: <b>Advanced Treatment Planning</b></span><span>Sync: <b>Team-wide</b></span></div>
+      <div class="in">
+        <h2>Open targets, at a glance, with the data already attached</h2>
+        <p>Treatment plans are built with structured tools designed for clinical clarity — flexible fields, explicit progress criteria, and team collaboration that synchronizes instantly so the plan an RBT opens is the plan the BCBA just revised.</p>
+        <p>The open-targets view is the daily working surface: every active target with its type, five-day average, last run date, an inline progress sparkline, and its full goal / domain / subdomain lineage. Targets that have gone stale or flat are flagged in place, so the plan review starts from what needs attention rather than from a blank page.</p>
+        <figure class="shot">
+          <img loading="lazy" decoding="async" src="images/AtrackSolutions/Advanced-Treatment-Planning-img.png" alt="ATrack Solutions open targets table showing target type, name, five-day average, last run date, inline progress sparklines and goal domain lineage, with an antecedent-behavior-consequence panel overlaid">
+          <figcaption>Open targets with inline sparklines · ABC data entry overlay</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="rec" id="r5">
+      <div class="meta"><span class="no">Record 05</span><span>Feature: <b>TrueNote Session Summaries</b></span><span>Output: <b>Billing-ready</b></span></div>
+      <div class="in">
+        <h2>TrueNote: the session note writes itself from the session</h2>
+        <p>TrueNote transforms the real data collected during a session into a complete, billing-ready note — no second pass, no writing up from memory at the end of a long day. Each program the learner ran becomes a narrative entry with its trial counts and scores already in the prose.</p>
+        <ul>
+          <li>Compiled from actual trial data, not free-text recall</li>
+          <li>Standardized structure that meets billing and documentation requirements</li>
+          <li>Editable after the fact, so clinical nuance can still be added</li>
+        </ul>
+        <p class="note">Documentation is where clinical time quietly disappears. Generating the note from data the clinician already collected turns an end-of-day chore into a review step.</p>
+        <figure class="shot">
+          <img loading="lazy" decoding="async" src="images/AtrackSolutions/TrueNote-Session-Summaries-img-800x581.png" alt="ATrack Solutions Autonotes for Session dialog showing a session date and ID with generated narrative entries for building rapport, delivering a salutation, pretend play and peer games, each citing trial counts and scores">
+          <figcaption>Autonotes for Session · generated entries citing trial counts and scores</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="rec" id="r6">
+      <div class="meta"><span class="no">Record 06</span><span>Feature: <b>Deep Clinical Analytics</b></span><span>Filters: <b>Date · Target type · Phase</b></span></div>
+      <div class="in">
+        <h2>Forget spreadsheets — progress you can actually read</h2>
+        <p>Progress is tracked automatically and rendered as interactive graphs, filterable trends, and client-level insights. Built-in trend lines and mastery summaries can be filtered by date, target type, and phase, so a clinician can isolate the question they are actually asking instead of exporting to a spreadsheet and rebuilding the chart by hand.</p>
+        <ul>
+          <li>Per-goal, per-target, and per-client graphing with full-screen review</li>
+          <li>Trend lines and mastery summaries computed from collected trial data</li>
+          <li>Print and export paths for reporting and funder documentation</li>
+          <li>Simple billing export with therapist notes and timestamps aligned to insurance and Medicaid requirements</li>
+        </ul>
+        <figure class="shot">
+          <img loading="lazy" decoding="async" src="images/AtrackSolutions/Deep-Clinical-Analytics-img-800x599.png" alt="ATrack Solutions reports screen listing goals by subdomain and domain with a multi-series progress graph below, and a session analytics bar chart panel overlaid">
+          <figcaption>Reports view with multi-series progress graphing and session analytics</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="rec" id="r7">
+      <div class="meta"><span class="no">Record 07</span><span>Domain: <b>Platform architecture</b></span><span>Surfaces: <b>Web + Mobile</b></span></div>
+      <div class="in">
+        <h2>Two surfaces, one clinical record</h2>
+        <p>The platform is deliberately split by who is doing what. The BCBA plans and interprets on the web; the RBT collects in the moment on a tablet. Both write to the same record, which is where the engineering difficulty actually lives.</p>
+        <div class="pair">
+          <div>
+            <h3>Web · BCBA</h3>
+            <ul>
+              <li>Assessment scoring and analysis</li>
+              <li>Goal recommendation and plan authoring</li>
+              <li>Session playlist construction</li>
+              <li>Analytics, reporting, billing export</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Mobile · RBT</h3>
+            <ul>
+              <li>Real-time data collection across target types</li>
+              <li>Offline mode with safe local storage and later sync</li>
+              <li>Post-session note editing for accuracy</li>
+              <li>Two active sessions on one device, kept distinct</li>
+            </ul>
+          </div>
+        </div>
+        <p class="note" style="margin-top:14px;">Offline mode is the requirement that shapes everything else. A therapy room with no signal cannot be a room where data is lost, so the mobile app owns the session locally and reconciles on reconnect — which means the web side has to treat arrival time and session time as different things. See the <a href="ATrack Mobile.html">ATrack Mobile case study</a> for that half of the story.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+</div>
+
+<footer>
+  <b>ATrack Solutions</b> · Clinical platform for ABA therapy providers · React &amp; .NET MAUI
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.shot img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+
+  var links=[].slice.call(document.querySelectorAll('.rail a'));
+  var secs=links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  function spy(){
+    var best=0;
+    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=140){ best=i; } });
+    links.forEach(function(a,i){ a.classList.toggle('on', i===best); });
+  }
+  window.addEventListener('scroll', spy, {passive:true});
+  spy();
+})();
+</script>
+</body>
+</html>
