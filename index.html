@@ -35,7 +35,7 @@
       "addressCountry": "US"
     },
     "sameAs": [
-      "https://linkedin.com/in/MauiGeek"
+      "https://www.linkedin.com/in/AgenticAppDeveloper/"
     ],
     "knowsAbout": [
       ".NET MAUI",
@@ -285,6 +285,17 @@
   .shot.query .stage:nth-of-type(4){animation-duration:6.0s; animation-delay:-2.8s;}
   .shot.query .stage:hover{transform:translateY(-6px) scale(1.06); z-index:9; box-shadow:0 18px 30px rgba(0,0,0,.6), 0 0 20px rgba(79,227,193,.5); animation-play-state:paused;}
   /* Sherlock Talent Time & Expenses — neumorphic soft-UI, matching the Cadence T&E design system */
+  /* Kudurru Stone Web Client: Swiss editorial, one green color field, oversized type, layered screens */
+  .shot.swiss{position:relative; height:250px; overflow:hidden; border-bottom:1px solid var(--rule); background:#00a865;}
+  .shot.swiss .ghost{position:absolute; left:-10px; bottom:-34px; font:900 210px/.8 "Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-14px; color:rgba(255,255,255,.12); pointer-events:none; user-select:none;}
+  .shot.swiss .kicker{position:absolute; left:14px; top:14px; z-index:3; font:800 10px/1 "Helvetica Neue",Arial,sans-serif; letter-spacing:2px; text-transform:uppercase; color:#fff;}
+  .shot.swiss .kicker::before{content:""; display:block; width:22px; height:2px; background:#fff; margin-bottom:7px;}
+  .shot.swiss .ksref{position:absolute; left:14px; bottom:14px; z-index:3; font:700 10px/1 "Helvetica Neue",Arial,sans-serif; letter-spacing:1px; color:#fff; background:#0c0d0d; border-radius:20px; padding:7px 11px;}
+  .shot.swiss .ksref b{color:#5cf0a6;}
+  .shot.swiss .scr{position:absolute; z-index:2; background:#fff; box-shadow:0 16px 34px rgba(0,40,22,.38); transition:transform .2s ease; animation:thumbBob 5.6s ease-in-out infinite;}
+  .shot.swiss .scr img{display:block; width:100%; height:auto; cursor:zoom-in; animation:none !important;}
+  .shot.swiss .scr:nth-of-type(2){animation-duration:6.3s; animation-delay:-1.9s;} .shot.swiss .scr:nth-of-type(3){animation-duration:5.1s; animation-delay:-.9s;}
+  .shot.swiss .scr:hover{transform:translateY(-6px) scale(1.05); z-index:9; animation-play-state:paused;}
   .shot.punch{position:relative; height:250px; overflow:hidden; border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:center; gap:24px; padding:18px 20px; background:#E5EAF1;}
   .shot.punch .dial{position:relative; flex:0 0 auto; width:148px; height:148px; border-radius:50%; background:#E5EAF1; box-shadow:6px 6px 13px #A9B6CC, -6px -6px 13px #FFFFFF; display:grid; place-items:center; animation:thumbBob 5.6s ease-in-out infinite;}
   .shot.punch .dial .well{width:118px; height:118px; border-radius:50%; background:#E5EAF1; box-shadow:inset 4px 4px 8px #A9B6CC, inset -4px -4px 8px #FFFFFF; display:flex; flex-direction:column; align-items:center; justify-content:center;}
@@ -464,6 +475,7 @@
   .aboutme{max-width:880px; margin:6px 0 26px; font-size:17px; line-height:1.6; color:#3a4655;}
   .aboutme .hi{font-size:20px; font-weight:800; color:var(--accent); margin-right:6px;}
   .aboutme b{color:var(--accent2); font-weight:700;}
+  .panel .aboutme + .aboutme{margin-top:14px;}
   .ctarow{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 2px;}
   .cta{display:inline-block; padding:10px 18px; border-radius:8px; font-weight:700; font-size:13.5px; text-decoration:none; border:1.5px solid var(--accent); color:var(--accent); background:#fff; transition:transform .15s, box-shadow .15s;}
   .cta:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(20,40,80,.18);}
@@ -634,17 +646,15 @@
 <div class="layout">
 
   <aside class="sidenav" id="sidenav">
-    <a class="brand" href="#top">David Silverlight<small>Cross-Platform .NET Application Developer</small></a>
-    <hr class="navsep">
-
-    <a class="navtop" href="#how-i-help">How I Help</a>
+    <a class="brand" href="#top">David Silverlight<small>Agentic Cross-Platform Application Developer</small></a>
     <hr class="navsep">
 
     <a class="cat" href="#webframeworks">Client-Side Frameworks (React/Angular)</a>
     <ul>
+      <li><a href="#web-atracksolutions">ATrack Solutions</a></li>
+      <li><a href="#web-kudurruweb">Kudurru Stone Web Client</a></li>
       <li><a href="#web-stratusphere">Stratusphere API Builder</a></li>
       <li><a href="#web-sherlockte">Time &amp; Expenses App</a></li>
-      <li><a href="#web-atracksolutions">ATrack Solutions</a></li>
     </ul>
 
     <a class="cat" href="#maui">.NET MAUI Apps</a>
@@ -718,7 +728,7 @@
     <div class="ext">
       <a href="David Silverlight Resume.html">David Silverlight's Resume &rarr;</a>
       <a href="David Silverlight — Cross-Platform .NET Application Developer.pdf" download>Download Resume (PDF) &darr;</a>
-      <a href="https://linkedin.com/in/MauiGeek" target="_blank">LinkedIn &rarr;</a>
+      <a href="https://www.linkedin.com/in/AgenticAppDeveloper/" target="_blank">LinkedIn &rarr;</a>
     </div>
   </aside>
 
@@ -726,29 +736,71 @@
 
   <header class="top">
     <h1>Portfolio of David Silverlight</h1>
-    <p class="meta">📍 Miami, FL &nbsp;|&nbsp; 📱 <a href="tel:+15612125707">561-212-5707</a> &nbsp;|&nbsp; ✉️ <a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a> &nbsp;|&nbsp; 🔗 <a href="https://linkedin.com/in/MauiGeek">linkedin.com/in/MauiGeek</a> &nbsp;|&nbsp; 📄 <a href="David Silverlight Resume.html">Resume</a></p>
+    <p class="meta">📍 Miami, FL &nbsp;|&nbsp; 📱 <a href="tel:+15612125707">561-212-5707</a> &nbsp;|&nbsp; ✉️ <a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a> &nbsp;|&nbsp; 🔗 <a href="https://www.linkedin.com/in/AgenticAppDeveloper/">linkedin.com/in/AgenticAppDeveloper</a></p>
   </header>
 
   <section class="prose" id="about">
     <div class="panel">
-    <p class="aboutme"><span class="hi">👋 Hi, I'm David —</span> a developer who genuinely loves this stuff. I've spent years happily building apps across a parade of technologies — spent some time authoring a <b>monthly Q&amp;A column for <i>XML Journal</i></b> back in my XML-geek days, through Silverlight and Xamarin.Forms, to <b>.Net MAUI</b> as an early adopter where I have been laser focused from day one. I'm endlessly curious and I love to learn, so as the tools have evolved my focus has broadened right along with them: out across <b>client-side frameworks</b> and lately deep into <b>AI</b>, where I'm having a blast figuring out how much better and faster it lets me build.</p>
-    </div>
-  </section>
-
-  <section class="prose" id="how-i-help">
-    <h2 class="section">How I Help</h2>
-    <div class="panel">
-      <p>Whether you or your team needs help meeting a tight deadline, someone to help with heavy lifting, modernizing a legacy Xamarin.Forms app, or a dependable hand to carry a mission-critical deliverable from start to finish, I'd welcome the conversation. Feel free to <a href="tel:+15612125707">call me at 561-212-5707</a> or <a href="mailto:DavidSilverlight@gmail.com">email me at DavidSilverlight@gmail.com</a> — I'm always glad to talk through how I can help.</p>
-      <div class="ctarow">
-        <a href="mailto:DavidSilverlight@gmail.com" class="cta primary">Hire David</a>
-        <a href="tel:+15612125707" class="cta">Call David</a>
-        <a href="David Silverlight Resume.html" class="cta">View Resume</a>
-      </div>
+    <p class="aboutme"><span class="hi">👋 Hi, I'm David,</span> an agentic cross-platform application developer who genuinely loves what I do. I've spent my career building applications across a wide range of technologies, embracing new platforms and approaches as they emerge. Along the way, I've authored a monthly Q&amp;A column for <i>XML Journal</i>, spoken at local and national tech events, and created developer-focused websites that help others learn and showcase their contributions.</p>
+    <p class="aboutme">That same curiosity and passion for learning have carried me from traditional, human-driven software development into agentic development. Having experienced decades of evolution in how software is designed and built, I see agentic tools not as a departure from my experience, but as a powerful extension of it. Understanding the fundamentals, adapting to new technologies, and knowing how to turn ideas into successful applications remain at the heart of what I do.</p>
     </div>
   </section>
 
   <h2 class="section" id="webframeworks">Client-Side Frameworks (React/Angular)</h2>
   <div class="grid">
+
+    <div class="card" id="web-atracksolutions">
+      <div class="shot clinrec">
+        <div class="rail" aria-hidden="true">
+          <span class="glyph"></span>
+          <u></u><u class="hot"></u><u></u><u></u><u></u><u></u>
+        </div>
+        <div class="plot" aria-hidden="true">
+          <svg viewBox="0 0 300 130" preserveAspectRatio="none">
+            <line class="crit" x1="0" y1="26" x2="300" y2="26"/>
+            <line class="phase" x1="104" y1="0" x2="104" y2="122"/>
+            <polyline class="base" points="10,100 34,108 58,96 82,106"/>
+            <polyline class="post" points="112,92 150,74 188,60 226,40 264,26 292,16"/>
+            <g fill="#0f1330" stroke="#33b3a6" stroke-width="2">
+              <circle cx="150" cy="74" r="3.4"/><circle cx="226" cy="40" r="3.4"/><circle cx="292" cy="16" r="3.4"/>
+            </g>
+          </svg>
+          <span class="tag base">BASELINE</span>
+          <span class="tag post">INTERVENTION</span>
+          <span class="tag crit">80% CRITERION</span>
+        </div>
+        <div class="chips">
+          <span class="chip"><b>1</b><i>Tacts Colors: Black and White</i><s>FLUENCY</s></span>
+          <span class="chip"><b>2</b><i>Task Analysis: Uses a Fork</i><s>TASK AN.</s></span>
+          <span class="chip"><b>3</b><i>Fills in Missing Letter of Sight Word</i><s>DTT</s></span>
+        </div>
+      </div>
+      <div class="body">
+        <h3 class="name">ATrack Solutions</h3>
+        <span class="pill web">React &middot; Clinical Platform</span>
+        <p class="desc">The clinician-facing half of an ABA therapy platform, and the companion to the ATrack Mobile app. BCBAs score VB-MAPP, Vineland and ABLLS-R assessments in place, accept ranked goal suggestions drawn from a library of 5,000+ goal items, and build treatment plans that sync to the team instantly. TrueNote turns the trial data an RBT collected into a billing-ready session note, and clinical analytics render mastery and trend lines filterable by date, target type and phase &mdash; replacing the spreadsheet that usually sits between a therapy session and a funder report.</p>
+        <p class="tech"><b>Tech:</b> React, TypeScript, REST APIs, .NET MAUI (companion app), SQLite, HIPAA-aligned workflows</p>
+        <p class="lnk"><a href="ATrack Solutions.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="web-kudurruweb">
+      <div class="shot swiss">
+        <span class="ghost" aria-hidden="true">KS</span>
+        <span class="kicker">Web Client</span>
+        <span class="ksref">KS-20418 · <b>RECEIVED</b></span>
+        <div class="scr" style="left:30%; top:30px; width:64%;"><img loading="lazy" decoding="async" src="images/KudurruStoneWeb/KSWebDashboard.png" alt="Kudurru Stone Web Client dashboard with project, schedule, crew and invoice tiles" onerror="this.style.display='none'"></div>
+        <div class="scr" style="left:20%; top:128px; width:42%;"><img loading="lazy" decoding="async" src="images/KudurruStoneWeb/KSWebProjectDetail.png" alt="Kudurru Stone Web Client project detail with completion, budget, typed tasks and assigned crew" onerror="this.style.display='none'"></div>
+        <div class="scr" style="left:70%; top:112px; width:25%;"><img loading="lazy" decoding="async" src="images/KudurruStoneWeb/KSWebScheduler.png" alt="Kudurru Stone Web Client weekly scheduler with client and task-type filters" onerror="this.style.display='none'"></div>
+      </div>
+      <div class="body">
+        <h3 class="name">Kudurru Stone Web Client</h3>
+        <span class="pill web">React · Land Surveying</span>
+        <p class="desc">The office-side web client for land-survey firms, and the companion to the Kudurru Stone .NET MAUI field app. A branded client portal is the front door: firms build their own request forms and share a link, and every request gets a tracking reference the client can check without logging in. Each request becomes a project in one step, with optional QuickBooks sync. From there the office runs the job through a live dashboard, client directory, project detail, crew availability and a color-coded weekly scheduler.</p>
+        <p class="tech"><b>Tech:</b> React, TypeScript, REST API, QuickBooks integration, passwordless magic-link auth, responsive CSS</p>
+        <p class="lnk"><a href="Kudurru Stone Web Client.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
 
     <div class="card" id="web-stratusphere">
       <div class="shot query">
@@ -809,41 +861,6 @@ SELECT user_name, session_latency, network_latency, failed_connect FROM remote_d
         <p class="desc">A cross-platform mobile app for the consultants a staffing agency places into client engagements, where every hour is both an invoice line and a paycheck line. Developers punch in against a client, project and work-type code, capture expenses with receipt OCR, and submit weekly timesheets, while managers clear a single approval queue for hours and spend. Designed in a tactile neumorphic system where every control reads as physically pressable, and built in TypeScript from a single iOS and Android codebase over GraphQL reads and REST writes.</p>
         <p class="tech"><b>Tech:</b> React Native, TypeScript, GraphQL, REST, ASP.NET Core, Redux/Context API, Jest</p>
         <p class="lnk"><a href="Sherlock Talent Time and Expenses.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="web-atracksolutions">
-      <div class="shot clinrec">
-        <div class="rail" aria-hidden="true">
-          <span class="glyph"></span>
-          <u></u><u class="hot"></u><u></u><u></u><u></u><u></u>
-        </div>
-        <div class="plot" aria-hidden="true">
-          <svg viewBox="0 0 300 130" preserveAspectRatio="none">
-            <line class="crit" x1="0" y1="26" x2="300" y2="26"/>
-            <line class="phase" x1="104" y1="0" x2="104" y2="122"/>
-            <polyline class="base" points="10,100 34,108 58,96 82,106"/>
-            <polyline class="post" points="112,92 150,74 188,60 226,40 264,26 292,16"/>
-            <g fill="#0f1330" stroke="#33b3a6" stroke-width="2">
-              <circle cx="150" cy="74" r="3.4"/><circle cx="226" cy="40" r="3.4"/><circle cx="292" cy="16" r="3.4"/>
-            </g>
-          </svg>
-          <span class="tag base">BASELINE</span>
-          <span class="tag post">INTERVENTION</span>
-          <span class="tag crit">80% CRITERION</span>
-        </div>
-        <div class="chips">
-          <span class="chip"><b>1</b><i>Tacts Colors: Black and White</i><s>FLUENCY</s></span>
-          <span class="chip"><b>2</b><i>Task Analysis: Uses a Fork</i><s>TASK AN.</s></span>
-          <span class="chip"><b>3</b><i>Fills in Missing Letter of Sight Word</i><s>DTT</s></span>
-        </div>
-      </div>
-      <div class="body">
-        <h3 class="name">ATrack Solutions</h3>
-        <span class="pill web">React &middot; Clinical Platform</span>
-        <p class="desc">The clinician-facing half of an ABA therapy platform, and the companion to the ATrack Mobile app. BCBAs score VB-MAPP, Vineland and ABLLS-R assessments in place, accept ranked goal suggestions drawn from a library of 5,000+ goal items, and build treatment plans that sync to the team instantly. TrueNote turns the trial data an RBT collected into a billing-ready session note, and clinical analytics render mastery and trend lines filterable by date, target type and phase &mdash; replacing the spreadsheet that usually sits between a therapy session and a funder report.</p>
-        <p class="tech"><b>Tech:</b> React, TypeScript, REST APIs, .NET MAUI (companion app), SQLite, HIPAA-aligned workflows</p>
-        <p class="lnk"><a href="ATrack Solutions.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -1069,7 +1086,7 @@ SELECT user_name, session_latency, network_latency, failed_connect FROM remote_d
       <div class="body">
         <h3 class="name">SearchMed</h3>
         <span class="pill">.NET MAUI · Featured</span>
-        <p class="desc">A .NET MAUI app for customers to search for medical professionals. Improved app performance by ~30% and reduced load times by ~50%.</p>
+        <p class="desc">A .NET MAUI app for customers to search for medical professionals. Reduced UX display time by 35% and cut initial load time by ~50%.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Firebase, MVVM, CommunityToolkit.MVVM, CommunityToolkit.Maui, SQLite</p>
         <p class="lnk"><a href="SearchMed.html">✦ View the full case study &rarr;</a></p>
       </div>
@@ -1956,6 +1973,7 @@ SELECT user_name, session_latency, network_latency, failed_connect FROM remote_d
     'web-stratusphere':'Stratusphere API Builder.html',
     'web-sherlockte':'Sherlock Talent Time and Expenses.html',
     'web-atracksolutions':'ATrack Solutions.html',
+    'web-kudurruweb':'Kudurru Stone Web Client.html',
     'web-nonprofitways':'NonProfitWays.html',
     'web-communitycredit':'Community-Credit.com.html',
     'web-xmlpitstop':'XMLPitstop.com.html',
