@@ -5,13 +5,13 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/David%20Silverlight%20Resume.html</loc>
+    <loc>https://davidsilverlight.com/David-Silverlight-Resume.html</loc>
     <priority>0.9</priority>
   </url>
 
   <!-- .NET MAUI mobile app case studies -->
   <url>
-    <loc>https://davidsilverlight.com/RamTech%20gMobile.html</loc>
+    <loc>https://davidsilverlight.com/RamTech-gMobile.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -19,11 +19,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/UPS%20Mobile%20Delivery.html</loc>
+    <loc>https://davidsilverlight.com/UPS-Mobile-Delivery.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/ATrack%20Mobile.html</loc>
+    <loc>https://davidsilverlight.com/ATrack-Mobile.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -31,7 +31,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Kinship%20Navigator.html</loc>
+    <loc>https://davidsilverlight.com/Kinship-Navigator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -51,7 +51,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/POS%20Prototype.html</loc>
+    <loc>https://davidsilverlight.com/POS-Prototype.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -61,15 +61,15 @@
 
   <!-- Xamarin.Forms mobile app case studies -->
   <url>
-    <loc>https://davidsilverlight.com/T-Mobile%20Money.html</loc>
+    <loc>https://davidsilverlight.com/T-Mobile-Money.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/BCBS%20-%20My%20BluePrint.html</loc>
+    <loc>https://davidsilverlight.com/BCBS---My-BluePrint.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Sherlock%20Talent.html</loc>
+    <loc>https://davidsilverlight.com/Sherlock-Talent.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -77,23 +77,23 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/UAS%20Trakker.html</loc>
+    <loc>https://davidsilverlight.com/UAS-Trakker.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Pet%20Pixie.html</loc>
+    <loc>https://davidsilverlight.com/Pet-Pixie.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Real%20Green%20Systems.html</loc>
+    <loc>https://davidsilverlight.com/Real-Green-Systems.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/MVP%20HealthCare.html</loc>
+    <loc>https://davidsilverlight.com/MVP-HealthCare.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Club%20Holiday.html</loc>
+    <loc>https://davidsilverlight.com/Club-Holiday.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -109,11 +109,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Nalco%20Lock%20App.html</loc>
+    <loc>https://davidsilverlight.com/Nalco-Lock-App.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Salon%20Scheduler.html</loc>
+    <loc>https://davidsilverlight.com/Salon-Scheduler.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -127,37 +127,37 @@
 
   <!-- Client-side framework case studies (React / Angular) -->
   <url>
-    <loc>https://davidsilverlight.com/Stratusphere%20API%20Builder.html</loc>
+    <loc>https://davidsilverlight.com/Stratusphere-API-Builder.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Sherlock%20Talent%20Time%20and%20Expenses.html</loc>
+    <loc>https://davidsilverlight.com/Sherlock-Talent-Time-and-Expenses.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/ATrack%20Solutions.html</loc>
+    <loc>https://davidsilverlight.com/ATrack-Solutions.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Kudurru%20Stone%20Web%20Client.html</loc>
+    <loc>https://davidsilverlight.com/Kudurru-Stone-Web-Client.html</loc>
     <priority>0.8</priority>
   </url>
 
   <!-- Speaking, community, and legacy web projects -->
   <url>
-    <loc>https://davidsilverlight.com/ITPalooza%202013.html</loc>
+    <loc>https://davidsilverlight.com/ITPalooza-2013.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/ITPalooza%202016.html</loc>
+    <loc>https://davidsilverlight.com/ITPalooza-2016.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/South%20Florida%20Code%20Camp.html</loc>
+    <loc>https://davidsilverlight.com/South-Florida-Code-Camp.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/National%20Workflow.html</loc>
+    <loc>https://davidsilverlight.com/National-Workflow.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
@@ -169,19 +169,19 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Microsoft%20Hosting%20University.html</loc>
+    <loc>https://davidsilverlight.com/Microsoft-Hosting-University.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Property%20Tax%20System.html</loc>
+    <loc>https://davidsilverlight.com/Property-Tax-System.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Silverlight%20User%20Group%20Starter%20Kit.html</loc>
+    <loc>https://davidsilverlight.com/Silverlight-User-Group-Starter-Kit.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/My%20Christmas%20Catalog.html</loc>
+    <loc>https://davidsilverlight.com/My-Christmas-Catalog.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
@@ -189,11 +189,11 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Egghead%20Cafe.html</loc>
+    <loc>https://davidsilverlight.com/Egghead-Cafe.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://davidsilverlight.com/Materials%20Database.html</loc>
+    <loc>https://davidsilverlight.com/Materials-Database.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
