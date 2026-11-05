@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kudurru Stone Web Client Case Study | Survey Firm Operations &amp; Client Portal | David Silverlight</title>
+<meta name="description" content="Case study: the Kudurru Stone Web Client, the office-side React web app for land-survey firms. Includes a dashboard, clients, projects, crew availability, a weekly scheduler, and a branded client portal where requests get a tracking reference and become projects without retyping.">
+<link rel="canonical" href="https://davidsilverlight.com/Kudurru%20Stone%20Web%20Client.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kudurru Stone Web Client Case Study | David Silverlight">
+<meta property="og:description" content="The office-side web client for land-survey firms, from a branded request form to a scheduled crew, with nothing retyped.">
+<meta property="og:url" content="https://davidsilverlight.com/Kudurru%20Stone%20Web%20Client.html">
+<meta property="og:image" content="https://davidsilverlight.com/images/og-david-silverlight-portfolio.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,62..125,300..900&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     Concept: Swiss editorial. White page, one green color field,
+     ultra-wide grotesk headlines, a strict 12-column grid with
+     sticky numbered section labels. No texture, no ornament.
+     ============================================================ */
+  :root{
+    --paper:#ffffff; --ink:#0c0d0d; --ink2:#3b3d3c; --grey:#76797a; --line:#e3e5e4; --wash:#f4f5f4;
+    --green:#00a865; --green-d:#008a52; --mint:#e3f6ec; --signal:#ff5a1f;
+    --font:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --gut:clamp(16px,3vw,40px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; overflow-x:clip;}
+  body{margin:0; overflow-x:clip; background:var(--paper); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.55; font-stretch:100%;}
+  img{max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:1360px; margin:0 auto; padding:0 var(--gut);}
+  .row{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:24px;}
+  .eyebrow{font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;}
+
+  /* ---- top bar (site convention) ---- */
+  .topbar{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.94); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:58px; gap:12px;}
+  .back{display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:14px; font-stretch:110%; color:var(--ink);}
+  .back span{display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff; transition:background .2s;}
+  .back:hover span{background:var(--green);}
+  .topbar .who{font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
+  .topbar .who b{color:var(--ink);}
+
+  /* ---- hero ---- */
+  .hero{padding:clamp(36px,6vw,80px) 0 0;}
+  .hero .facts{border-top:2px solid var(--ink); padding-top:14px; margin-bottom:clamp(28px,4vw,56px);}
+  .hero .facts > div{grid-column:span 3;}
+  .hero .facts small{display:block; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--grey); margin-bottom:2px;}
+  .hero .facts b{font-size:15px; font-weight:600;}
+  h1{margin:0; font-weight:900; font-stretch:125%; text-transform:uppercase; font-size:clamp(46px,10.6vw,168px); line-height:.84; letter-spacing:-.035em;}
+  h1 .o{display:block; color:transparent; -webkit-text-stroke:2px var(--ink); }
+  h1 .dot{color:var(--green); -webkit-text-stroke:0;}
+  .intro{margin-top:clamp(28px,4vw,52px); align-items:end;}
+  .intro .lead{grid-column:1 / span 7; font-size:clamp(20px,2.1vw,28px); line-height:1.3; font-weight:400; letter-spacing:-.01em; margin:0;}
+  .intro .lead b{font-weight:700;}
+  .intro .cue{grid-column:9 / span 4; font-size:14px; color:var(--ink2); margin:0;}
+  .intro .cue a{font-weight:700; text-decoration:none; border-bottom:2px solid var(--green);}
+
+  .field{position:relative; margin-top:clamp(40px,6vw,84px); background:var(--green); overflow:hidden;}
+  .field .wrap{position:relative; padding-top:clamp(30px,4vw,56px);}
+  .field .ghost{position:absolute; right:-1vw; bottom:-4vw; font-weight:900; font-stretch:125%; font-size:34vw; line-height:.8; letter-spacing:-.05em; color:rgba(255,255,255,.09); pointer-events:none; user-select:none;}
+  .field .cap{display:flex; justify-content:space-between; gap:16px; color:#fff; margin-bottom:18px;}
+  .field .cap .eyebrow{opacity:.85;}
+  .field figure{margin:0; position:relative; z-index:2;}
+  .field figure img{display:block; width:100%; box-shadow:0 30px 80px rgba(0,40,22,.35); cursor:zoom-in; transform:translateY(clamp(20px,3vw,44px));}
+
+  /* ---- ticker ---- */
+  .ticker{background:var(--ink); color:#fff; overflow:hidden; white-space:nowrap; padding:16px 0; margin-top:0;}
+  .ticker .t{display:inline-block; animation:tick 40s linear infinite; font-weight:800; font-stretch:125%; font-size:18px; letter-spacing:.02em; text-transform:uppercase;}
+  .ticker i{font-style:normal; color:var(--green); padding:0 22px;}
+  @keyframes tick{to{transform:translateX(-50%);}}
+
+  /* ---- sections ---- */
+  section.s{padding:clamp(64px,9vw,128px) 0; border-bottom:1px solid var(--line);}
+  section.s.tint{background:var(--wash);}
+  .lab{grid-column:1 / span 3; align-self:start; position:sticky; top:86px;}
+  .lab .n{display:block; font-weight:900; font-stretch:125%; font-size:clamp(56px,6vw,96px); line-height:.8; letter-spacing:-.04em; color:var(--green);}
+  .lab .t{display:block; margin-top:14px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;}
+  .lab .t::before{content:""; display:block; width:28px; height:2px; background:var(--ink); margin-bottom:10px;}
+  .body{grid-column:4 / span 9; min-width:0;}
+  h2{margin:0 0 20px; font-weight:800; font-stretch:112%; font-size:clamp(32px,4.4vw,64px); line-height:.98; letter-spacing:-.03em; max-width:15ch;}
+  h2 span{color:var(--green);}
+  .sub{font-size:clamp(17px,1.5vw,20px); line-height:1.5; color:var(--ink2); max-width:62ch; margin:0 0 clamp(32px,4vw,52px);}
+  .small{font-size:13px; color:var(--grey);}
+
+  /* 01 problem */
+  .cols{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px;}
+  .inbox{list-style:none; margin:0; padding:0; border-top:2px solid var(--ink);}
+  .inbox li{display:grid; grid-template-columns:96px 1fr; gap:16px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .inbox .ch{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey); padding-top:3px;}
+  .inbox p{margin:0; font-size:15.5px;}
+  .inbox em{display:block; font-style:normal; font-size:12.5px; font-weight:600; color:var(--signal); margin-top:4px;}
+  .quote{background:var(--ink); color:#fff; padding:clamp(24px,3vw,40px); display:flex; flex-direction:column; justify-content:space-between; gap:28px;}
+  .quote p.q{margin:0; font-weight:300; font-stretch:105%; font-size:clamp(22px,2.2vw,30px); line-height:1.2; letter-spacing:-.01em;}
+  .quote p.q b{font-weight:800; color:var(--green);}
+  .quote p{margin:0; font-size:14.5px; color:#c9cccb;}
+  .quote a{color:#fff; font-weight:700;}
+
+  /* 02 portal demo */
+  .portal{display:grid; grid-template-columns:minmax(0,1.08fr) minmax(0,1fr); background:var(--paper); box-shadow:0 1px 0 var(--line), 0 30px 70px rgba(12,13,13,.08);}
+  .portal > div{min-width:0;}
+  .browser{border-right:1px solid var(--line);}
+  .chrome{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--wash); border-bottom:1px solid var(--line);}
+  .dots{display:flex; gap:6px;} .dots i{width:10px; height:10px; border-radius:50%; background:#d4d7d6; display:block;}
+  .url{flex:1; display:flex; gap:8px; align-items:center; font-size:12.5px; background:#fff; border-radius:999px; padding:7px 14px; min-width:0; overflow:hidden; white-space:nowrap; color:var(--ink2);}
+  .url .lock{color:var(--green); font-weight:700;}
+  .firm{display:flex; gap:12px; align-items:center; padding:24px 28px 4px;}
+  .firm .av{width:40px; height:40px; border-radius:10px; background:var(--portal-av,var(--ink)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; font-stretch:125%; font-size:18px;}
+  .firm b{display:block; font-size:15px;} .firm span{font-size:13px; color:var(--grey);}
+  form.req{padding:10px 28px 24px;}
+  form.req h3{margin:10px 0 18px; font-weight:800; font-stretch:112%; font-size:28px; letter-spacing:-.02em;}
+  .fld{margin-bottom:14px;}
+  .fld label{display:block; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink2); margin-bottom:6px;}
+  .fld label i{color:var(--signal); font-style:normal;}
+  .fld input,.fld select,.fld textarea{width:100%; font:inherit; font-size:15px; color:var(--ink); background:var(--wash); border:0; border-bottom:2px solid transparent; padding:11px 12px; border-radius:6px 6px 0 0; transition:border-color .2s, background .2s;}
+  .fld textarea{min-height:72px; resize:vertical;}
+  .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none; background:#fff; border-bottom-color:var(--portal,var(--green)); box-shadow:0 0 0 1px var(--line);}
+  .submit{display:inline-flex; align-items:center; gap:12px; font:inherit; font-weight:700; font-size:15px; color:#fff; background:var(--portal,var(--green)); border:0; border-radius:999px; padding:14px 24px; cursor:pointer; transition:transform .15s, filter .15s;}
+  .submit:hover{transform:translateY(-1px); filter:brightness(1.06);}
+  .submit:disabled{background:var(--grey); cursor:default; transform:none;}
+  .powered{padding:12px 28px 18px; font-size:11px; font-weight:600; letter-spacing:.14em; color:var(--grey); border-top:1px solid var(--line);}
+
+  .track{padding:28px; display:flex; flex-direction:column; background:var(--paper);}
+  .track .idle{margin:auto 0; text-align:center; color:var(--grey);}
+  .track .idle .big{display:block; font-weight:900; font-stretch:125%; font-size:72px; line-height:1; color:var(--line); letter-spacing:-.04em; margin-bottom:10px;}
+  .ref{display:none;}
+  .track.on .idle{display:none;} .track.on .ref{display:block;}
+  .ref .rk{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
+  .ref .num{font-weight:900; font-stretch:125%; font-size:clamp(46px,5vw,68px); line-height:1; letter-spacing:-.04em; margin:6px 0 8px;}
+  .ref .num span{color:var(--green);}
+  .ref .hint{font-size:14px; color:var(--ink2); margin:0 0 20px;}
+  ol.steps{list-style:none; margin:0 0 22px; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:6px;}
+  ol.steps li{position:relative; padding-top:14px; opacity:.35; transition:opacity .35s;}
+  ol.steps li::before{content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--line); border-radius:3px; transition:background .35s;}
+  ol.steps li.done{opacity:1;} ol.steps li.done::before{background:var(--green);}
+  ol.steps b{display:block; font-size:13.5px; line-height:1.25;} ol.steps span{display:block; font-size:12px; color:var(--grey); line-height:1.35; margin-top:4px;}
+  .firmside{border-top:1px solid var(--line); margin:0 -28px; padding:18px 28px 0;}
+  .firmside .lbl{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--signal); margin-bottom:10px;}
+  .convert{font:inherit; font-weight:700; font-size:14px; color:#fff; background:var(--ink); border:0; border-radius:999px; padding:12px 20px; cursor:pointer;}
+  .convert:disabled{opacity:.3; cursor:default;}
+  .qb{display:inline-flex; align-items:center; gap:7px; margin-left:12px; font-size:13.5px; color:var(--ink2); cursor:pointer;}
+  .qb input{accent-color:var(--green);}
+  .proj{display:none; margin-top:16px; background:var(--wash); border-radius:10px; overflow:hidden;}
+  .proj.on{display:block; animation:rise .45s cubic-bezier(.2,.9,.3,1.15);}
+  .proj .ph{display:flex; justify-content:space-between; gap:8px; padding:11px 14px; background:var(--ink); color:#fff; font-weight:700; font-size:13px; font-stretch:110%;}
+  .proj .ph span:last-child{color:var(--green); font-weight:600;}
+  .proj dl{display:grid; grid-template-columns:auto 1fr; margin:0; font-size:13.5px;}
+  .proj dt,.proj dd{padding:7px 14px; border-top:1px solid var(--line); margin:0;}
+  .proj dt{font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--grey); padding-top:9px;}
+  .proj dd mark{background:var(--mint); color:inherit; padding:1px 4px; border-radius:3px;}
+  .proj .pf{padding:9px 14px; font-size:12px; font-weight:600; color:var(--green-d); border-top:1px solid var(--line);}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+
+  /* 03 builder */
+  .builder{display:grid; grid-template-columns:200px minmax(0,1fr) 250px; background:var(--paper); box-shadow:0 1px 0 var(--line), 0 30px 70px rgba(12,13,13,.06);}
+  .builder > div{min-width:0;}
+  .builder h4{margin:0; padding:16px 18px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
+  .forms{background:var(--ink); color:#fff;}
+  .forms h4{color:#8e9291;}
+  .forms button{display:block; width:100%; text-align:left; font:inherit; font-size:15px; font-weight:600; color:#c9cccb; background:none; border:0; border-left:4px solid transparent; padding:12px 16px 12px 14px; cursor:pointer;}
+  .forms button small{display:block; font-size:12px; font-weight:400; color:#8e9291;}
+  .forms button[aria-pressed="true"]{color:#fff; border-left-color:var(--green); background:rgba(255,255,255,.06);}
+  .forms button[aria-pressed="true"] small{color:var(--green);}
+  .canvas{padding-bottom:18px;}
+  .canvas ul{list-style:none; margin:0; padding:0 18px;}
+  .canvas li{display:flex; align-items:center; gap:12px; padding:12px 14px; margin-bottom:8px; background:var(--wash); border-radius:8px; border-left:4px solid var(--portal,var(--green)); animation:rise .3s ease;}
+  .canvas li .ty{flex:0 0 96px; font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--green-d);}
+  .canvas li .nm{flex:1; min-width:0; font-size:14.5px; font-weight:500;}
+  .canvas li .rq{font:inherit; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border:1.5px solid var(--ink); background:none; color:var(--ink); border-radius:999px; padding:4px 10px; cursor:pointer;}
+  .canvas li .rq[aria-pressed="true"]{background:var(--ink); color:#fff;}
+  .canvas li .rm{border:0; background:none; color:var(--grey); font-size:18px; line-height:1; cursor:pointer; padding:2px 4px;}
+  .canvas .share{margin:10px 18px 0; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:13px; padding:12px 14px; border-radius:8px; background:var(--mint);}
+  .canvas .share b{color:var(--green-d); word-break:break-all;}
+  .palette{border-left:1px solid var(--line);}
+  .palette .grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0 18px 18px;}
+  .palette button{font:inherit; font-size:13px; font-weight:600; display:flex; align-items:center; gap:8px; text-align:left; background:var(--wash); color:var(--ink); border:0; border-radius:8px; padding:11px 10px; cursor:pointer; transition:background .15s, color .15s;}
+  .palette button:hover{background:var(--ink); color:#fff;}
+  .palette .brand{padding:0 18px 18px;}
+  .palette .brand p{margin:0 0 10px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
+  .swatches{display:flex; gap:8px;}
+  .swatches button{width:32px; height:32px; border-radius:50%; border:0; padding:0; cursor:pointer;}
+  .swatches button[aria-pressed="true"]{box-shadow:0 0 0 3px #fff, 0 0 0 5px var(--ink);}
+
+  /* 04 flow */
+  .flow{position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px; padding-top:34px;}
+  .flow::before{content:""; position:absolute; left:0; right:0; top:8px; height:2px; background:var(--line);}
+  .flow::after{content:""; position:absolute; left:0; top:8px; height:2px; width:0; background:var(--green); transition:width 1.8s cubic-bezier(.6,.05,.3,1);}
+  .flow.drawn::after{width:100%;}
+  .flow > div{position:relative;}
+  .flow > div::before{content:""; position:absolute; left:0; top:-32px; width:14px; height:14px; border-radius:50%; background:var(--paper); border:3px solid var(--green);}
+  .flow .k{display:block; font-weight:900; font-stretch:125%; font-size:clamp(44px,4.4vw,72px); line-height:.9; letter-spacing:-.04em; color:var(--ink);}
+  .flow h3{margin:14px 0 8px; font-size:19px; font-weight:700; letter-spacing:-.01em; line-height:1.2;}
+  .flow p{margin:0; font-size:15px; color:var(--ink2);}
+
+  /* 05 tour */
+  .tour{display:grid; grid-template-columns:240px minmax(0,1fr); gap:0; background:var(--paper); box-shadow:0 1px 0 var(--line), 0 30px 70px rgba(12,13,13,.06);}
+  .tabs{display:flex; flex-direction:column; border-right:1px solid var(--line); padding:8px 0;}
+  .tabs button{display:flex; align-items:baseline; gap:14px; font:inherit; text-align:left; background:none; border:0; border-left:4px solid transparent; padding:14px 18px 14px 16px; cursor:pointer; color:var(--grey); font-size:16px; font-weight:600; transition:color .15s;}
+  .tabs button small{font-weight:900; font-stretch:125%; font-size:13px; color:var(--line); min-width:22px;}
+  .tabs button:hover{color:var(--ink);}
+  .tabs button[aria-selected="true"]{color:var(--ink); border-left-color:var(--green);}
+  .tabs button[aria-selected="true"] small{color:var(--green);}
+  .view{display:grid; grid-template-rows:auto auto; min-width:0;}
+  .stage{display:flex; align-items:center; justify-content:center; padding:clamp(18px,3vw,36px); background:var(--wash); min-height:380px;}
+  .pic{position:relative; width:100%; margin:0 auto; box-shadow:0 18px 50px rgba(12,13,13,.14); background:#fff;}
+  .pic img{display:block; width:100%; cursor:zoom-in;}
+  .pin{position:absolute; width:28px; height:28px; margin:-14px 0 0 -14px; border-radius:50%; background:var(--ink); color:#fff; font:inherit; font-weight:800; font-size:12.5px; line-height:28px; text-align:center; border:0; padding:0; cursor:pointer; box-shadow:0 0 0 3px rgba(255,255,255,.95), 0 6px 14px rgba(0,0,0,.25); transition:transform .2s, background .2s;}
+  .pin:hover,.pin.hot{transform:scale(1.2); background:var(--green);}
+  .notes{padding:clamp(20px,2.4vw,30px);}
+  .notes .head{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 16px; margin-bottom:16px;}
+  .notes h3{margin:0; font-weight:800; font-stretch:112%; font-size:26px; letter-spacing:-.02em;}
+  .notes .cap{margin:0; font-size:15px; color:var(--ink2);}
+  .notes ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 24px; counter-reset:n;}
+  .notes li{counter-increment:n; position:relative; padding:10px 8px 10px 40px; border-top:1px solid var(--line); font-size:14.5px; color:var(--ink2); border-radius:4px; transition:background .2s;}
+  .notes li::before{content:counter(n); position:absolute; left:6px; top:11px; width:24px; height:24px; border-radius:50%; background:var(--ink); color:#fff; font-weight:800; font-size:11.5px; line-height:24px; text-align:center;}
+  .notes li.hot{background:var(--mint);} .notes li.hot::before{background:var(--green);}
+  .notes li b{display:block; color:var(--ink); font-size:15px;}
+
+  /* 06 legend */
+  .legend{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px;}
+  .legend > div{border-top:2px solid var(--ink); padding-top:16px;}
+  .legend h3{margin:0 0 16px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:6px 11px; border-radius:999px;}
+  .c-g{color:#13784e; background:#dbf2e6;} .c-a{color:#9a6206; background:#fbecd0;} .c-n{color:#5c6466; background:#e8ebeb;}
+  .tasks{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .task{padding:12px; color:#fff; font-size:13.5px; font-weight:700; min-height:68px; border-radius:6px;}
+  .task small{display:block; font-size:9.5px; letter-spacing:.14em; opacity:.85;}
+  .kpis{display:grid; gap:8px;}
+  .kpi{display:flex; justify-content:space-between; align-items:baseline; background:var(--wash); border-top:3px solid; padding:10px 12px; border-radius:0 0 6px 6px;}
+  .kpi span{font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--grey);}
+  .kpi b{font-weight:400; font-size:24px;}
+
+  /* 07 compare */
+  .vs{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px;}
+  .vs .col{padding:clamp(22px,2.6vw,34px); border-radius:4px;}
+  .vs .bad{background:var(--wash);}
+  .vs .good{background:var(--green); color:#fff;}
+  .vs h3{margin:0 0 16px; font-weight:800; font-stretch:112%; font-size:24px; letter-spacing:-.02em;}
+  .vs .bad h3{color:var(--grey);}
+  .vs ul{list-style:none; margin:0; padding:0;}
+  .vs li{position:relative; padding:10px 0 10px 28px; border-top:1px solid rgba(0,0,0,.08); font-size:15px;}
+  .vs .good li{border-top-color:rgba(255,255,255,.22);}
+  .vs .bad li{color:var(--ink2);}
+  .vs .bad li::before{content:"—"; position:absolute; left:0; color:var(--grey); font-weight:700;}
+  .vs .good li::before{content:"✓"; position:absolute; left:0; font-weight:800;}
+
+  /* credits */
+  .credits{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px;}
+  .credits > div{border-top:2px solid var(--ink); padding-top:16px;}
+  .credits small{display:block; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey); margin-bottom:8px;}
+  .credits p{margin:0; font-size:15.5px; color:var(--ink2);}
+  .stack{display:flex; flex-wrap:wrap; gap:6px;}
+  .stack span{font-size:13px; font-weight:600; padding:6px 12px; border-radius:999px; background:var(--wash);}
+  .next{display:flex; flex-wrap:wrap; gap:10px; margin-top:clamp(36px,4vw,56px);}
+  .next a{display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:15px; padding:14px 22px; border-radius:999px; background:var(--wash); transition:background .2s, color .2s;}
+  .next a:first-child{background:var(--ink); color:#fff;}
+  .next a:hover{background:var(--green); color:#fff;}
+
+  footer{padding:36px 0 56px;}
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
+
+  /* lightbox */
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(12,13,13,.92); align-items:center; justify-content:center; padding:24px; cursor:zoom-out;}
+  #lb img{max-width:min(1400px,96vw); max-height:92vh; background:#fff; box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  #lb .x{position:fixed; top:14px; right:22px; color:#fff; font-size:40px; font-weight:300; cursor:pointer;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1; transform:none;}
+
+  @media (max-width:1080px){
+    .builder{grid-template-columns:1fr;}
+    .forms{display:grid; grid-template-columns:repeat(3,1fr);} .forms h4{grid-column:1/-1;}
+    .palette{border-left:0; border-top:1px solid var(--line);}
+    .palette .grid{grid-template-columns:repeat(3,1fr);}
+    .tour{grid-template-columns:1fr;}
+    .tabs{flex-direction:row; overflow-x:auto; border-right:0; border-bottom:1px solid var(--line); padding:0;}
+    .tabs button{border-left:0; border-bottom:4px solid transparent; white-space:nowrap; padding:14px 16px;}
+    .tabs button[aria-selected="true"]{border-bottom-color:var(--green);}
+  }
+  @media (max-width:900px){
+    .lab{grid-column:1 / -1; position:static; margin-bottom:28px; display:flex; align-items:flex-end; gap:16px;}
+    .lab .t{margin:0 0 6px;} .lab .t::before{display:none;}
+    .body{grid-column:1 / -1;}
+    .hero .facts > div{grid-column:span 6; margin-bottom:10px;}
+    .intro .lead,.intro .cue{grid-column:1 / -1;} .intro .cue{margin-top:16px;}
+    .cols,.portal,.vs{grid-template-columns:1fr;}
+    .browser{border-right:0; border-bottom:1px solid var(--line);}
+    .flow{grid-template-columns:1fr 1fr; row-gap:48px;}
+    .flow::before,.flow::after{display:none;}
+    .legend,.credits{grid-template-columns:1fr;}
+    .notes ol{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .row{column-gap:12px;}
+    .forms,.palette .grid{grid-template-columns:1fr 1fr;}
+    .flow{grid-template-columns:1fr;}
+    ol.steps{grid-template-columns:1fr 1fr; row-gap:12px;}
+    .topbar .who{display:none;}
+    h1 .o{-webkit-text-stroke-width:1.4px;}
+    .qb{margin:12px 0 0; display:flex;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+    .reveal{opacity:1; transform:none;}
+    .flow::after{width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}"><span>&larr;</span>Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="row facts">
+      <div><small>Case study</small><b>Kudurru Stone</b></div>
+      <div><small>Discipline</small><b>React web app</b></div>
+      <div><small>Industry</small><b>Land surveying</b></div>
+      <div><small>Companion to</small><b><a href="KudurruStone.html">.NET MAUI field app</a></b></div>
+    </div>
+    <h1>Kudurru<br>Stone<span class="dot">.</span><span class="o">Web Client</span></h1>
+    <div class="row intro">
+      <p class="lead">The office side of Kudurru Stone. A survey firm runs <b>its whole operation</b> here: projects, clients, crews and the weekly schedule. Its <b>branded client portal</b> is the front door, where every request arrives with a reference number and becomes a job <b>without anyone retyping it</b>.</p>
+      <p class="cue">Two working demos below: submit a request in <a href="#portal">the client portal</a>, then build a form of your own in <a href="#builder">the form builder</a>.</p>
+    </div>
+  </div>
+  <div class="field">
+    <span class="ghost" aria-hidden="true">KS</span>
+    <div class="wrap">
+      <div class="cap"><span class="eyebrow">Fig. 01: Dashboard</span><span class="eyebrow">Office view · today's work at a glance</span></div>
+      <figure data-zoom="images/KudurruStoneWeb/KSWebDashboard.png"><img src="images/KudurruStoneWeb/KSWebDashboard.png" alt="Kudurru Stone Web Client dashboard showing active projects, jobs scheduled, crew available, outstanding invoices, today's schedule and recent activity"></figure>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><span class="t">Request<i>→</i>Reference<i>→</i>Project<i>→</i>Crew<i>→</i>Schedule<i>→</i>Invoice<i>/</i>Request<i>→</i>Reference<i>→</i>Project<i>→</i>Crew<i>→</i>Schedule<i>→</i>Invoice<i>/</i>Request<i>→</i>Reference<i>→</i>Project<i>→</i>Crew<i>→</i>Schedule<i>→</i>Invoice<i>/</i>Request<i>→</i>Reference<i>→</i>Project<i>→</i>Crew<i>→</i>Schedule<i>→</i>Invoice<i>/</i></span></div>
+
+<!-- ================= 01 ================= -->
+<section class="s" id="problem">
+  <div class="wrap row">
+    <div class="lab"><span class="n">01</span><span class="t">The problem</span></div>
+    <div class="body">
+      <h2 class="reveal">Without a front door, intake is <span>chaos.</span></h2>
+      <p class="sub reveal">Survey requests used to arrive by phone, by email and by voicemail. Details got lost, nobody was sure what had been promised, and clients called back to ask whether anyone had received their request. Once the job started, those gaps showed up in billing and scheduling.</p>
+      <div class="cols reveal">
+        <ul class="inbox">
+          <li><span class="ch">Voicemail</span><p>"…need corners staked before grading, two parcels, call me back…"<em>No address. No callback number.</em></p></li>
+          <li><span class="ch">Email</span><p>"Following up on my request from last week. Did you get it?"<em>Which request?</em></p></li>
+          <li><span class="ch">Phone</span><p>A quote promised "by Friday," written on a sticky note.<em>Sticky note missing.</em></p></li>
+          <li><span class="ch">Web form</span><p>A survey request typed into the site's generic contact form.<em>Free text, not a record.</em></p></li>
+        </ul>
+        <div class="quote">
+          <p class="q">A <b>kudurru</b> was a Babylonian boundary stone: a carved record of who held a parcel and where its lines ran.</p>
+          <p>The name fits. Kudurru Stone is the system of record for a survey firm, and the web client is where that record is kept: every request, project, crew assignment and schedule change in one place. Crews carry the <a href="KudurruStone.html">.NET MAUI field app</a> on site.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 ================= -->
+<section class="s tint" id="portal">
+  <div class="wrap row">
+    <div class="lab"><span class="n">02</span><span class="t">Client portal · try it</span></div>
+    <div class="body">
+      <h2 class="reveal">A branded request form, with a reference they can <span>track.</span></h2>
+      <p class="sub reveal">Each firm gets its own portal on a branded subdomain. A client fills in the form, gets a tracking reference on the spot, and doesn't need a login to check on it. Submit the example, then play the firm's part and turn the request into a project.</p>
+
+      <div class="portal reveal">
+        <div class="browser">
+          <div class="chrome"><span class="dots"><i></i><i></i><i></i></span><span class="url"><span class="lock">● Secure</span>ridgeline.kudurru.app/request/boundary</span></div>
+          <div class="firm"><span class="av">R</span><div><b>Ridgeline Survey Co.</b><span>Welcome! Tell us about your property and we'll take it from here.</span></div></div>
+          <form class="req" id="reqForm" novalidate>
+            <h3>Request a survey.</h3>
+            <div class="fld"><label for="fType">Project type <i>*</i></label>
+              <select id="fType"><option>Boundary survey</option><option>Topographic survey</option><option>ALTA survey</option><option>Construction staking</option></select></div>
+            <div class="fld"><label for="fAddr">Property address <i>*</i></label><input id="fAddr" value="1420 Ridgeline Rd, Meridian ID" required></div>
+            <div class="fld"><label for="fMail">Your email <i>*</i></label><input id="fMail" type="email" value="ops@ridgeline.dev" required></div>
+            <div class="fld"><label for="fNeed">What do you need</label><textarea id="fNeed">Corners staked before grading starts. Two parcels, access off Ridgeline Rd.</textarea></div>
+            <button class="submit" id="submitBtn" type="submit">Submit request <span aria-hidden="true">→</span></button>
+          </form>
+          <div class="powered">POWERED BY KUDURRU STONE</div>
+        </div>
+
+        <div class="track" id="track" aria-live="polite">
+          <div class="idle"><span class="big">KS-?????</span><span class="small">Submit the form. The confirmation and tracking reference appear here.</span></div>
+          <div class="ref">
+            <div class="rk">Request received · tracking reference</div>
+            <div class="num" id="refNum">KS-<span>20418</span></div>
+            <p class="hint">A copy and the tracking link went to <b id="refMail">ops@ridgeline.dev</b>. You can check on it any time with this reference. No login needed.</p>
+            <ol class="steps" id="steps">
+              <li><b>Received</b><span>A structured record</span></li>
+              <li><b>Emailed</b><span>Client gets the tracking link</span></li>
+              <li><b>Notified</b><span>Team sees every field</span></li>
+              <li><b>Project</b><span>Nothing retyped</span></li>
+            </ol>
+            <div class="firmside">
+              <div class="lbl">Firm side · Kudurru Stone Web Client</div>
+              <button class="convert" id="convertBtn" type="button" disabled>Convert to project</button>
+              <label class="qb"><input type="checkbox" id="qbSync" checked> Sync to QuickBooks</label>
+              <div class="proj" id="proj">
+                <div class="ph"><span id="projNo">#PR-2218</span><span id="projFrom">from KS-20418</span></div>
+                <dl>
+                  <dt>Type</dt><dd><mark id="pType">Boundary survey</mark></dd>
+                  <dt>Site</dt><dd><mark id="pAddr">1420 Ridgeline Rd, Meridian ID</mark></dd>
+                  <dt>Contact</dt><dd><mark id="pMail">ops@ridgeline.dev</mark></dd>
+                  <dt>Scope</dt><dd><mark id="pNeed">Corners staked before grading starts.</mark></dd>
+                </dl>
+                <div class="pf" id="pFoot">✓ Every highlighted field came straight from the client's request · ✓ QuickBooks sync queued</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="small" style="margin-top:14px;">Illustrative demo. Ridgeline Survey Co. and every value shown are example data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 ================= -->
+<section class="s" id="builder">
+  <div class="wrap row">
+    <div class="lab"><span class="n">03</span><span class="t">Form builder</span></div>
+    <div class="body">
+      <h2 class="reveal">Not a generic contact form. Their form, as many as they <span>need.</span></h2>
+      <p class="sub reveal">A firm names a form, adds fields, marks each one required or optional, previews it and publishes. A quote request, a boundary survey and an ALTA can each have their own form and shareable link, showing the firm's logo, colors and welcome message.</p>
+      <div class="builder reveal">
+        <div class="forms" id="formList">
+          <h4>Forms</h4>
+          <button type="button" data-f="quote" aria-pressed="false">Quote request<small>/request/quote</small></button>
+          <button type="button" data-f="boundary" aria-pressed="true">Boundary survey<small>/request/boundary</small></button>
+          <button type="button" data-f="alta" aria-pressed="false">ALTA survey<small>/request/alta</small></button>
+        </div>
+        <div class="canvas">
+          <h4>Fields · <span id="fCount">4</span></h4>
+          <ul id="fieldList"></ul>
+          <div class="share">Share link <b id="shareUrl">ridgeline.kudurru.app/request/boundary</b></div>
+        </div>
+        <div class="palette">
+          <h4>Add a field</h4>
+          <div class="grid" id="palette">
+            <button type="button" data-t="Text"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 3H12M7 3V12" stroke="currentColor" stroke-width="1.8"/></svg>Text</button>
+            <button type="button" data-t="Email"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="1.5" y="3" width="11" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 3.5 7 8l5-4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Email</button>
+            <button type="button" data-t="Phone"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="4" y="1.5" width="6" height="11" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Phone</button>
+            <button type="button" data-t="Dropdown"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="1.5" y="3" width="11" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 6l1.5 1.5L11 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Dropdown</button>
+            <button type="button" data-t="Checkbox"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="2" width="10" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 7l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Checkbox</button>
+            <button type="button" data-t="Description"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 3H12M2 6H12M2 9H12M2 12H8" stroke="currentColor" stroke-width="1.4"/></svg>Description</button>
+          </div>
+          <div class="brand">
+            <p>Portal brand color</p>
+            <div class="swatches" id="swatches">
+              <button type="button" aria-label="Green" aria-pressed="true" data-c="#00a865" style="background:#00a865"></button>
+              <button type="button" aria-label="Teal" aria-pressed="false" data-c="#0f9d96" style="background:#0f9d96"></button>
+              <button type="button" aria-label="Navy" aria-pressed="false" data-c="#24467e" style="background:#24467e"></button>
+              <button type="button" aria-label="Clay" aria-pressed="false" data-c="#c0522a" style="background:#c0522a"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="small" style="margin-top:14px;">Interactive: switch forms, add field types and toggle required. The brand color also restyles the portal in section 02.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 ================= -->
+<section class="s tint" id="flow">
+  <div class="wrap row">
+    <div class="lab"><span class="n">04</span><span class="t">The flow</span></div>
+    <div class="body">
+      <h2 class="reveal">From a request to a job, with nothing <span>retyped.</span></h2>
+      <p class="sub reveal">Four steps, and the details the client typed in carry all the way through to the project.</p>
+      <div class="flow reveal" id="traverse">
+        <div><span class="k">A</span><h3>Build your own request form</h3><p>Name it, then add text, email, phone, dropdown, checkbox or description fields, each required or optional. Preview it, then publish. A firm can run as many forms as it likes.</p></div>
+        <div><span class="k">B</span><h3>Share one link</h3><p>Each form has its own URL on the branded portal, with the firm's logo, colors and welcome message. It can go on the firm's website or into an email to a client.</p></div>
+        <div><span class="k">C</span><h3>Every submission gets a reference</h3><p>The client sees a confirmation with a tracking reference and gets a confirmation email. The team gets an internal notification with every field the client filled in.</p></div>
+        <div><span class="k">D</span><h3>Turn a request into a job</h3><p>The request becomes a project with its own project number, and can sync to QuickBooks if the firm wants it to. Nobody retypes what the client already entered.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 ================= -->
+<section class="s" id="tour">
+  <div class="wrap row">
+    <div class="lab"><span class="n">05</span><span class="t">Inside the firm</span></div>
+    <div class="body">
+      <h2 class="reveal">Once it's a job, the whole office runs <span>on it.</span></h2>
+      <p class="sub reveal">The rest of the web client is where the firm works the job: who it's for, who's on it, when it happens and where it stands. Choose a screen, then select a numbered marker to read its note. Click a screenshot to enlarge it.</p>
+      <div class="tour reveal">
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div class="view">
+          <div class="stage"><div class="pic" id="pic"><img id="picImg" src="images/KudurruStoneWeb/KSWebDashboard.png" alt=""></div></div>
+          <div class="notes"><div class="head"><h3 id="nTitle"></h3><p class="cap" id="nCap"></p></div><ol id="nList"></ol></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 ================= -->
+<section class="s tint" id="legend">
+  <div class="wrap row">
+    <div class="lab"><span class="n">06</span><span class="t">Visual language</span></div>
+    <div class="body">
+      <h2 class="reveal">One meaning per color, on every <span>screen.</span></h2>
+      <p class="sub reveal">Green is underway or available, amber is waiting or partial, and gray is not started or unavailable. Task types keep their colors from the scheduler through to the project page, so the office reads status before it reads words.</p>
+      <div class="legend reveal">
+        <div>
+          <h3>Status chips</h3>
+          <div class="chips">
+            <span class="chip c-g">In progress</span><span class="chip c-g">Active</span><span class="chip c-g">Available</span><span class="chip c-g">On site</span>
+            <span class="chip c-a">Queued</span><span class="chip c-a">On hold</span><span class="chip c-a">Partial</span><span class="chip c-a">Travelling</span>
+            <span class="chip c-n">Unassigned</span><span class="chip c-n">Archived</span><span class="chip c-n">Unavailable</span><span class="chip c-n">Office</span>
+          </div>
+        </div>
+        <div>
+          <h3>Task types</h3>
+          <div class="tasks">
+            <div class="task" style="background:#22b573"><small>TYPE</small>Set Property Corners</div>
+            <div class="task" style="background:#14a79d"><small>TYPE</small>Research</div>
+            <div class="task" style="background:#5cc697"><small>TYPE</small>Field Work</div>
+            <div class="task" style="background:#bfc4c7"><small>TYPE</small>Drafting</div>
+          </div>
+        </div>
+        <div>
+          <h3>Dashboard tiles</h3>
+          <div class="kpis">
+            <div class="kpi" style="border-top-color:#22b573"><span>Active projects</span><b>18</b></div>
+            <div class="kpi" style="border-top-color:#14a79d"><span>Jobs scheduled</span><b>47</b></div>
+            <div class="kpi" style="border-top-color:#e6a22a"><span>Crew available</span><b>9<small style="font-size:14px;color:#76797a"> / 14</small></b></div>
+            <div class="kpi" style="border-top-color:#e8622c"><span>Outstanding</span><b>$42.8k</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 ================= -->
+<section class="s" id="record">
+  <div class="wrap row">
+    <div class="lab"><span class="n">07</span><span class="t">Why it matters</span></div>
+    <div class="body">
+      <h2 class="reveal">A request becomes a record, not another <span>email.</span></h2>
+      <p class="sub reveal">The portal runs on the same system as the firm's projects. A request arrives as a structured record with a reference number, so it becomes a project in one step, and clients can come back later and sign in to follow their projects.</p>
+      <div class="vs reveal">
+        <div class="col bad">
+          <h3>Generic contact form</h3>
+          <ul>
+            <li>Free text in an inbox</li>
+            <li>No reference number, so clients call to check on it</li>
+            <li>Someone retypes the details into the job system</li>
+            <li>Files go back and forth as email attachments</li>
+            <li>Same form for every kind of survey</li>
+          </ul>
+        </div>
+        <div class="col good">
+          <h3>Kudurru Stone client portal</h3>
+          <ul>
+            <li>A structured record with every field in place</li>
+            <li>Tracking reference on screen and by email, with no login needed</li>
+            <li>Converts to a project in one step, with optional QuickBooks sync</li>
+            <li>Clients sign in with a passwordless magic link and swap files in dedicated folders</li>
+            <li>A separate branded form for each kind of request</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 ================= -->
+<section class="s" id="role" style="border-bottom:0;">
+  <div class="wrap row">
+    <div class="lab"><span class="n">08</span><span class="t">Role &amp; stack</span></div>
+    <div class="body">
+      <h2 class="reveal">The office side of one system of <span>record.</span></h2>
+      <div class="credits reveal">
+        <div><small>Scope</small><p>Dashboard, clients, projects, crew availability, the weekly scheduler and the branded client portal, all on the same platform as the .NET MAUI field app.</p></div>
+        <div><small>Discipline</small><p>React web app · UX/UI design · front-end engineering</p></div>
+        <div><small>Stack</small><div class="stack"><span>React</span><span>TypeScript</span><span>REST API</span><span>QuickBooks sync</span><span>Magic-link auth</span><span>Responsive CSS</span></div></div>
+      </div>
+      <div class="next reveal"><a href="KudurruStone.html">See the field app →</a><a href="index.html#webframeworks">All client-side work</a><a href="David Silverlight Resume.html">Resume</a></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>Kudurru Stone Web Client · Case study</span><span>David Silverlight</span></div></footer>
+<div id="lb" role="dialog" aria-label="Enlarged screenshot"><span class="x" aria-hidden="true">&times;</span><img alt="Enlarged screenshot"></div>
+
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  /* ---------- lightbox ---------- */
+  var lb=$('lb'), lbImg=lb.querySelector('img');
+  function zoom(src){ lbImg.src=src; lb.style.display='flex'; }
+  function unzoom(){ lb.style.display='none'; lbImg.src=''; }
+  lb.addEventListener('click',unzoom);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') unzoom(); });
+  document.querySelectorAll('[data-zoom]').forEach(function(el){ el.addEventListener('click',function(){ zoom(el.getAttribute('data-zoom')); }); });
+
+  /* ---------- reveal + flow line ---------- */
+  var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in','drawn'); io.unobserve(e.target);} });
+  },{threshold:.12}) : null;
+  document.querySelectorAll('.reveal').forEach(function(el){ io ? io.observe(el) : el.classList.add('in','drawn'); });
+
+  /* ---------- 02: portal demo ---------- */
+  var ref=20417, proj=2217;   // first submission shows KS-20418 / #PR-2218
+  var form=$('reqForm'), track=$('track'), steps=[].slice.call(document.querySelectorAll('#steps li')),
+      convertBtn=$('convertBtn'), projBox=$('proj'), submitBtn=$('submitBtn');
+  function mark(n){ steps.forEach(function(li,i){ li.classList.toggle('done', i<=n); }); }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var addr=$('fAddr'), mail=$('fMail');
+    if(!addr.value.trim()){ addr.focus(); return; }
+    if(!/^\S+@\S+\.\S+$/.test(mail.value.trim())){ mail.focus(); return; }
+    ref++; projBox.classList.remove('on');
+    $('refNum').innerHTML='KS-<span>'+ref+'</span>';
+    $('refMail').textContent=mail.value.trim();
+    track.classList.add('on'); mark(-1);
+    submitBtn.disabled=true; submitBtn.firstChild.nodeValue='Submitted ';
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    [0,1,2].forEach(function(n){ setTimeout(function(){ mark(n); if(n===2){ convertBtn.disabled=false; submitBtn.disabled=false; submitBtn.firstChild.nodeValue='Submit another '; } }, reduce?0:350+n*550); });
+  });
+  convertBtn.addEventListener('click',function(){
+    proj++;
+    $('projNo').textContent='#PR-'+proj;
+    $('projFrom').textContent='from KS-'+ref;
+    $('pType').textContent=$('fType').value;
+    $('pAddr').textContent=$('fAddr').value.trim();
+    $('pMail').textContent=$('fMail').value.trim();
+    $('pNeed').textContent=$('fNeed').value.trim()||'(none provided)';
+    $('pFoot').textContent='✓ Every highlighted field came straight from the client\'s request'+($('qbSync').checked?' · ✓ QuickBooks sync queued':' · QuickBooks sync off');
+    projBox.classList.remove('on'); void projBox.offsetWidth; projBox.classList.add('on');
+    mark(3); convertBtn.disabled=true;
+  });
+
+  /* ---------- 03: form builder ---------- */
+  var FORMS={
+    quote:{path:'quote',fields:[['Text','Full name',true],['Email','Email',true],['Phone','Phone',false],['Dropdown','Service needed',true],['Description','Project details',false]]},
+    boundary:{path:'boundary',fields:[['Dropdown','Project type',true],['Text','Property address',true],['Email','Your email',true],['Description','What do you need',false]]},
+    alta:{path:'alta',fields:[['Text','Company',true],['Email','Email',true],['Text','Property address',true],['Checkbox','Table A items requested',false],['Text','Title commitment no.',false],['Description','Lender requirements',false]]}
+  };
+  var cur='boundary', list=$('fieldList');
+  function render(){
+    var f=FORMS[cur]; list.innerHTML='';
+    f.fields.forEach(function(fd,i){
+      var li=document.createElement('li');
+      li.innerHTML='<span class="ty">'+fd[0]+'</span><span class="nm"></span><button type="button" class="rq" aria-pressed="'+fd[2]+'">'+(fd[2]?'Required':'Optional')+'</button><button type="button" class="rm" aria-label="Remove field">×</button>';
+      li.querySelector('.nm').textContent=fd[1];
+      li.querySelector('.rq').addEventListener('click',function(){ fd[2]=!fd[2]; render(); });
+      li.querySelector('.rm').addEventListener('click',function(){ f.fields.splice(i,1); render(); });
+      list.appendChild(li);
+    });
+    $('fCount').textContent=f.fields.length;
+    $('shareUrl').textContent='ridgeline.kudurru.app/request/'+f.path;
+  }
+  document.querySelectorAll('#formList button').forEach(function(b){
+    b.addEventListener('click',function(){
+      cur=b.getAttribute('data-f');
+      document.querySelectorAll('#formList button').forEach(function(x){ x.setAttribute('aria-pressed', x===b); });
+      render();
+    });
+  });
+  var NAMES={Text:'New text field',Email:'Email',Phone:'Phone',Dropdown:'New dropdown',Checkbox:'New checkbox',Description:'Additional notes'};
+  document.querySelectorAll('#palette button').forEach(function(b){
+    b.addEventListener('click',function(){ var t=b.getAttribute('data-t'); FORMS[cur].fields.push([t,NAMES[t],false]); render(); });
+  });
+  document.querySelectorAll('#swatches button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var c=b.getAttribute('data-c');
+      document.querySelectorAll('#swatches button').forEach(function(x){ x.setAttribute('aria-pressed', x===b); });
+      document.documentElement.style.setProperty('--portal',c);
+      document.documentElement.style.setProperty('--portal-av',c);
+    });
+  });
+  render();
+
+  /* ---------- 05: screen tour ---------- */
+  var PLATES=[
+    {t:'Dashboard',src:'KSWebDashboard.png',cap:'Shows how the firm stands right now: four numbers, today\'s crews and what just happened.',
+      pins:[[24,22,'Four headline numbers','Active projects, jobs scheduled, crew available and outstanding invoices, each with a short trend or context line underneath.'],
+            [61,54,'Today\'s schedule','Each job shows its time window, client and parcel, plus a chip for In progress, Queued or Unassigned.'],
+            [84,46,'Recent activity','Closed jobs, invoices sent, new projects and photo uploads, each tagged with the person who did it.'],
+            [8,93,'A clear trial call to action','The Register Now button stays in the same spot on every screen.']]},
+    {t:'Clients',src:'KSWebClients.png',cap:'A client directory you can scan for status, contact, workload and terms.',
+      pins:[[24,27,'Filter by status','Show all clients, or only active, on hold or archived.'],
+            [55,27,'Filter by color','Each client has its own color, and the same color shows up on the weekly scheduler.'],
+            [80,46,'Billing terms','Net 15, 30 or 45, or prepaid, listed next to the project count and last job date.'],
+            [91,16,'Add client','The primary action sits in the panel header, where people look for it.']]},
+    {t:'Project detail',src:'KSWebProjectDetail.png',cap:'A single project on one screen: progress, deadline, crew and budget.',
+      pins:[[25,27,'Completion','A progress bar with the exact percentage beside it.'],
+            [86,27,'Budget used','Spend against budget is always visible, so overruns show early.'],
+            [33,52,'Typed task cards','Set Property Corners, Research, Field Work and Drafting each keep their scheduler color and hold the field notes.'],
+            [94,49,'Assigned crew','Each person has a live status: On site, Travelling or Office.']]},
+    {t:'Crew',src:'KSWebEmployees.png',cap:'Who is available this week, sorted by the role a survey job needs.',
+      pins:[[30,24,'Filter by role','Party chief, instrument operator or drafting: the roles that make up a survey crew.'],
+            [64,24,'Availability legend','Available, Partial and Unavailable, shown as filled swatches.'],
+            [31,52,'Person cards','Initials, role, an availability chip and a short line such as "3 jobs this week" or "Out through 9/25".'],
+            [79,14,'Headcount at a glance','"14 total · 9 available" sits in the panel header.']]},
+    {t:'Weekly scheduler',src:'KSWebScheduler.png',cap:'A Sunday-to-Saturday board where dispatchers see the whole week.',
+      pins:[[33,16,'Filter by client','The client colors from the Clients screen act as filters here.'],
+            [66,16,'Filter by type','Show only Research, Drafting, Field Work or Set Property Corners.'],
+            [70,30,'Today, highlighted','The current day\'s column is tinted so the eye finds it first.'],
+            [47,48,'Actionable cards','Each card shows the type and comments, with edit, info and complete controls on the card.'],
+            [96,9,'Week navigation','Step to the previous or next week from the header.']]}
+  ];
+  var tabs=$('tabs'), pic=$('pic'), img=$('picImg'), nList=$('nList');
+  function showPlate(i){
+    var p=PLATES[i];
+    tabs.querySelectorAll('button').forEach(function(b,j){ b.setAttribute('aria-selected', j===i); b.tabIndex = j===i?0:-1; });
+    img.src='images/KudurruStoneWeb/'+p.src; img.alt='Kudurru Stone Web Client '+p.t+' screen';
+    pic.style.maxWidth = p.src==='KSWebScheduler.png' ? '520px' : '100%';
+    pic.querySelectorAll('.pin').forEach(function(x){ x.remove(); });
+    $('nTitle').textContent=p.t; $('nCap').textContent=p.cap; nList.innerHTML='';
+    p.pins.forEach(function(pn,k){
+      var b=document.createElement('button'); b.type='button'; b.className='pin'; b.textContent=k+1;
+      b.style.left=pn[0]+'%'; b.style.top=pn[1]+'%'; b.setAttribute('aria-label',(k+1)+': '+pn[2]);
+      var li=document.createElement('li'); li.innerHTML='<b></b>'; li.querySelector('b').textContent=pn[2]; li.appendChild(document.createTextNode(pn[3]));
+      function hot(on){ b.classList.toggle('hot',on); li.classList.toggle('hot',on); }
+      b.addEventListener('mouseenter',function(){hot(true);}); b.addEventListener('mouseleave',function(){hot(false);});
+      b.addEventListener('focus',function(){hot(true);}); b.addEventListener('blur',function(){hot(false);});
+      b.addEventListener('click',function(e){ e.stopPropagation(); li.scrollIntoView({block:'nearest',behavior:'smooth'}); hot(true); setTimeout(function(){hot(false);},1400); });
+      li.addEventListener('mouseenter',function(){hot(true);}); li.addEventListener('mouseleave',function(){hot(false);});
+      pic.appendChild(b); nList.appendChild(li);
+    });
+  }
+  PLATES.forEach(function(p,i){
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab');
+    b.innerHTML='<small>0'+(i+1)+'</small>'+p.t;
+    b.addEventListener('click',function(){ showPlate(i); });
+    b.addEventListener('keydown',function(e){
+      var k=e.key, n=null;
+      if(k==='ArrowDown'||k==='ArrowRight') n=(i+1)%PLATES.length;
+      if(k==='ArrowUp'||k==='ArrowLeft') n=(i-1+PLATES.length)%PLATES.length;
+      if(n!==null){ e.preventDefault(); showPlate(n); tabs.children[n].focus(); }
+    });
+    tabs.appendChild(b);
+  });
+  img.addEventListener('click',function(){ zoom(img.src); });
+  showPlate(0);
+})();
+</script>
+</body>
+</html>

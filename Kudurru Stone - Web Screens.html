@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kudurru Stone — Web Application Screens</title>
+<style>
+  :root{
+    --ink:#2e333a; --ink-2:#383e46; --ink-3:#252a30;
+    --nav:#9aa1a9; --nav-hover:#ffffff;
+    --green:#21b573; --green-d:#1b9a61; --green-m:#5cc79a; --green-l:#a9ddc5; --green-xl:#e8f7f1;
+    --teal:#17a69e; --gray-card:#c6cacc; --gray-card-2:#dcdfe1;
+    --orange:#e8622b; --red:#e05a4e; --amber:#eaa52e;
+    --bg:#eceef0; --line:#e1e4e7; --line-2:#eef0f2;
+    --text:#4a5159; --label:#8a9198; --head:#5a6168;
+    --sans:"Open Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#d9dcdf;font-family:var(--sans);color:var(--text);font-size:13px;-webkit-font-smoothing:antialiased;padding:34px 24px 60px}
+  .caption{max-width:1060px;margin:0 auto 12px;padding-top:30px}
+  .caption h2{font-size:15px;font-weight:700;color:#2e333a;letter-spacing:.3px}
+  .caption p{font-size:12.5px;color:#6f767d;margin-top:3px}
+
+  /* ---------- app shell ---------- */
+  .app{max-width:1060px;margin:0 auto 10px;display:flex;background:var(--bg);border-radius:4px;overflow:hidden;box-shadow:0 10px 26px rgba(30,40,55,.18)}
+  .side{width:172px;flex:none;background:var(--ink);display:flex;flex-direction:column}
+  .logo{height:44px;background:var(--ink-3);display:flex;align-items:center;gap:8px;padding:0 13px}
+  .logo .mk{width:17px;height:19px;background:var(--green);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+  .logo b{color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.9px}
+  .nav{padding:10px 0;flex:1}
+  .nav a{display:block;padding:9px 16px;color:var(--nav);font-size:12.5px;text-decoration:none}
+  .nav a:hover{color:#fff;background:var(--ink-2)}
+  .nav a.on{color:#fff;background:var(--ink-2);box-shadow:inset 3px 0 0 var(--green)}
+  .cta{margin:6px 16px 20px;background:var(--orange);color:#fff;text-align:center;font-size:11.5px;font-weight:700;padding:8px;border-radius:3px}
+
+  .main{flex:1;min-width:0;display:flex;flex-direction:column}
+  .top{height:44px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:0 16px}
+  .search{display:flex;margin-right:auto;margin-left:120px}
+  .search input{width:230px;height:25px;border:1px solid #dfe2e5;border-right:0;border-radius:3px 0 0 3px;padding:0 9px;font-size:11.5px;color:var(--text);font-family:inherit;background:#fff}
+  .search span{width:28px;height:25px;background:var(--green);border-radius:0 3px 3px 0;display:grid;place-items:center}
+  .top .lnk{font-size:11.5px;color:var(--head)}
+  .av{width:25px;height:25px;border-radius:50%;background:linear-gradient(145deg,#7d8891,#5d666e);display:grid;place-items:center;color:#fff;font-size:9.5px;font-weight:700}
+  .who{font-size:11px;color:var(--label);line-height:1.25}
+  .who b{display:block;color:var(--head);font-size:11.5px}
+  .bell{position:relative;width:15px;height:15px;border:1.6px solid #b5bbc1;border-radius:7px 7px 3px 3px}
+  .bell i{position:absolute;top:-4px;right:-5px;width:11px;height:11px;border-radius:50%;background:var(--red);color:#fff;font-style:normal;font-size:7.5px;font-weight:700;display:grid;place-items:center}
+
+  .body{padding:16px;flex:1}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:3px}
+  .ph{height:34px;background:#f4f5f6;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+  .ph h3{font-size:11.5px;font-weight:700;color:var(--head);letter-spacing:.9px;text-transform:uppercase}
+  .ph .meta{font-size:11px;color:var(--label);letter-spacing:.5px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .chev{width:22px;height:20px;border:1px solid var(--line);background:#fff;border-radius:2px;display:grid;place-items:center;color:var(--green);font-size:11px}
+  .btn{background:var(--green);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:6px 12px;border-radius:3px}
+  .btn.ghost{background:#fff;color:var(--head);border:1px solid var(--line)}
+
+  /* filter strip */
+  .filters{display:flex;gap:46px;padding:13px 14px;border-bottom:1px solid var(--line-2)}
+  .fg h4{font-size:10.5px;color:var(--label);letter-spacing:.9px;text-transform:uppercase;margin-bottom:8px}
+  .fr{display:flex;gap:26px}
+  .fo{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text)}
+  .cb{width:11px;height:11px;border:1px solid #c4c9cd;border-radius:2px;display:grid;place-items:center;background:#fff}
+  .cb.on{background:var(--green);border-color:var(--green);color:#fff;font-size:8px}
+  .sw{width:11px;height:11px;border-radius:2px}
+
+  /* ---------- scheduler ---------- */
+  .week{display:grid;grid-template-columns:repeat(7,1fr)}
+  .day{border-right:1px solid var(--line-2);padding:10px 7px 16px;min-height:300px}
+  .day:last-child{border-right:0}
+  .day.sel{background:var(--green-xl)}
+  .dh{text-align:center;margin-bottom:11px}
+  .dh .mo{font-size:8.5px;color:var(--label);letter-spacing:.8px;text-transform:uppercase}
+  .dh .nm{font-size:25px;font-weight:300;color:#454c53;line-height:1.15}
+  .dh .dy{font-size:8.5px;color:var(--label);letter-spacing:.8px;text-transform:uppercase}
+  .task{border-radius:2px;padding:8px 8px 0;margin-bottom:8px;color:#fff}
+  .task.g{background:var(--green)} .task.t{background:var(--teal)}
+  .task.m{background:var(--green-m)} .task.l{background:var(--green-l)} .task.x{background:var(--gray-card)}
+  .task .k{font-size:7.5px;letter-spacing:.7px;text-transform:uppercase;opacity:.8}
+  .task .ti{font-size:11px;font-weight:700;margin-bottom:6px}
+  .task .cm{font-size:9.5px;line-height:1.45;opacity:.95}
+  .task .fo2{display:flex;gap:9px;align-items:center;justify-content:flex-end;border-top:1px solid rgba(255,255,255,.28);margin-top:8px;padding:5px 0}
+  .ic{width:12px;height:12px;border-radius:50%;border:1.3px solid rgba(255,255,255,.85);display:grid;place-items:center;font-size:7px}
+  .ic.sq{border-radius:1px;border:0;background:none;font-size:10px}
+
+  /* ---------- dashboard ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:3px;padding:14px 15px;border-top:3px solid var(--green)}
+  .stat.t2{border-top-color:var(--teal)} .stat.t3{border-top-color:var(--amber)} .stat.t4{border-top-color:var(--orange)}
+  .stat .k{font-size:10px;color:var(--label);letter-spacing:.8px;text-transform:uppercase}
+  .stat .v{font-size:27px;font-weight:300;color:#3c434a;line-height:1.2;margin-top:3px}
+  .stat .d{font-size:10.5px;color:var(--green-d)}
+  .two{display:grid;grid-template-columns:1.45fr 1fr;gap:14px}
+  .row{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--line-2)}
+  .row:last-child{border-bottom:0}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:none}
+  .dot.t{background:var(--teal)} .dot.a{background:var(--amber)} .dot.x{background:var(--gray-card)}
+  .row .nm2{font-size:12px;color:#3f464d;font-weight:600}
+  .row .sb{font-size:10.5px;color:var(--label);margin-top:1px}
+  .row .rt{margin-left:auto;font-size:10.5px;color:var(--label);text-align:right}
+  .pill{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 8px;border-radius:10px;background:var(--green-xl);color:var(--green-d)}
+  .pill.a{background:#fdf3e1;color:#a9731a} .pill.x{background:#eef0f2;color:#79818a} .pill.r{background:#fdeceb;color:#b8443a}
+
+  /* ---------- table ---------- */
+  table{width:100%;border-collapse:collapse}
+  th{font-size:10px;color:var(--label);letter-spacing:.8px;text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-weight:700}
+  td{padding:11px 14px;border-bottom:1px solid var(--line-2);font-size:12px;color:#464d54}
+  tr:last-child td{border-bottom:0}
+  td b{font-weight:600;color:#343b42}
+  .bar{height:5px;background:#eef0f2;border-radius:3px;overflow:hidden;width:92px}
+  .bar i{display:block;height:100%;background:var(--green)}
+  .mini{width:26px;height:26px;border-radius:3px;background:var(--green-xl);color:var(--green-d);display:grid;place-items:center;font-size:10px;font-weight:700;flex:none}
+
+  /* ---------- crew ---------- */
+  .crew{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px}
+  .cc{border:1px solid var(--line);border-radius:3px;padding:14px;text-align:center}
+  .cc .cav{width:42px;height:42px;border-radius:50%;margin:0 auto 9px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700;background:linear-gradient(145deg,#7d8891,#5d666e)}
+  .cc.on .cav{background:linear-gradient(145deg,#3ec98a,#1b9a61)}
+  .cc .cn{font-size:12.5px;font-weight:600;color:#343b42}
+  .cc .cr{font-size:10.5px;color:var(--label);margin:2px 0 9px}
+  .cc .cl{font-size:10px;color:var(--label);border-top:1px solid var(--line-2);margin-top:9px;padding-top:8px}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. DASHBOARD ============ -->
+<div class="caption" style="padding-top:0">
+  <h2>1 · Dashboard</h2>
+  <p>Landing view for the nav's active item. Reuses the scheduler's card rhythm as summary tiles, with the same uppercase letterspaced labels and thin panel chrome.</p>
+</div>
+<div class="app">
+  <div class="side">
+    <div class="logo"><span class="mk"></span><b>KUDURRU STONE</b></div>
+    <nav class="nav">
+      <a href="#" class="on">Dashboard</a><a href="#">Clients</a><a href="#">Projects</a><a href="#">Employees</a>
+      <a href="#">Scheduling</a><a href="#">Digi-Boards</a><a href="#">Bookkeeping</a><a href="#">Resources</a>
+    </nav>
+    <div class="cta">Register Now!</div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <div class="search"><input value="Search"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span></div>
+      <span class="lnk">Settings</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b5bbc1" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3 1a7 7 0 0 0-1.7-1V3.5h-4V6a7 7 0 0 0-1.7 1l-2.3-1-2 3.4L6.1 11a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 1.7 1v2.6h4V18a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.5c.1-.3.1-.7.1-1z"/></svg>
+      <span class="av">JD</span>
+      <span class="who">Welcome<b>John Doe</b></span>
+      <span class="bell"><i>3</i></span>
+    </div>
+    <div class="body">
+      <div class="stats">
+        <div class="stat"><div class="k">Active Projects</div><div class="v">18</div><div class="d">▲ 2 this week</div></div>
+        <div class="stat t2"><div class="k">Jobs Scheduled</div><div class="v">47</div><div class="d">Week of 9/17</div></div>
+        <div class="stat t3"><div class="k">Crew Available</div><div class="v">9<span style="font-size:14px;color:#9aa1a9"> / 14</span></div><div class="d" style="color:#a9731a">5 on site</div></div>
+        <div class="stat t4"><div class="k">Outstanding</div><div class="v">$42.8k</div><div class="d" style="color:#b8443a">6 invoices past due</div></div>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <div class="ph"><h3>Today's Schedule</h3><span class="meta">Thursday · 9/21/2017</span></div>
+          <div class="row"><span class="dot"></span><div><div class="nm2">Set Property Corners</div><div class="sb">Client 3 · Lot 14, River Bend</div></div><div class="rt">7:00a – 11:30a<br><span class="pill">In progress</span></div></div>
+          <div class="row"><span class="dot t"></span><div><div class="nm2">Research</div><div class="sb">Client 1 · County records office</div></div><div class="rt">8:00a – 10:00a<br><span class="pill">In progress</span></div></div>
+          <div class="row"><span class="dot a"></span><div><div class="nm2">Field Work</div><div class="sb">Client 2 · Parcel 221-B</div></div><div class="rt">12:30p – 4:00p<br><span class="pill a">Queued</span></div></div>
+          <div class="row"><span class="dot x"></span><div><div class="nm2">Drafting</div><div class="sb">Client 3 · Plat revision</div></div><div class="rt">2:00p – 5:00p<br><span class="pill x">Unassigned</span></div></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><h3>Recent Activity</h3></div>
+          <div class="row"><span class="mini">DM</span><div><div class="nm2">Dana M. closed a job</div><div class="sb">Set Property Corners · 9/20</div></div></div>
+          <div class="row"><span class="mini">RT</span><div><div class="nm2">Invoice #2209 sent</div><div class="sb">Client 1 · $6,400</div></div></div>
+          <div class="row"><span class="mini">JD</span><div><div class="nm2">New project created</div><div class="sb">River Bend Phase 2</div></div></div>
+          <div class="row"><span class="mini">AL</span><div><div class="nm2">Alex L. uploaded 12 photos</div><div class="sb">Digi-Board · Parcel 221-B</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2. CLIENTS ============ -->
+<div class="caption">
+  <h2>2 · Clients</h2>
+  <p>List view carrying the scheduler's filter strip verbatim, so the control pattern repeats across sections. Row color swatches match the client colors used on scheduler cards.</p>
+</div>
+<div class="app">
+  <div class="side">
+    <div class="logo"><span class="mk"></span><b>KUDURRU STONE</b></div>
+    <nav class="nav">
+      <a href="#">Dashboard</a><a href="#" class="on">Clients</a><a href="#">Projects</a><a href="#">Employees</a>
+      <a href="#">Scheduling</a><a href="#">Digi-Boards</a><a href="#">Bookkeeping</a><a href="#">Resources</a>
+    </nav>
+    <div class="cta">Register Now!</div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <div class="search"><input value="Search"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span></div>
+      <span class="lnk">Settings</span><span class="av">JD</span><span class="who">Welcome<b>John Doe</b></span><span class="bell"><i>3</i></span>
+    </div>
+    <div class="body">
+      <div class="panel">
+        <div class="ph"><h3>Clients</h3><span class="meta"><span class="btn">+ Add Client</span></span></div>
+        <div class="filters">
+          <div class="fg"><h4>Filter by status</h4><div class="fr">
+            <span class="fo"><span class="cb on">✓</span>All</span>
+            <span class="fo"><span class="cb"></span>Active</span>
+            <span class="fo"><span class="cb"></span>On hold</span>
+            <span class="fo"><span class="cb"></span>Archived</span>
+          </div></div>
+          <div class="fg"><h4>Filter by color</h4><div class="fr">
+            <span class="fo"><span class="sw" style="background:var(--green)"></span>Client 1</span>
+            <span class="fo"><span class="sw" style="background:var(--teal)"></span>Client 2</span>
+            <span class="fo"><span class="sw" style="background:var(--green-l)"></span>Client 3</span>
+          </div></div>
+        </div>
+        <table>
+          <tr><th style="width:26%">Client</th><th>Primary Contact</th><th>Projects</th><th>Last Job</th><th>Billing</th><th>Status</th></tr>
+          <tr><td><b>Ridgeline Development</b><div style="font-size:10.5px;color:#8a9198">Client 1</div></td><td>M. Kessler<div style="font-size:10.5px;color:#8a9198">m.kessler@ridgeline.com</div></td><td>6</td><td>9/20/2017</td><td>Net 30</td><td><span class="pill">Active</span></td></tr>
+          <tr><td><b>Harbor Point Builders</b><div style="font-size:10.5px;color:#8a9198">Client 2</div></td><td>S. Avery<div style="font-size:10.5px;color:#8a9198">savery@harborpt.com</div></td><td>4</td><td>9/19/2017</td><td>Net 15</td><td><span class="pill">Active</span></td></tr>
+          <tr><td><b>Caldwell County</b><div style="font-size:10.5px;color:#8a9198">Client 3</div></td><td>R. Nunez<div style="font-size:10.5px;color:#8a9198">rnunez@caldwellco.gov</div></td><td>8</td><td>9/21/2017</td><td>Net 45</td><td><span class="pill">Active</span></td></tr>
+          <tr><td><b>Stonegate Partners</b></td><td>P. Iyer<div style="font-size:10.5px;color:#8a9198">p.iyer@stonegate.co</div></td><td>1</td><td>8/02/2017</td><td>Net 30</td><td><span class="pill a">On hold</span></td></tr>
+          <tr><td><b>Meridian Land Co.</b></td><td>T. Brooks<div style="font-size:10.5px;color:#8a9198">tbrooks@meridianland.com</div></td><td>0</td><td>4/14/2016</td><td>Prepaid</td><td><span class="pill x">Archived</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 3. PROJECT DETAIL ============ -->
+<div class="caption">
+  <h2>3 · Project detail</h2>
+  <p>Drill-down from a scheduler card. The task cards are the identical component from the weekly view, reused in a vertical list with the same type / comments / action-footer anatomy.</p>
+</div>
+<div class="app">
+  <div class="side">
+    <div class="logo"><span class="mk"></span><b>KUDURRU STONE</b></div>
+    <nav class="nav">
+      <a href="#">Dashboard</a><a href="#">Clients</a><a href="#" class="on">Projects</a><a href="#">Employees</a>
+      <a href="#">Scheduling</a><a href="#">Digi-Boards</a><a href="#">Bookkeeping</a><a href="#">Resources</a>
+    </nav>
+    <div class="cta">Register Now!</div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <div class="search"><input value="Search"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span></div>
+      <span class="lnk">Settings</span><span class="av">JD</span><span class="who">Welcome<b>John Doe</b></span><span class="bell"><i>3</i></span>
+    </div>
+    <div class="body">
+      <div class="panel" style="margin-bottom:14px">
+        <div class="ph"><h3>River Bend — Phase 2</h3><span class="meta">Caldwell County · #PR-2217 <span class="chev">‹</span><span class="chev">›</span></span></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0">
+          <div style="padding:13px 14px;border-right:1px solid var(--line-2)"><div class="k" style="font-size:10px;color:#8a9198;letter-spacing:.8px;text-transform:uppercase">Completion</div><div style="display:flex;align-items:center;gap:9px;margin-top:7px"><span class="bar"><i style="width:68%"></i></span><b style="font-size:12px;color:#343b42">68%</b></div></div>
+          <div style="padding:13px 14px;border-right:1px solid var(--line-2)"><div style="font-size:10px;color:#8a9198;letter-spacing:.8px;text-transform:uppercase">Due</div><div style="font-size:13px;color:#343b42;margin-top:5px">Oct 12, 2017</div></div>
+          <div style="padding:13px 14px;border-right:1px solid var(--line-2)"><div style="font-size:10px;color:#8a9198;letter-spacing:.8px;text-transform:uppercase">Crew Assigned</div><div style="font-size:13px;color:#343b42;margin-top:5px">4 surveyors</div></div>
+          <div style="padding:13px 14px"><div style="font-size:10px;color:#8a9198;letter-spacing:.8px;text-transform:uppercase">Budget Used</div><div style="font-size:13px;color:#343b42;margin-top:5px">$31,200 / $46,000</div></div>
+        </div>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <div class="ph"><h3>Tasks</h3><span class="meta"><span class="btn">+ Add Task</span></span></div>
+          <div style="padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="task g"><div class="k">Type:</div><div class="ti">Set Property Corners</div><div class="k">Comments:</div><div class="cm">Northeast boundary, lots 12 through 18. Monuments staged on site.</div><div class="fo2"><span class="ic sq">✎</span><span class="ic">✓</span><span class="ic">✕</span></div></div>
+            <div class="task t"><div class="k">Type:</div><div class="ti">Research</div><div class="cm" style="margin-top:4px">Deed chain pulled back to 1964. Two easements flagged for review.</div><div class="fo2"><span class="ic sq">✎</span><span class="ic">✓</span><span class="ic">✕</span></div></div>
+            <div class="task m"><div class="k">Type:</div><div class="ti">Field Work</div><div class="cm" style="margin-top:4px">Topo shots across the floodplain strip. Weather dependent.</div><div class="fo2"><span class="ic sq">✎</span><span class="ic">✓</span><span class="ic">✕</span></div></div>
+            <div class="task x"><div class="k">Type:</div><div class="ti">Drafting</div><div class="cm" style="margin-top:4px">Plat revision pending corner verification.</div><div class="fo2"><span class="ic sq">✎</span><span class="ic">✓</span><span class="ic">✕</span></div></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="ph"><h3>Assigned Crew</h3></div>
+          <div class="row"><span class="mini">DM</span><div><div class="nm2">Dana Mercer</div><div class="sb">Party chief</div></div><div class="rt"><span class="pill">On site</span></div></div>
+          <div class="row"><span class="mini">AL</span><div><div class="nm2">Alex Lund</div><div class="sb">Instrument operator</div></div><div class="rt"><span class="pill">On site</span></div></div>
+          <div class="row"><span class="mini">RT</span><div><div class="nm2">Rae Tolliver</div><div class="sb">Rodperson</div></div><div class="rt"><span class="pill a">Travelling</span></div></div>
+          <div class="row"><span class="mini">BK</span><div><div class="nm2">Ben Kaur</div><div class="sb">CAD drafter</div></div><div class="rt"><span class="pill x">Office</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 4. EMPLOYEES ============ -->
+<div class="caption">
+  <h2>4 · Employees</h2>
+  <p>Roster grid. Availability borrows the scheduler's colour logic directly: saturated green for active, muted green for partial, grey for unavailable.</p>
+</div>
+<div class="app">
+  <div class="side">
+    <div class="logo"><span class="mk"></span><b>KUDURRU STONE</b></div>
+    <nav class="nav">
+      <a href="#">Dashboard</a><a href="#">Clients</a><a href="#">Projects</a><a href="#" class="on">Employees</a>
+      <a href="#">Scheduling</a><a href="#">Digi-Boards</a><a href="#">Bookkeeping</a><a href="#">Resources</a>
+    </nav>
+    <div class="cta">Register Now!</div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <div class="search"><input value="Search"><span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span></div>
+      <span class="lnk">Settings</span><span class="av">JD</span><span class="who">Welcome<b>John Doe</b></span><span class="bell"><i>3</i></span>
+    </div>
+    <div class="body">
+      <div class="panel">
+        <div class="ph"><h3>Employees</h3><span class="meta">14 total · 9 available <span class="btn">+ Add Employee</span></span></div>
+        <div class="filters">
+          <div class="fg"><h4>Filter by role</h4><div class="fr">
+            <span class="fo"><span class="cb on">✓</span>All roles</span>
+            <span class="fo"><span class="cb"></span>Party chief</span>
+            <span class="fo"><span class="cb"></span>Instrument</span>
+            <span class="fo"><span class="cb"></span>Drafting</span>
+          </div></div>
+          <div class="fg"><h4>Availability</h4><div class="fr">
+            <span class="fo"><span class="sw" style="background:var(--green)"></span>Available</span>
+            <span class="fo"><span class="sw" style="background:var(--green-l)"></span>Partial</span>
+            <span class="fo"><span class="sw" style="background:var(--gray-card)"></span>Unavailable</span>
+          </div></div>
+        </div>
+        <div class="crew">
+          <div class="cc on"><div class="cav">DM</div><div class="cn">Dana Mercer</div><div class="cr">Party chief</div><span class="pill">Available</span><div class="cl">3 jobs this week</div></div>
+          <div class="cc on"><div class="cav">AL</div><div class="cn">Alex Lund</div><div class="cr">Instrument operator</div><span class="pill">Available</span><div class="cl">4 jobs this week</div></div>
+          <div class="cc"><div class="cav">RT</div><div class="cn">Rae Tolliver</div><div class="cr">Rodperson</div><span class="pill a">Partial</span><div class="cl">2 jobs · PTO Fri</div></div>
+          <div class="cc"><div class="cav">BK</div><div class="cn">Ben Kaur</div><div class="cr">CAD drafter</div><span class="pill x">Office only</span><div class="cl">6 plats queued</div></div>
+          <div class="cc on"><div class="cav">MS</div><div class="cn">Mira Salas</div><div class="cr">Party chief</div><span class="pill">Available</span><div class="cl">2 jobs this week</div></div>
+          <div class="cc on"><div class="cav">JP</div><div class="cn">Jonah Pike</div><div class="cr">Instrument operator</div><span class="pill">Available</span><div class="cl">5 jobs this week</div></div>
+          <div class="cc"><div class="cav">EC</div><div class="cn">Elena Cruz</div><div class="cr">Research</div><span class="pill x">Unavailable</span><div class="cl">Out through 9/25</div></div>
+          <div class="cc on"><div class="cav">TW</div><div class="cn">Theo Ward</div><div class="cr">Rodperson</div><span class="pill">Available</span><div class="cl">3 jobs this week</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -25,13 +25,16 @@
   p { margin: 0 0 8px; }
   .skills p { margin: 0 0 5px; }
   .skills b { color: var(--ink); }
-  .job { margin: 11px 0 1px; }
-  .job .co { font-weight: 700; color: var(--ink); font-size: 10.8pt; }
+  .role { font-weight: 700; color: var(--ink); font-size: 11pt; margin: 12px 0 1px; }
+  .job { margin: 0 0 5px; }
+  .job .co { font-weight: 600; color: #3d4a57; font-size: 10.1pt; }
   .job .dates { color: var(--muted); font-size: 9.6pt; }
-  .role { font-style: italic; color: #444; margin: 0 0 5px; }
   .sub { font-weight: 700; color: var(--ink); margin: 7px 0 3px; }
   ul { margin: 3px 0 8px; padding-left: 20px; }
   li { margin: 0 0 3px; }
+  li.kv { list-style: none; margin-left: -20px; }
+  li.kv, p.kv { font-size: 11.2pt; color: var(--accent); }
+  li.kv b, p.kv b { color: var(--accent); }
   .proj-title { font-weight: 700; color: var(--ink); margin: 9px 0 2px; }
   .proj-title .meta { font-weight: 400; font-style: italic; color: var(--muted); }
   hr { border: none; border-top: 1px solid var(--rule); margin: 10px 0; }
@@ -39,7 +42,7 @@
   @media print {
     body { padding: 0.4in 0.5in; font-size: 10.3pt; }
     h2 { page-break-after: avoid; }
-    .job, .proj-title { page-break-inside: avoid; }
+    .role, .job, .proj-title { page-break-inside: avoid; }
     ul { page-break-inside: avoid; }
     a { color: #222; }
   }
@@ -50,97 +53,97 @@
   <header>
     <h1>DAVID SILVERLIGHT</h1>
     <p class="subtitle">Senior .NET MAUI Developer&nbsp;&nbsp;|&nbsp;&nbsp;Seasoned React Developer&nbsp;&nbsp;|&nbsp;&nbsp;Cross-Platform Mobile Engineer</p>
-    <p class="contact">Miami, FL&nbsp;&nbsp;|&nbsp;&nbsp;561-212-5707&nbsp;&nbsp;|&nbsp;&nbsp;<a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.linkedin.com/in/mauigeek/">linkedin.com/in/MauiGeek</a></p>
+    <p class="contact">Miami, FL&nbsp;&nbsp;|&nbsp;&nbsp;561-212-5707&nbsp;&nbsp;|&nbsp;&nbsp;<a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.linkedin.com/in/AgenticAppDeveloper/">linkedin.com/in/AgenticAppDeveloper</a></p>
     <p class="portfolio"><b>Portfolio: <a href="https://DavidSilverlight.com">DavidSilverlight.com</a></b> with 30+ shipped .NET MAUI &amp; Xamarin.Forms apps showcased</p>
   </header>
 
   <h2>Professional Summary</h2>
-  <p>Senior Cross-Platform Application Developer with 12+ years of experience and 30+ shipped apps for clients including Microsoft, UPS, T-Mobile, and Midmark. Deep, hands-on expertise across both .NET MAUI and client-side frameworks like React and Angular, building and modernizing large-scale enterprise applications spanning architecture, performance, UI, and complex backend integration. An early adopter of .NET MAUI with an equally strong command of the modern client-side stack (TypeScript, NgRx, Redux, GraphQL, REST), backed by a long track record as an enterprise application developer delivering in distributed teams, and mentoring developers along the way.</p>
-
-  <h2>AI-Augmented Engineering</h2>
-  <p>Integrate AI tooling, primarily Claude Code, into a continuously refined development workflow that increases both velocity and code quality. A decade of hands-on .NET MAUI and React Native experience is what makes this effective: it allows me to evaluate AI-generated code critically, accepting sound solutions while identifying suggestions that work but introduce security vulnerabilities, subtle logic errors, or maintainability risks that would otherwise go unnoticed.</p>
+  <p>Senior Cross-Platform Application Developer with 12+ years of experience and 30+ shipped applications for clients including Microsoft, UPS, T-Mobile, and Midmark, building and modernizing large-scale enterprise applications spanning architecture, performance, UI, and complex backend integration. Integrates AI tooling, primarily Claude Code and GitHub Copilot, into a continuously refined development workflow that increases both velocity and code quality. Years of human-driven software development predating those tools is what makes the workflow effective, enabling AI-generated code to be evaluated critically: accepting sound solutions while identifying suggestions that work but introduce security vulnerabilities, subtle logic errors, or maintainability risks that would otherwise go unnoticed.</p>
 
   <h2>Professional Highlights</h2>
-  <p><b>Enterprise Cross-Platform Delivery.</b> Owns architecture, UI and performance on mission-critical applications across .NET MAUI, React and Angular, including, on the most recent engagement, a vNext rebuild that cut clicks ~30% and eliminated 20-second data-loading stalls.</p>
-  <p><b>Remote Delivery at Scale.</b> A decade embedded in distributed enterprise teams through Teams, Slack, Azure DevOps and Git, from a 300-screen fintech platform to a badged on-campus Microsoft engagement.</p>
-  <p><b>Mentoring and Community Leadership.</b> Coaches developers on MVVM, SOLID and presentation patterns; led the South Florida .NET MAUI group for five years and presented at CodeCamp 2024 and DevCon 2022.</p>
+  <p><b>Enterprise Cross-Platform Delivery.</b> Owns architecture, UI and performance on mission-critical applications across .NET MAUI, React and Angular.</p>
+  <p><b>Remote Delivery at Scale.</b> A proven track record of delivering solutions in distributed teams via Teams, Slack, Azure DevOps and Git, from a 300-screen fintech platform to a badged Microsoft engagement.</p>
+  <p><b>Measurable Performance Gains.</b> Recently demonstrated by gMobile vNext, RamTech's Esri GIS field app: ~30% fewer clicks and 20-second load stalls eliminated. SearchMed: 35% faster UX display and ~50% faster initial load.</p>
 
   <h2>Technical Skills</h2>
   <div class="skills">
-    <p><b>Frameworks &amp; Platforms:</b> .NET MAUI, React Native (0.74+, New Architecture, Fabric, TurboModules, JSI), Expo (SDK 51, EAS Build/Submit/Update), React, Next.js, .NET 9/10, .NET for iOS, .NET for Android, Mac Catalyst, WinUI 3 / Windows App SDK, Xamarin.Forms, Xamarin.iOS, Xamarin.Android; Targets: iOS, Android, Windows, macOS</p>
+    <p><b>Frameworks &amp; Platforms:</b> .NET MAUI, React, React Native, Expo, Next.js, .NET, iOS, Android, Mac Catalyst</p>
     <p><b>Languages:</b> C#, XAML, TypeScript, JavaScript (ES2023), Silverlight</p>
-    <p><b>Architecture &amp; Patterns:</b> MVVM, MVVMCross, Prism, CommunityToolkit.MVVM, Dependency Injection, IoC Containers, Service Locator, Singleton, Observer/Messenger (WeakReferenceMessenger), .NET MAUI Handlers, Shell-based Navigation, Dependency Services, RESTful Services, DTO Mapping</p>
-    <p><b>Tooling:</b> Visual Studio, JetBrains Rider, VS Code, .NET CLI, Azure DevOps, GitHub/Azure Repos, Git, NuGet, Figma, Postman, Swagger, App Store Connect, TestFlight, Google Play Store, Xcode, Android Emulator, iOS Simulator, Genymotion, App Insights, Sentry, UXCam, Jira</p>
-    <p><b>NuGet / Libraries:</b> CommunityToolkit.Maui, SQLite, Lottie, Newtonsoft.Json, Rg.Plugins.Popup/Mopups, SkiaSharp, Onion.Maui.GoogleMaps, MrGestures, Esri ArcGIS Maps SDK for .NET, Maui.GoogleMaps, Microsoft.Maui.Controls.Maps, MAUI Essentials, MSAL/Microsoft SSO</p>
+    <p><b>Architecture &amp; Patterns:</b> MVVM, MVVMCross, Prism, CommunityToolkit.MVVM, Dependency Injection, .NET MAUI Handlers, Shell-based Navigation, Dependency Services, RESTful Services</p>
+    <p><b>Tooling:</b> Visual Studio, JetBrains Rider, VS Code, .NET CLI, Azure DevOps, GitHub/Azure Repos, Git, NuGet, Figma, Postman, Swagger, App Store Connect, TestFlight, Google Play Store, App Insights, Sentry, UXCam, Jira</p>
   </div>
 
   <h2>Professional Experience</h2>
 
-  <p class="job"><span class="co">RamTech, Remote</span> &nbsp;|&nbsp; <span class="dates">2025 – Present</span></p>
   <p class="role">Senior .NET MAUI Engineer</p>
+  <p class="job"><span class="co">RamTech, Remote</span> &nbsp;|&nbsp; <span class="dates">2025 – Present</span></p>
   <p>Delivered UX improvements, performance optimizations, and .NET MAUI-specific heavy-lifting work on gMobile, an Esri/ArcGIS-based field app supporting data collection and asset inspection: damage assessment, tracking and traceability, leak survey, and gas-insight inspections. Re-architected the app's workflows to design and build the <b>vNext</b> release, replacing multi-screen navigation with a single centralized mapping surface and unified toolbox.</p>
   <ul>
-    <li><b>Impact:</b> ~30% fewer clicks per feature surfaced on the map, and eliminated data-loading initializations that averaged ~20 seconds each, turning a previously sluggish workflow into a crisp, responsive experience for the high-frequency task of adding assets to the map</li>
-    <li><b>Technologies:</b> .NET MAUI, Prism, Esri ArcGIS Maps SDK, Telerik UI for .NET MAUI, MAUI Calendar, Newtonsoft.Json, SQLite</li>
+    <li class="kv"><b>Impact:</b> ~30% fewer clicks per feature surfaced on the map, and eliminated data-loading initializations that averaged ~20 seconds each, turning a previously sluggish workflow into a crisp, responsive experience for the high-frequency task of adding assets to the map</li>
+    <li class="kv"><b>Tech Stack:</b> .NET MAUI, Prism, Esri ArcGIS Maps SDK, Telerik UI for .NET MAUI, MAUI Calendar, Newtonsoft.Json, SQLite</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/RamTech%20gMobile.html">https://DavidSilverlight.com/RamTech%20gMobile.html</a></li>
   </ul>
   <hr>
 
-  <p class="job"><span class="co">ATrack Solutions, Remote</span> &nbsp;|&nbsp; <span class="dates">2026</span></p>
+  <p class="role">React Developer (Contract) | Kudurru Stone Web Client</p>
+  <p class="job"><span class="co">Kudurru Stone, Remote</span> &nbsp;|&nbsp; <span class="dates">2026</span></p>
+  <p>Delivered UI changes and defect resolution across the Kudurru Stone Web Client, the React front end of a land-surveying project management platform. Work centered on the Client Portal: firm-branded intake forms assembled from configurable field types, each submission returning a tracking reference and converting into a project without re-entry.</p>
+  <ul>
+    <li>Built dynamic form rendering from field-type definitions (text, email, phone, dropdown, checkbox, long description) with required/optional validation and a live preview before publish</li>
+    <li>Refined layout and resolved defects across portal screens, including passwordless magic-link sign-in and per-client file exchange folders</li>
+    <li class="kv"><b>Impact:</b> Turned phone, email and voicemail intake into structured, reference-tracked requests that convert straight into scheduled projects, removing the re-entry step between client submission and job setup</li>
+    <li class="kv"><b>Tech Stack:</b> React, TypeScript, React Hook Form with schema validation, TanStack Query, React Router, Vite, Jest and React Testing Library, REST against ASP.NET Core</li>
+  </ul>
+  <hr>
+
   <p class="role">.NET MAUI | Next.js Engineer (Contract) | ABA Therapy Clinical Platform</p>
+  <p class="job"><span class="co">ATrack Solutions, Remote</span> &nbsp;|&nbsp; <span class="dates">2026</span></p>
   <p>Worked on ATrack's web-based ABA clinical workflow application alongside their .NET MAUI mobile platform. Provided development support on ATrack Mobile, a .NET MAUI application (built on Prism) delivering an all-in-one data-collection and clinical-practice platform for Applied Behavior Analysis (ABA) therapy and autism service providers. Cleared a substantial defect backlog, delivered requested features, and resolved issues stemming from an improper Xamarin.Forms-to-.NET MAUI migration. Developed a system for supporting their applications and triaging the exceptions users encounter, incorporating a combination of Sentry and UXCam, forming an open-ended, configurable layer that can be extended with new tools or selectively disabled as needs evolve.</p>
   <ul>
-    <li><b>Impact:</b> resolved all known .NET MAUI defects; the product owner credited the work with finally giving him confidence in the app's stability</li>
-    <li><b>Technologies:</b> .NET MAUI, Next.js, GraphQL, REST, Jest, Prism.Maui, CommunityToolkit.Maui, DevExpress, Sentry.Maui, Sharpnado, Newtonsoft.Json, SQLite, UXCamDotNet</li>
+    <li class="kv"><b>Impact:</b> Resolved all known .NET MAUI defects; the product owner credited the work with finally giving him confidence in the app's stability</li>
+    <li class="kv"><b>Tech Stack:</b> .NET MAUI, Next.js, GraphQL, REST, Jest, Prism.Maui, CommunityToolkit.Maui, DevExpress, Sentry.Maui, Sharpnado, Newtonsoft.Json, SQLite, UXCamDotNet</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/ATrack%20Mobile.html">https://DavidSilverlight.com/ATrack%20Mobile.html</a></li>
   </ul>
   <hr>
 
-  <p class="job"><span class="co">Sherlock Talent, Remote</span> &nbsp;|&nbsp; <span class="dates">2024 – 2025</span></p>
   <p class="role">React Native Developer | Time &amp; Expenses Mobile App</p>
+  <p class="job"><span class="co">Sherlock Talent, Remote</span> &nbsp;|&nbsp; <span class="dates">2024 – 2025</span></p>
   <p>Built and maintained a cross-platform React Native application (iOS/Android) in TypeScript from a single codebase, enabling employees to log time and expenses, punch in and out, submit time entries and timesheets, view work and client details, and manage scheduling from mobile.</p>
   <ul>
     <li>Integrated GraphQL APIs for efficient, precise data fetching, and collaborated with .NET (ASP.NET Core / Web API) backend developers to deliver secure, scalable services</li>
     <li>Managed application state with Redux/Context API and consumed both GraphQL and REST endpoints following a maintainable, componentized mobile architecture</li>
     <li>Optimized performance and responsiveness via lazy loading</li>
     <li>Wrote unit and integration tests with Jest to ensure reliability and reduce regressions</li>
-    <li><b>Technologies:</b> React Native, TypeScript, GraphQL, REST, .NET / ASP.NET Core, Redux/Context API, Jest</li>
+    <li class="kv"><b>Tech Stack:</b> React Native, TypeScript, GraphQL, REST, .NET / ASP.NET Core, Redux/Context API, Jest</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/Sherlock%20Talent%20Time%20and%20Expenses.html">https://DavidSilverlight.com/Sherlock%20Talent%20Time%20and%20Expenses.html</a></li>
   </ul>
   <hr>
 
-  <p class="job"><span class="co">UPS, Remote</span> &nbsp;|&nbsp; <span class="dates">2023 – 2024</span></p>
+  <p class="role">.NET MAUI Developer (Contract) | Medical Provider Search</p>
+  <p class="job"><span class="co">SearchMed, Remote</span> &nbsp;|&nbsp; <span class="dates">2025</span></p>
+  <p>Developed a new version of SearchMed, a .NET MAUI application providing a directory designed to help users search across verified medical providers and book appointments.</p>
+  <ul>
+    <li class="kv"><b>Impact:</b> Reduced UX display time by 35% and cut initial load time by ~50%</li>
+    <li class="kv"><b>Tech Stack:</b> .NET MAUI, MVVM, Firebase, RESTful services</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/SearchMed.html">https://DavidSilverlight.com/SearchMed.html</a></li>
+  </ul>
+  <hr>
+
   <p class="role">.NET MAUI Engineer (Contract) | Mobile Delivery Feasibility Spike</p>
+  <p class="job"><span class="co">UPS, Remote</span> &nbsp;|&nbsp; <span class="dates">2023 – 2024</span></p>
   <p>Conducted the .NET MAUI feasibility spike for UPS Mobile Delivery, the application used by UPS drivers on the DIAD 6 handheld device to scan delivered packages. Validated that the migration was viable end to end before UPS committed to the broader effort.</p>
   <ul>
-    <li>Migrated and verified critical third-party dependencies, <b>Trimble Maps</b> and barcode scanning, running correctly under .NET MAUI</li>
-    <li>Rebuilt UPS's in-house Xamarin.Forms component library in .NET MAUI, confirming identical UX and functionality to the original</li>
-    <li>Re-architected to <b>remove Prism</b> from the stack in response to Prism licensing changes, replacing it with a lighter MVVM approach</li>
-    <li><b>Impact:</b> established spike success by demonstrating driver login and the itinerary dashboard running in the MAUI build, with Prism removed and all migrated components functioning</li>
-    <li><b>Technologies:</b> .NET MAUI, Trimble Maps, MAUI Essentials, MVVM Helper, CommunityToolkit.Mvvm, SQLite, Xamarin.Forms</li>
+    <li>Verified Trimble Maps and barcode scanning running correctly under .NET MAUI</li>
+    <li>Rebuilt UPS's in-house Xamarin.Forms component library in .NET MAUI with identical UX</li>
+    <li>Removed Prism in response to licensing changes, replacing it with a lighter MVVM approach</li>
+    <li class="kv"><b>Impact:</b> Proved viability with driver login and the itinerary dashboard running in the MAUI build</li>
+    <li class="kv"><b>Tech Stack:</b> .NET MAUI, Trimble Maps, CommunityToolkit.Mvvm, SQLite, Xamarin.Forms</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/UPS%20Mobile%20Delivery.html">https://DavidSilverlight.com/UPS%20Mobile%20Delivery.html</a></li>
   </ul>
   <hr>
 
-  <p class="job"><span class="co">Caffeinated Shark Labs, Miami, FL</span> &nbsp;|&nbsp; <span class="dates">Nov 2014 – Dec 2025</span></p>
-  <p class="role">Principal .NET MAUI Engineer &amp; Founder</p>
-  <p>Independent consultancy delivering .NET MAUI and Xamarin.Forms engagements for clients from startups to enterprises. 30+ shipped apps showcased at <a href="https://DavidSilverlight.com">DavidSilverlight.com</a>. Selected engagements:</p>
-  <p class="sub">.NET MAUI engagements (2022 – Present)</p>
-  <ul>
-    <li><b>DSD Route Manager</b> (2025): Mobile route accounting for the direct-store-delivery industry</li>
-    <li><b>Moultrie Mobile</b> (2022 – 2023): Trail-camera and property-monitoring app, migrated from Xamarin.Forms</li>
-    <li><b>Midmark DECO IoT</b> (2022): Setup toolset for medical smart devices over a custom REST API</li>
-    <li><b>SearchMed</b>: Medical-professional search; improved performance ~30% and cut load times ~50%</li>
-    <li><b>Safe4Dogs, MovieBuff, Numbers, POS Prototype</b>: additional .NET MAUI applications</li>
-  </ul>
-  <p class="sub">Xamarin.Forms engagements</p>
-  <ul>
-    <li><b>MVP Healthcare (MyMVP)</b> (2021 – 2022): Member app for plan and benefits information</li>
-    <li><b>Real Green Systems</b> (2021): Field-service app with GPS tracking and scheduling</li>
-    <li><b>BCBS My BluePrint</b> (2019 – 2020): Blue Cross Blue Shield member plan and coverage app</li>
-    <li><b>Nalco Lock App</b>: Field tool for tank locks, delivered on a condensed timeline to support 28,000 installations on schedule</li>
-    <li><b>Salon Scheduler, Pet Pixie, UAS Trakker, StagePro, MyLines, Kinship Navigator</b>: additional Xamarin.Forms applications</li>
-  </ul>
-  <hr>
-
-  <p class="job"><span class="co">Liquidware Labs, Remote</span> &nbsp;|&nbsp; <span class="dates">2020 – 2022</span></p>
   <p class="role">Lead Angular Developer | Stratusphere API Builder</p>
+  <p class="job"><span class="co">Liquidware Labs, Remote</span> &nbsp;|&nbsp; <span class="dates">2020 – 2022</span></p>
   <p>Developed the API Builder, a graphical query builder for Stratusphere's REST API that replaced hand-written calls and database-schema knowledge, plus an "Inspector" tool for scoping queries by data type (users, machines, applications, network) with refined column and filter controls.</p>
   <p class="sub">Architecture Highlights</p>
   <ul>
@@ -151,35 +154,52 @@
     <li>Built an i18n pipeline via TranslationService with JSON locale files and a dedicated Languages module supporting runtime locale switching</li>
     <li>Delivered CSV/JSON export, clipboard copy, query history (localStorage), and saveable/shareable favorite queries via URL-encoded query parameters</li>
   </ul>
-  <p><b>Tech Stack:</b> Angular 9, NgRx 9, RxJS 6, PrimeNG, TypeScript 3.8, Chart.js, AmCharts 4, XLSX, Jasmine/Karma, HTML5 localStorage/Cookies</p>
+  <p class="kv"><b>Tech Stack:</b> Angular 9, NgRx 9, RxJS 6, PrimeNG, TypeScript 3.8, Chart.js, AmCharts 4, XLSX, Jasmine/Karma, HTML5 localStorage/Cookies</p>
+  <p class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/Stratusphere%20API%20Builder.html">https://DavidSilverlight.com/Stratusphere%20API%20Builder.html</a></p>
   <hr>
 
-  <p class="job"><span class="co">Microsoft, Redmond, WA</span> &nbsp;|&nbsp; <span class="dates">2019</span></p>
   <p class="role">Xamarin Developer (Contract) | Marcel AI Platform</p>
+  <p class="job"><span class="co">Microsoft, Redmond, WA</span> &nbsp;|&nbsp; <span class="dates">2019</span></p>
   <p>Badged Microsoft contractor, based on the Microsoft campus, serving as a Xamarin developer on the team that built the initial release of Marcel, an AI-powered platform connecting 100,000 employees and reinventing the way they work by helping people find collaborators, discover inspiring work, schedule meetings, improve work quality, and follow up on committed deliverables.</p>
   <ul>
     <li><b>Key features:</b> collaborator discovery, work and inspiration feed, meeting scheduling, quality and deliverable tracking</li>
-    <li><b>Technologies:</b> Xamarin.Forms, Microsoft AI, Prism, RESTful services; built on Microsoft AI and delivered in partnership with Publicis.Sapient</li>
+    <li class="kv"><b>Impact:</b> Shipped the initial release of an enterprise AI platform that connects 100,000 employees, a launch covered by Fast Company</li>
+    <li class="kv"><b>Tech Stack:</b> Xamarin.Forms, Microsoft AI, Prism, RESTful services; built on Microsoft AI and delivered in partnership with Publicis.Sapient</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/Marcel.html">https://DavidSilverlight.com/Marcel.html</a></li>
   </ul>
   <hr>
 
-  <p class="job"><span class="co">Yocum Technology Group, Remote</span> &nbsp;|&nbsp; <span class="dates">Sep 2017 – Oct 2019</span></p>
   <p class="role">Xamarin.Forms Developer | T-Mobile Money</p>
+  <p class="job"><span class="co">Yocum Technology Group, Remote</span> &nbsp;|&nbsp; <span class="dates">Sep 2017 – Oct 2019</span></p>
   <p>Contributed to T-Mobile Money, a customer-facing Banking-as-a-Service platform for a major national carrier, spanning 300+ screens and delivering a comprehensive suite of online financial services on a robust Xamarin architecture.</p>
   <ul>
     <li>Developed key features including account transfers, perks, CUI notifications, and ATM/cash-deposit locators</li>
     <li>Integrated card activation, fund management, and account customization functionality</li>
-    <li>Used Xamarin.Forms, MVVMCross, Google Maps SDK, REST APIs, and Xamarin.Essentials to optimize architecture and performance</li>
     <li>Ensured best practices in UI/UX and development patterns across the project</li>
+    <li class="kv"><b>Impact:</b> Delivered core money-movement and card-management features across a 300+ screen consumer banking platform for a major national carrier</li>
+    <li class="kv"><b>Tech Stack:</b> Xamarin.Forms, MVVMCross, Google Maps SDK, REST APIs, Xamarin.Essentials</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/T-Mobile%20Money.html">https://DavidSilverlight.com/T-Mobile%20Money.html</a></li>
   </ul>
   <hr>
 
-  <p class="job"><span class="co">Jadin Tech, Remote</span> &nbsp;|&nbsp; <span class="dates">Mar 2013 – Dec 2014</span></p>
-  <p class="role">Xamarin Developer</p>
+  <p class="role">Xamarin.Forms Developer (Contract) | Field Installation Tool</p>
+  <p class="job"><span class="co">Nalco, Remote</span> &nbsp;|&nbsp; <span class="dates">2015 – 2016</span></p>
+  <p>Built a field tool for installation specialists fitting tank locks, generating unique lock combinations and documenting each install through a backend service.</p>
   <ul>
-    <li>Developed B4UFly and JBSA Work Order Tracker, Xamarin.Forms apps for drone situational awareness and military-base work-order tracking</li>
-    <li>Led a major iOS update to B4UFly, optimizing airport-location features and reducing development time by 30% to meet tight deadlines</li>
-    <li>Built the JBSA Work Order Tracker for efficiency and scalability toward future white-label applications</li>
+    <li class="kv"><b>Impact:</b> Delivered on a condensed timeline to support the installation of 28,000 tanks on schedule</li>
+    <li class="kv"><b>Tech Stack:</b> Xamarin.Forms, MVVM, RESTful services</li>
+    <li class="kv"><b>App Case Study:</b> <a href="https://DavidSilverlight.com/Nalco%20Lock%20App.html">https://DavidSilverlight.com/Nalco%20Lock%20App.html</a></li>
+  </ul>
+  <hr>
+
+  <h2>Previous Work</h2>
+  <ul>
+    <li><b>Trail-Camera Companion App</b>, Moultrie Mobile (2022 – 2023): remote images, property monitoring, navigation</li>
+    <li><b>DECO IoT</b>, Midmark (2022): medical smart-device registration, connection and setup via REST API</li>
+    <li><b>Gia Member Health App</b>, MVP Health Care (2021 – 2022): virtual care, provider search, ID cards, claims</li>
+    <li><b>Field Service App</b>, Real Green Systems (2021): offline-first scheduling, route navigation, crew timesheets</li>
+    <li><b>My BluePrint</b>, Blue Cross Blue Shield (2019 – 2020): performance, accessibility and App Store assessment</li>
+    <li><b>B4UFly / JBSA Work Order Tracker</b>, Jadin Tech (2016 – 2017): drone awareness and work-order tracking</li>
   </ul>
 
   <h2>Developer Community</h2>
@@ -191,7 +211,7 @@
   <p class="sub">Mentoring</p>
   <ul>
     <li><b>Safe4Dogs</b> (.NET MAUI): an open-source app that determines whether foods are safe for dogs, built to double as a teaching codebase for mentoring developers in core .NET MAUI development. Demonstrates MVVM, XAML, data binding, effects, behaviors, dependency injection, SQLite, handlers, Shell navigation, value converters, and localization</li>
-    <li><b>Impact:</b> helped numerous developers get up to speed on the core concepts underlying .NET MAUI application development</li>
+    <li class="kv"><b>Impact:</b> helped numerous developers get up to speed on the core concepts underlying .NET MAUI application development</li>
   </ul>
   <p class="sub">Community Projects</p>
   <ul>

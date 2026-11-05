@@ -10,6 +10,7 @@ David is based in Miami, Florida and is available for senior mobile development,
 - [RamTech gMobile Case Study](https://davidsilverlight.com/RamTech%20gMobile.html): .NET MAUI Esri/ArcGIS field-inspection app for damage assessment, leak survey, and gas-insight inspections.
 - [ATrack Mobile Case Study](https://davidsilverlight.com/ATrack%20Mobile.html): .NET MAUI clinical data-collection app RBTs use in ABA therapy sessions.
 - [ATrack Solutions Case Study](https://davidsilverlight.com/ATrack%20Solutions.html): React clinician web platform for ABA providers — VB-MAPP, Vineland and ABLLS-R assessment integration, a 5,000+ item goal recommendation engine, treatment planning, TrueNote billing-ready session notes, and filterable clinical analytics; the companion to ATrack Mobile.
+- [Kudurru Stone Web Client Case Study](https://davidsilverlight.com/Kudurru%20Stone%20Web%20Client.html): Office-side React web client for land-survey firms. Covers the branded client portal with custom request forms and tracking references, one-step request-to-project conversion with optional QuickBooks sync, and the dashboard, clients, project detail, crew availability and weekly scheduler; the companion to the Kudurru Stone .NET MAUI field app.
 - [UPS Mobile Delivery Case Study](https://davidsilverlight.com/UPS%20Mobile%20Delivery.html): .NET MAUI feasibility and component work for enterprise delivery handhelds.
 - [KudurruStone Case Study](https://davidsilverlight.com/KudurruStone.html): .NET MAUI crew scheduling, time tracking, and route mapping for field operations.
 - [Kinship Navigator Case Study](https://davidsilverlight.com/Kinship%20Navigator.html): .NET MAUI social-services app connecting kinship caregivers to state programs.
@@ -39,5 +40,5 @@ David is based in Miami, Florida and is available for senior mobile development,
 
 - Email: DavidSilverlight@gmail.com
 - Phone: +1-561-212-5707
-- LinkedIn: https://linkedin.com/in/MauiGeek
+- LinkedIn: https://www.linkedin.com/in/AgenticAppDeveloper/
 - Location: Miami, Florida, USA
